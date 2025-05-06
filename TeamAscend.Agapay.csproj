@@ -22,10 +22,10 @@
         <Nullable>enable</Nullable>
 
         <!-- Display name -->
-        <ApplicationTitle>TeamAscend.Agapay</ApplicationTitle>
+        <ApplicationTitle>Agapay</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.companyname.teamascend.agapay</ApplicationId>
+        <ApplicationId>com.teamascend.agapay</ApplicationId>
 
         <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -37,6 +37,54 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
         <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+      <ApplicationIdGuid>910d453e-9e47-4bfa-8f07-64ced25f9978</ApplicationIdGuid>
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationId>com.teamascend.agapay</ApplicationId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+      <ApplicationIdGuid>910d453e-9e47-4bfa-8f07-64ced25f9978</ApplicationIdGuid>
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationId>com.teamascend.agapay</ApplicationId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
+      <ApplicationIdGuid>910d453e-9e47-4bfa-8f07-64ced25f9978</ApplicationIdGuid>
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationId>com.teamascend.agapay</ApplicationId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
+      <ApplicationIdGuid>910d453e-9e47-4bfa-8f07-64ced25f9978</ApplicationIdGuid>
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationId>com.teamascend.agapay</ApplicationId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+      <ApplicationIdGuid>910d453e-9e47-4bfa-8f07-64ced25f9978</ApplicationIdGuid>
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationId>com.teamascend.agapay</ApplicationId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+      <ApplicationIdGuid>910d453e-9e47-4bfa-8f07-64ced25f9978</ApplicationIdGuid>
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationId>com.teamascend.agapay</ApplicationId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
+      <ApplicationIdGuid>910d453e-9e47-4bfa-8f07-64ced25f9978</ApplicationIdGuid>
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationId>com.teamascend.agapay</ApplicationId>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
+      <ApplicationIdGuid>910d453e-9e47-4bfa-8f07-64ced25f9978</ApplicationIdGuid>
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationId>com.teamascend.agapay</ApplicationId>
     </PropertyGroup>
 
     <ItemGroup>

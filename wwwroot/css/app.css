@@ -84,3 +84,60 @@ h1:focus {
         padding-left: env(safe-area-inset-left);
     }
 }
+
+
+.bottom_navigation {
+    background-color: #003366;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+    z-index: 1000;
+}
+
+    .bottom_navigation ul {
+        /*display: inline-flex;*/
+        margin:0px auto;
+        margin-left:-5px;
+    }
+
+        .bottom_navigation ul li {
+            list-style: none;
+            padding: 10px 0px;
+            text-align: center;
+            display:inline-block;
+            width:21vw;
+            /*border:1px solid #FFF;*/
+            margin:0px;
+        }
+
+            .bottom_navigation ul li a {
+                color: white;
+                text-decoration: none;
+                position: relative;
+                font-size: 25px;
+                margin:0px;
+                padding:0px;
+            }
+
+                .bottom_navigation ul li a span {
+                    font-size: 15px;
+                    display:block;
+                }
+
+
+            .bottom_navigation ul li.active a {
+                color: #ffa500;
+            }
+
+.notif_count {
+    position: absolute;
+    background-color: #ffa500;
+    padding: 2px 10px;
+    border-radius: 30px;
+    top: -25px;
+    right: 0px;
+    color: #FFFFFF !important;
+    z-index:1000;
+}

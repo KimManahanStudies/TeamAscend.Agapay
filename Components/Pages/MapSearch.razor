@@ -1,0 +1,39 @@
+﻿@page "/mapsearch"
+<style>
+	#mapview{
+		position: relative;
+		width: 100vw;
+		height: calc(100vh - 50px);
+		display: block;
+		outline-style: none;
+		margin: -18px -25px;
+		padding: 0px;
+		overflow: hidden;
+	}
+</style>
+<div id="mapview"></div>
+
+@* <link rel="stylesheet" href="/libs/leafletjs/leaflet.css" />
+<script src="/libs/leafletjs/leaflet.js"></script> *@
+<script>
+
+	//Page Load
+	$(function(){
+
+		const map = L.map('mapview').setView([51.5, -0.09], 13);
+
+		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+
+
+		const mGreen = L.marker([51.5, -0.09]).bindPopup('I am a green leaf.').addTo(map);
+		const mRed = L.marker([51.495, -0.083]).bindPopup('I am a red leaf.').addTo(map);
+		const mOrange = L.marker([51.49, -0.1]).bindPopup('I am an orange leaf.').addTo(map);
+
+
+	});
+</script>
+@code {
+
+}
