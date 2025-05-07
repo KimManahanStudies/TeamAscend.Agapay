@@ -27,3 +27,9 @@
         </li>
     </ul>
 </div>
+<script>
+    function setSelectedNav(src) {
+        $('.bottom_navigation ul li').removeClass('active');
+        $(src).parent().addClass('active');
+    }
+</script>

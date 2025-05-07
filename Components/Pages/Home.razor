@@ -2,7 +2,7 @@
 <style>
     #weather_n_address {
         display: inline-flex;
-        margin-bottom:20px;
+        margin-bottom: 20px;
     }
 
     .weather-details, .address-details {
@@ -37,9 +37,68 @@
             border-radius: 20px;
             margin: 10px;
             width: 40vw;
-            height:80px;
+            height: 80px;
         }
 
+
+    .section-highlight {
+        min-height: 120px;
+        width: 100%;
+        /*background-color: pink;*/
+        border-radius: 10px;
+    }
+
+
+    .slide-banner {
+        width: 100%;
+        height: 150px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        text-align:right;
+        color:#FFF;
+    }       
+
+        .slide-banner h2, .slide-banner h3, .slide-banner h4 {
+            color: #FFF;
+            font-family: monospace;
+            text-shadow: 0px 0px 10px #333;
+            white-space:nowrap;
+        }
+
+        .slide-banner h2 {
+            font-size: 50px;
+            text-shadow: 0px 0px 10px #FFF !important;
+            color: #000 !important;
+        }
+
+        .cycle-pager {
+            display: block;
+        }
+
+    .sliderannouncement-pager {
+        text-align: center;
+        width: 100%;
+        z-index: 500;
+        top: 10px;
+        overflow: hidden;
+        margin-top: -25px;
+    }
+
+        .sliderannouncement-pager span {
+            font-size: 50px;
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            color: #ddd;
+        }
+
+            .sliderannouncement-pager span.cycle-pager-active {
+                color: #D69746;
+            }
+
+    .sliderannouncement-pager > * {
+        cursor: pointer;
+    }
 </style>
 
 <section id="weather_n_address">
@@ -58,18 +117,67 @@
     </div>
 </section>
 
-<marquee><h5>@DateTime.Today.ToLongDateString()</h5></marquee>
+@*<marquee><h5>@DateTime.Today.ToLongDateString()</h5></marquee>*@
+<div id="newsflash" class="marquee"><p style="margin:0px;padding:0px">@DateTime.Today.ToLongDateString()</p></div>
 
 <section>
     <h1>Announcement</h1>
-    <div id="slideAnnounce" style="height:120px;width:100%;background-color:pink;border-radius:10px">
-
+    <div id="announcementPanel" class="section-highlight" style="/*background-color:pink;*/">
+        <div class="cycle-slideshow"
+            data-cycle-fx="scrollHorz"
+            data-cycle-pause-on-hover="true"
+            data-cycle-timeout="5000"
+            data-cycle-slides="> div"
+            data-cycle-swipe="true"
+            data-cycle-swipe-fx="scrollHorz"
+            data-cycle-pager=".sliderannouncement-pager">
+            <div class="slide-banner" style="background-image: url('/imgs/banners/rain1.jpg')">
+                <h4>Cubao</h4>
+                <h2>Heavy Rain</h2>
+                <h3>Advisory</h3>
+            </div>
+            @*<div class="slide-banner" style="background-image: url('/imgs/banners/landslide1.jpg')">
+                <h4>Bastasan</h4>
+                <h2>Rainfall</h2>
+                <h3>Advisory</h3>
+            </div>*@
+            <div class="slide-banner" style="background-image: url('/imgs/banners/thunderstorm1.jpg')">
+                <h4>Novaliches</h4>
+                <h2>Thunder Storm</h2>
+                <h3>Advisory</h3>
+            </div>
+            <div class="slide-banner" style="background-image:url('/imgs/banners/flood1.jpg')">
+                <h4>Batasan</h4>
+                <h2>Flood</h2>
+                <h3>Advisory</h3>
+            </div>
+        </div>
+        <div class="sliderannouncement-pager"></div>
     </div>
 </section>
 
+<!--<div id="sliderSource" style="display:none">-->
+    @*
+            data-cycle-fx="scrollHorz"
+        data-cycle-pause-on-hover="true"
+        data-cycle-timeout="5000"
+        data-cycle-slides="> div"
+        data-cycle-swipe="true"
+        data-cycle-swipe-fx="scrollHorz"
+        data-cycle-pager=".sliderannouncement-pager"
+    *@
+    <!--<div class="cycle-slideshow">
+        <div class="slide-banner" style="background-image: url('/imgs/banners/rain1.jpg')"></div>
+        <div class="slide-banner" style="background-image: url('/imgs/banners/landslide1.jpg')"></div>
+        <div class="slide-banner" style="background-image: url('/imgs/banners/thunderstorm1.jpg')"></div>
+        <div class="slide-banner" style="background-image:url('/imgs/banners/flood1.jpg')"></div>
+    </div>
+    <div class="sliderannouncement-pager"></div>
+</div>-->
+
 <section>
     <h1>Where to go?</h1>
-    <div id="mapImagePanel" style="height: 120px; width: 100%; background-color: forestgreen; border-radius: 10px">
+    <div id="mapImagePanel" class="section-highlight" style="background-color: forestgreen;">
 
     </div>
 </section>
@@ -80,7 +188,7 @@
 
     </div>
 
-    <div id="mainBanner" style="height: 100px; width: 100%; background-color: lightcyan; border-radius: 10px ">
+    <div id="mainBanner" class="section-highlight" style="background-color: lightcyan;">
 
     </div>
 
@@ -92,10 +200,31 @@
             </h6>
         </a>
         <a href="">
-            <img src="/imgs/plan_icon.svg" style="height: 80%; margin: 5px; float: left;"  />
+            <img src="/imgs/plan_icon.svg" style="height: 80%; margin: 5px; float: left;" />
             <h6>
                 Personal Emergency Plans
             </h6>
         </a>
     </div>
-</section> 
+</section>
+
+<!--For reference go here: https://jquery.malsup.com/cycle2/demo -->
+<script src="js/jquery.cycle2.js"></script>
+<script>
+    $(function(){
+        //loadSlider();
+    });
+
+    function loadSlider(){
+        $('#announcementPanel').html('');
+        $('#announcementPanel').html($('#sliderSource').html());
+
+        $('#announcementPanel .cycle-slideshow').attr('data-cycle-fx','scrollHorz');
+        $('#announcementPanel .cycle-slideshow').attr('data-cycle-pause-on-hover','true');
+        $('#announcementPanel .cycle-slideshow').attr('data-cycle-timeout','5000');
+        $('#announcementPanel .cycle-slideshow').attr('data-cycle-slides','> div');
+        $('#announcementPanel .cycle-slideshow').attr('data-cycle-swipe','true');
+        $('#announcementPanel .cycle-slideshow').attr('data-cycle-swipe-fx','scrollHorz');
+        $('#announcementPanel .cycle-slideshow').attr('data-cycle-pager','.sliderannouncement-pager');
+    }
+</script>
