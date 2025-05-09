@@ -1,6 +1,108 @@
 ﻿@page "/notifications"
 <h3>Notifications</h3>
+<style>
+    .notification-list{
+        height:80vh;
+        overflow:auto;
+    }
 
+    .notification-item {
+        padding: 20px;
+        margin: 5px;
+        border: 1px solid #CCC;
+        border-radius: 10px;
+    }
+
+        .notification-item.warning {
+            border: 1px solid #ffc107;
+            color:  #ffc107;
+        }
+
+        .notification-item.danger {
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+
+        .notification-item.success {
+            border: 1px solid #198754;
+            color: #198754;
+        }
+
+    .notif-icon {
+        font-size: 40px;
+        display: inline-block;
+        float: left;
+        margin-right: 15px;
+    }
+
+    .notif-date {
+        color: #AAA !important;
+        font-size: 17px;
+        font-style: italic;
+    }
+
+    .notif-message {
+        font-size: 21px;
+    }
+</style>
+<div class="notification-list">
+    <div class="notification-item warning">
+        <div class="notif-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="notif-date">December 1, 2025</div>
+        <p class="notif-message">Message 1</p>
+    </div>
+    <div class="notification-item danger">
+        <div class="notif-icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="notif-date">December 1, 2025</div>
+        <p class="notif-message">Message 2</p>
+    </div>
+    <div class="notification-item danger">
+        <div class="notif-icon ">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="notif-date">December 1, 2025</div>
+        <p class="notif-message">Message 3</p>
+    </div>
+    <div class="notification-item success">
+        <div class="notif-icon ">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="notif-date">December 1, 2025</div>
+        <p class="notif-message">Message 4</p>
+    </div>
+    <div class="notification-item warning">
+        <div class="notif-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="notif-date">December 1, 2025</div>
+        <p class="notif-message">Message 1</p>
+    </div>
+    <div class="notification-item danger">
+        <div class="notif-icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="notif-date">December 1, 2025</div>
+        <p class="notif-message">Message 2</p>
+    </div>
+    <div class="notification-item danger">
+        <div class="notif-icon ">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="notif-date">December 1, 2025</div>
+        <p class="notif-message">Message 3</p>
+    </div>
+    <div class="notification-item success">
+        <div class="notif-icon ">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <div class="notif-date">December 1, 2025</div>
+        <p class="notif-message">Message 4</p>
+    </div>
+</div>
 @code {
 
 }

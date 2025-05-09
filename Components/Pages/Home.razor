@@ -1,106 +1,4 @@
 ﻿@page "/"
-<style>
-    #weather_n_address {
-        display: inline-flex;
-        margin-bottom: 20px;
-    }
-
-    .weather-details, .address-details {
-        width: 45vw;
-        /*border: 1px solid pink;*/
-    }
-
-    .weather-details {
-    }
-
-    .address-details {
-        text-align: right;
-    }
-
-    .weather-title {
-    }
-
-    .weather-temp {
-    }
-
-
-
-    #portalLinks {
-        display: inline-flex;
-    }
-
-        #portalLinks a {
-            background-color: #003366;
-            display: inline-block;
-            color: #FFFFFF;
-            text-decoration: none;
-            border-radius: 20px;
-            margin: 10px;
-            width: 40vw;
-            height: 80px;
-        }
-
-
-    .section-highlight {
-        min-height: 120px;
-        width: 100%;
-        /*background-color: pink;*/
-        border-radius: 10px;
-    }
-
-
-    .slide-banner {
-        width: 100%;
-        height: 150px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        text-align:right;
-        color:#FFF;
-    }       
-
-        .slide-banner h2, .slide-banner h3, .slide-banner h4 {
-            color: #FFF;
-            font-family: monospace;
-            text-shadow: 0px 0px 10px #333;
-            white-space:nowrap;
-        }
-
-        .slide-banner h2 {
-            font-size: 50px;
-            text-shadow: 0px 0px 10px #FFF !important;
-            color: #000 !important;
-        }
-
-        .cycle-pager {
-            display: block;
-        }
-
-    .sliderannouncement-pager {
-        text-align: center;
-        width: 100%;
-        z-index: 500;
-        top: 10px;
-        overflow: hidden;
-        margin-top: -25px;
-    }
-
-        .sliderannouncement-pager span {
-            font-size: 50px;
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            color: #ddd;
-        }
-
-            .sliderannouncement-pager span.cycle-pager-active {
-                color: #D69746;
-            }
-
-    .sliderannouncement-pager > * {
-        cursor: pointer;
-    }
-</style>
-
 <section id="weather_n_address">
     <div class="weather-details">
         <img src="/imgs/weather_icons/sunny_cloudy.png" style="height:50px" />
@@ -177,22 +75,35 @@
 
 <section>
     <h1>Where to go?</h1>
-    <div id="mapImagePanel" class="section-highlight" style="background-color: forestgreen;">
-
+    <div id="mapImagePanel" class="section-highlight">
+        <a href="javascript:void(0)" onclick="$('.link_mapsearch a').click()">
+            <img src="/imgs/banners/staticmap1.png" style="width:100%" />
+        </a>
     </div>
 </section>
 
 <section>
     <h1>What to do?</h1>
     <div id="menuHorizontalImages">
-
+        <div class="scrollPane">
+            <div class="menu-image" style="background-image: url('/imgs/banners/rain1.jpg')"></div>
+            <div class="menu-image" style="background-image: url('/imgs/banners/landslide1.jpg')"></div>
+            <div class="menu-image" style="background-image: url('/imgs/banners/thunderstorm1.jpg')"></div>
+            <div class="menu-image" style="background-image:url('/imgs/banners/flood1.jpg')"></div>
+            <div class="menu-image" style="background-image: url('/imgs/banners/rain1.jpg')"></div>
+            <div class="menu-image" style="background-image: url('/imgs/banners/landslide1.jpg')"></div>
+            <div class="menu-image" style="background-image: url('/imgs/banners/thunderstorm1.jpg')"></div>
+            <div class="menu-image" style="background-image:url('/imgs/banners/flood1.jpg')"></div>
+        </div>        
     </div>
 
     <div id="mainBanner" class="section-highlight" style="background-color: lightcyan;">
-
+        <a href="">
+            <img src="/imgs/banners/firstaidguide.jpg" style="width:100%" />
+        </a>
     </div>
 
-    <div id="portalLinks">
+    <div id="portalLinks" style="margin-bottom:100px">
         <a href="">
             <img src="/imgs/emergency.svg" style="height: 80%; margin: 5px; float: left;" />
             <h6>
