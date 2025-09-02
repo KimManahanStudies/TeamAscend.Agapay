@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\startbootstrap-personal-gh-pages\startbootstrap-personal-gh-pages\assets\" />
+    <Folder Include="wwwroot\startbootstrap-personal-gh-pages\startbootstrap-personal-gh-pages\css\" />
+    <Folder Include="wwwroot\startbootstrap-personal-gh-pages\startbootstrap-personal-gh-pages\js\" />
+  </ItemGroup>
+
+</Project>
