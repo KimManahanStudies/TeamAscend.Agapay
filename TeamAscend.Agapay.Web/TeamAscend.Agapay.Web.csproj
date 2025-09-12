@@ -7,9 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\startbootstrap-personal-gh-pages\startbootstrap-personal-gh-pages\assets\" />
-    <Folder Include="wwwroot\startbootstrap-personal-gh-pages\startbootstrap-personal-gh-pages\css\" />
-    <Folder Include="wwwroot\startbootstrap-personal-gh-pages\startbootstrap-personal-gh-pages\js\" />
+    <Compile Remove="wwwroot\startbootstrap-personal-gh-pages\**" />
+    <Content Remove="wwwroot\startbootstrap-personal-gh-pages\**" />
+    <EmbeddedResource Remove="wwwroot\startbootstrap-personal-gh-pages\**" />
+    <None Remove="wwwroot\startbootstrap-personal-gh-pages\**" />
   </ItemGroup>
 
 </Project>

@@ -13,26 +13,31 @@ namespace TeamAscend.Agapay.Web.Controllers
             _logger = logger;
         }
 
+
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("~/Pages/Alerts")]
         public IActionResult Alerts()
         {
             return View();
         }
 
+        [Route("~/Pages/Maps")]
         public IActionResult Maps()
         {
             return View();
         }
 
+        [Route("~/Pages/Contact")]
         public IActionResult Contact()
         {
             return View();
         }
 
+        [Route("~/Pages/Privacy")]
         public IActionResult Privacy()
         {
             return View();
