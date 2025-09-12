@@ -1,4 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Components.WebView.Maui;
+using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Handlers;
+using Microsoft.Maui.Controls.Handlers.Compatibility;
+#if IOS || MACCATALYST
+using Microsoft.Maui.Controls.Platform.iOS;
+using UIKit; // Required for iOS types
+#endif
+#if ANDROID
+using Android.Views; // Required for Android types
+#endif
 
 namespace TeamAscend.Agapay.App
 {
@@ -13,6 +23,19 @@ namespace TeamAscend.Agapay.App
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
+//            .ConfigureMauiHandlers(handlers =>
+//                {
+//                    // Disable overscroll effect for Android
+//                    BlazorWebViewHandler.BlazorWebViewMapper.AppendToMapping("CustomBlazorWebViewMapper", (handler, view) =>
+//                    {
+//#if IOS || MACCATALYST
+//                        //handler.PlatformView.ScrollView.Bounces = false;
+//#endif
+//#if ANDROID
+//                        //handler.PlatformView.OverScrollMode = OverScrollMode.Never;
+//#endif
+//                    });
+//                });
 
             builder.Services.AddMauiBlazorWebView();
 
