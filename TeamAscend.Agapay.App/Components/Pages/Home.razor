@@ -29,16 +29,26 @@
             data-cycle-swipe="true"
             data-cycle-swipe-fx="scrollHorz"
             data-cycle-pager=".sliderannouncement-pager">
-            <div class="slide-banner" style="background-image: url('/imgs/banners/rain1.jpg')">
+            @if(Model != null)
+            {
+                if (Model.FBPosts != null)
+                {
+                    foreach (var itm in Model.FBPosts)
+                    {
+                        <div id="@itm.id" data-time="@itm.created_time" class="slide-banner" style="background-image: url('/imgs/banners/rain1.jpg')">
+                            <h4>Cubao</h4>
+                            <h2>@itm.message</h2>
+                            <h3>Advisory</h3>
+                        </div>
+                    }
+                }
+            }
+
+            @* <div class="slide-banner" style="background-image: url('/imgs/banners/rain1.jpg')">
                 <h4>Cubao</h4>
                 <h2>Heavy Rain</h2>
                 <h3>Advisory</h3>
             </div>
-            @*<div class="slide-banner" style="background-image: url('/imgs/banners/landslide1.jpg')">
-                <h4>Bastasan</h4>
-                <h2>Rainfall</h2>
-                <h3>Advisory</h3>
-            </div>*@
             <div class="slide-banner" style="background-image: url('/imgs/banners/thunderstorm1.jpg')">
                 <h4>Novaliches</h4>
                 <h2>Thunder Storm</h2>
@@ -48,7 +58,7 @@
                 <h4>Batasan</h4>
                 <h2>Flood</h2>
                 <h3>Advisory</h3>
-            </div>
+            </div> *@
         </div>
         <div class="sliderannouncement-pager"></div>
     </div>
