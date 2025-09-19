@@ -18,76 +18,70 @@
     <link href="/css/animate_v4.min.css" rel="stylesheet" />
     <link href="/css/fontawesome-all.css" rel="stylesheet" />
     <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/front-end-style.css" rel="stylesheet" />
 </head>
 <body class="d-flex flex-column h-100">
-    <main class="flex-shrink-0">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-            <div class="container px-5">
-                <a class="navbar-brand" href="/index.html"><span class="fw-bolder text-primary">Start Bootstrap</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Home/Index">
-                                <i class="fa fa-home"></i>
-                                &nbsp; Home
-                            </a>
-                        </li>
-                        @* <li><i class="fa fa-verti"></i></li> *@
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Pages/Alerts">
-                                <i class="fa fa-bell"></i>
-                                &nbsp; Alerts
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Pages/Maps">
-                                <i class="fa fa-map"></i>
-                                &nbsp; Maps
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Pages/Contact">
-                                <i class="fa fa-address-book"></i>
-                                &nbsp; Contact
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/Admin/Login">
-                                <i class="fa fa-lock"></i>
-                                &nbsp; Login
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        @RenderBody()
-    </main>
-    <!-- Footer-->
-    <footer class="bg-white py-4 mt-auto">
+<main class="flex-shrink-0">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
         <div class="container px-5">
-            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                <div class="col-auto"><div class="small m-0">Copyright &copy; 2025 Agapay - TeamAscend</div></div>
-                <div class="col-auto">
-                    <a class="small" href="/#!">Privacy</a>
-                    <span class="mx-1">&middot;</span>
-                    <a class="small" href="/#!">Terms</a>
-                    <span class="mx-1">&middot;</span>
-                    <a class="small" href="/#!">Contact</a>
-                </div>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <img src="~/imgs/Agapay_Logo_2.png" alt="Agapay Logo" class="agapay-logo-nav" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Index">
+                            &nbsp; Home
+                        </a>
+                    </li>
+                    @* <li><i class="fa fa-verti"></i></li> *@
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Pages/AboutAgapayPh">
+                            &nbsp; About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Pages/Maps">
+                            &nbsp; Features
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Login">
+                            &nbsp; Login
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </footer>
-    <!-- Bootstrap core JS-->
-    @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> *@
-    <script src="/lib/jquery/dist/jquery.min.js"></script>
-    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/site.js" asp-append-version="true"></script>
-    <!-- Core theme JS-->
-    <script src="/js/scripts.js"></script>
-    <script src="/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    </nav>
+    @RenderBody()
+</main>
+
+
+<footer class="footer">
+    <div class="container py-5">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-auto text-center text-md-start mb-3 mb-md-0 d-flex flex-column align-items-center">
+                <img src="~/imgs/Agapay_Logo_2.png" alt="Agapay Logo" class="agapay-logo mb-3">
+                <p class="mb-0 small agapay-copyright">Copyright © 2025<br>All Rights Reserved</p>
+            </div>
+
+            <div class="col-md-auto text-center text-md-start mb-3 mb-md-0">
+                <h6 class="fw-bold text-white">ABOUT US</h6>
+                <ul class="list-unstyled">
+                    <li><a href="/Pages/AboutAgapayPh" class="footer-link">About Agapay PH</a></li>
+                    <li><a href="/Pages/TermsAndConditions" class="footer-link">Terms and Conditions</a></li>
+                    <li><a href="/Pages/PrivacyPolicy" class="footer-link">Privacy Policy</a></li>
+                    <li><a href="/faqs" class="footer-link">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="col-md-auto text-center text-md-start">
+                <img src="~/imgs/STI.png" alt="STI Logo" class="sti-logo">
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

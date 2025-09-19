@@ -19,8 +19,8 @@ namespace TeamAscend.Agapay.Web.Controllers
             return View();
         }
 
-        [Route("~/Pages/Alerts")]
-        public IActionResult Alerts()
+        [Route("~/Pages/AboutAgapayPh")]
+        public IActionResult AboutAgapayPh()
         {
             return View();
         }
@@ -31,18 +31,18 @@ namespace TeamAscend.Agapay.Web.Controllers
             return View();
         }
 
-        [Route("~/Pages/Contact")]
-        public IActionResult Contact()
+        [Route("~/Pages/TermsAndConditions")]
+        public IActionResult TermsAndConditions()
         {
             return View();
         }
 
-        [Route("~/Pages/Privacy")]
-        public IActionResult Privacy()
+        [Route("~/Pages/PrivacyPolicy")]
+        public IActionResult PrivacyPolicy()
         {
             return View();
         }
-
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

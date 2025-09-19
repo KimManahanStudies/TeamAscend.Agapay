@@ -1,0 +1,181 @@
+/* Footer Wave Background */
+.footer {
+    position: relative;
+    background-size: cover;
+    min-height: 300px; 
+    display: flex;
+    align-items: flex-end;
+    color: #ffffff;
+    padding: 20rem 2rem 2rem; 
+    background-color: #003366;
+}
+
+/* Container inside footer */
+.footer .container {
+    width: 100%;
+}
+
+/* Links */
+.footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.footer-link:hover {
+    color: #ffc107;
+}
+
+/* Logos */
+.agapay-logo {
+    height: 120px;
+}
+
+.agapay-logo-nav {
+    height: 100px;
+}
+
+
+.sti-logo {
+    width: 100px;
+    border-radius: 5%;
+}
+
+/* Copyright text */
+.agapay-copyright {
+    font-size: 0.8rem;
+    color: #ffffff;
+}
+
+
+.terms-page {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #222;
+    line-height: 1.7;
+}
+
+.index-page {
+    max-width: 800px;
+    margin: 0 auto;
+    color: #222;
+    line-height: 1.7;
+    align-items: center;
+}
+
+.terms-page h1 {
+    font-size: 2.5rem;
+}
+
+.terms-page h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}
+
+.terms-page h3 {
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.terms-page ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+    text-underline-mode: none;
+}
+
+.terms-page h1,
+.terms-page h2,
+.terms-page h3 {
+    color: #003366 !important;
+}
+
+/* Landing Hero Page */
+
+.hero-text h2 {
+    font-size: 3.2rem;
+    font-weight: bold;
+    color: #002147;
+    margin-top: -250px;
+}
+.hero-text .highlight {
+    color: #f6a623; /* Orange */
+}
+.hero-text p {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #444;
+    
+}
+
+.store-btn {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.curves-left {
+    position: absolute;
+    bottom: -300px;  /* move it lower */
+    left: -500px;    /* move it more left */
+    width: 700px;
+    z-index: -1;    /* stays behind text */
+    opacity: 0.5;
+}
+
+.hero-image {
+    position: relative;
+}
+
+.hero-image .phones {
+    margin-top: -70px;
+    position: relative;
+    z-index: 1; /* phones below */
+    right: 20%;
+    width: 100%; /* adjust size */
+}
+
+.hero-image .girl {
+    position: absolute;
+    bottom: 0;   /* anchor her to bottom */
+    left: 30%;  /* move horizontally */
+    z-index: 2;  /* girl above phones */
+    width: 100%;  /* adjust size */
+}
+.emp-b {
+    color: #f6a623;
+}
+
+/* 3 Easy Steps Section */
+
+.signup-section {
+    background-color: #fafafa;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.signup-section p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.signup-section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.step {
+    max-width: 300px;
+    text-align: center;
+}
+
+.images-steps {
+    height: 300px;
+    margin-right: 10px;
+}
