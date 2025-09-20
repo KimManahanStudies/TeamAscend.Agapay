@@ -1,0 +1,108 @@
+﻿/* Start of style for Guidelines section in Home page */
+
+.main-label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.scroll-pane.guidelines {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Each set behaves like a page */
+.guideline-set {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    display: flex;
+    gap: 10px;
+}
+
+    /* --- PRIMARY (first page: 2 big + 3 small) --- */
+    .guideline-set.primary .left {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .guideline-set.primary .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+    /* --- SECONDARY (next pages: 3 by 3 small cards) --- */
+    .guideline-set.secondary {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-start;
+    }
+
+        .guideline-set.secondary .only-small {
+            display: flex;
+            flex: 1;
+            gap: 10px;
+        }
+
+        /* Split into two sides like the first page */
+        .guideline-set.secondary .left,
+        .guideline-set.secondary .right {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Left side = 2 small */
+        .guideline-set.secondary .left {
+            flex: 1;
+        }
+
+        /* Right side = 3 small */
+        .guideline-set.secondary .right {
+            flex: 1;
+        }
+
+
+
+/* Card styles */
+.guide-card {
+    display: block;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    position: relative;
+}
+
+    .guide-card.tall {
+        height: 140px;
+        width: 100%;
+    }
+
+    .guide-card.small {
+        height: 90px;
+        width: 100%;
+    }
+
+    .guide-card .label {
+        position: absolute;
+        bottom: 8px; /* small space from bottom */
+        left: 10px; /* push it a bit from left */
+        right: auto; /* remove right alignment */
+        background: none; /* remove black transparent box */
+        padding: 0; /* remove padding */
+        font-size: 18px; /* make it bigger */
+        font-weight: bold; /* bold style */
+        color: white; /* keep text visible (adjust if background is bright) */
+        text-align: left; /* align left */
+    }
+
+/* End of style for Guidelines section in Home page */
