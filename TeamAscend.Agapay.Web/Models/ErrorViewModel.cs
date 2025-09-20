@@ -1,4 +1,4 @@
-namespace TeamAscend.Agapay.Web.Models
+namespace TeamAscend.Agapay.Web.Shared
 {
     public class ErrorViewModel
     {

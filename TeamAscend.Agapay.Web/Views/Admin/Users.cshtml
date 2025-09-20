@@ -1,0 +1,184 @@
+﻿@model TeamAscend.Agapay.Web.Models.UsersPageViewModel
+@{
+    Layout = "_BackEndLayout";
+    ViewData["Title"] = "Users";
+}
+@section Header
+{
+    <!-- Custom styles for this page -->
+    <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <style>
+        #dataTable th{
+
+        }
+    </style>
+}
+<form id="frmDetails" method="post" action="/api/User/PostData">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Users</h1>
+        @* <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> New User
+        </a> *@
+        <button class="btn btn-primary btn-icon-split shadow" type="button" id="btnNewUser">
+            <span class="icon text-white-50">
+                <i class="fas fa-user-plus"></i>
+            </span>
+            <span class="text">New User</span>            
+        </button>
+    </div>
+    <!-- DataTales Example -->
+    <div class="card shadow" style="padding:10px">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        @* <th>Fullname</th> *@
+                        <th>Role</th>
+                        <th>Created Date</th>
+                        <th>Modified Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        @* <th>Fullname</th> *@
+                        <th>Role</th>
+                        <th>Created Date</th>
+                        <th>Modified Date</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var itm in Model.Users)                
+                    {
+                        <tr>
+                            <td>@itm.ID</td>
+                            <td>@itm.Username</td>
+                            @* <th>Fullname</th> *@
+                            <td>@itm.Role</td>
+                            <td>@itm.CreatedDate</td>
+                            <td>@itm.ModifiedDate</td>
+                            <td>
+                                <a href="#" class="text-success" title="Edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="#" class="text-danger" title="Delete">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModalLabel">User: <span class="selected-user"></span></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form Group (username)-->
+                    <div class="mb-3">
+                        <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
+                        <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username" />
+                    </div>
+                    <!-- Form Row-->
+                    <div class="row gx-3 mb-3">
+                        <!-- Form Group (first name)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputFirstName">First name</label>
+                            <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie" />
+                        </div>
+                        <!-- Form Group (last name)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputLastName">Last name</label>
+                            <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna" />
+                        </div>
+                    </div>
+                    <!-- Form Row        -->
+                    <div class="row gx-3 mb-3">
+                        <!-- Form Group (organization name)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputOrgName">Organization name</label>
+                            <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap" />
+                        </div>
+                        <!-- Form Group (location)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputLocation">Location</label>
+                            <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA" />
+                        </div>
+                    </div>
+                    <!-- Form Group (email address)-->
+                    <div class="mb-3">
+                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com" />
+                    </div>
+                    <!-- Form Row-->
+                    <div class="row gx-3 mb-3">
+                        <!-- Form Group (phone number)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputPhone">Phone number</label>
+                            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567" />
+                        </div>
+                        <!-- Form Group (birthday)-->
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="inputBirthday">Birthday</label>
+                            <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">Save</button>                    
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</form>
+@section Scripts {
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script>
+        function NewUser(){
+            $('#frmDetails').trigger('reset');
+            $('#userModal').modal('show');
+        }
+
+
+        function EditUser(uID){
+            $('#userModal').modal('show');
+        }
+
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+
+
+            $('#frmDetails').validate({
+                submitHandler: function(form) {
+                    // Form is valid, submit via AJAX or other custom logic
+                    alert("Form submitted successfully!");
+                    form.submit(); // Or use AJAX
+                }
+            });
+
+            $('#btnNewUser').on('click',function(){
+                NewUser();
+            });
+        });
+    </script>
+
+}
