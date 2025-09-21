@@ -2,6 +2,58 @@
     <ul>
         <li class="link_home active">
             <a href="/" onclick="setSelectedNav(this)">
+                <i class="fa fa-home nav-icon"></i>
+                <span class="nav-label">Home</span>
+            </a>
+        </li>
+
+        <li class="link_mapsearch">
+            <a href="/mapsearch" onclick="setSelectedNav(this)">
+                <i class="fas fa-map-marker-alt nav-icon"></i>
+                <span class="nav-label">Map</span>
+            </a>
+        </li>
+
+        <!-- Center Button -->
+        <li class="center-button">
+            <a href="/plan" onclick="setSelectedNav(this)">
+                <i class="fa fa-plus"></i>
+            </a>      
+                <span>Go Plan</span>      
+        </li>
+        
+
+        <li class="link_notifications">
+            <a href="/notifications" onclick="setSelectedNav(this)">
+                <i class="fa fa-bell nav-icon"></i>
+                <span class="nav-label">Notifications</span>
+                <!--<span class="notif_count">1</span>-->
+            </a>
+        </li>
+
+        <li class="link_account">
+            <a href="/account" onclick="setSelectedNav(this)">
+                <i class="far fa-user-circle nav-icon"></i>
+                <span class="nav-label">Account</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+
+<script>
+    function setSelectedNav(src) {
+        $('.bottom_navigation ul li').removeClass('active');
+        $(src).parent().addClass('active');
+    }
+</script>
+
+@* OLD UI NavButton
+	<div class="bottom_navigation">
+    <ul>
+        <li class="link_home active">
+            <a href="/" onclick="setSelectedNav(this)">
                 <i class="fa fa-home"></i>
                 <span>Home</span>
             </a>
@@ -33,3 +85,4 @@
         $(src).parent().addClass('active');
     }
 </script>
+*@

@@ -19,7 +19,7 @@
 <div id="newsflash" class="marquee"><p style="margin:0px;padding:0px">@DateTime.Today.ToLongDateString()</p></div>
 
 <section>
-    <h1>Announcement</h1>
+    <h1 class="main-label" >Announcement</h1>
     <div id="announcementPanel" class="section-highlight" style="/*background-color:pink;*/">
         <div class="cycle-slideshow"
             data-cycle-fx="scrollHorz"
@@ -84,7 +84,7 @@
 </div>-->
 
 <section>
-    <h1>Where to go?</h1>
+    <h1 class="main-label" >Where to go?</h1>
     <div id="mapImagePanel" class="section-highlight">
         <a href="javascript:void(0)" onclick="$('.link_mapsearch a').click()">
             <img src="/imgs/banners/staticmap1.png" style="width:100%" />
@@ -150,11 +150,8 @@
 </section>
 
 
+@* Old What to do UI 
 
-
-
-
-@*
     <section>
     <h1>What to do?</h1>
     <div id="menuHorizontalImages">

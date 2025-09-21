@@ -2,14 +2,17 @@
 
 .main-label {
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    padding: 0; /* make sure no padding adds space */
+    display: block; /* make sure no weird inline spacing */
 }
 
 .scroll-pane.guidelines {
     display: flex;
     gap: 15px;
     overflow-x: auto;
-    padding: 10px 0;
+    padding: 0 0 5px 0;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 }
@@ -106,3 +109,113 @@
     }
 
 /* End of style for Guidelines section in Home page */
+
+
+
+/* --- Bottom Navigation Container --- */ .bottom_navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff; /* white background */ /*box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);*/
+    border-top-left-radius: 0; /*Kung gusto mo lagyan ng curve sa nav*/
+    border-top-right-radius: 0;
+    z-index: 100;
+}
+
+    .bottom_navigation ul {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0;
+        padding: 0.3px 0; /*Lumalaki yng navigation bar*/
+        list-style: none;
+    }
+        /* --- Navigation Items --- */
+
+        .bottom_navigation ul li {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+            .bottom_navigation ul li a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-size: 12px;
+                color: #0a2d5a; /* dark navy blue */
+                text-decoration: none;
+            }
+            /* Normal icons: Home, Map, Notification, Account */ /* .bottom_navigation ul li:not(.center-button) i {*/ /* font-size: 40px !important; /* adjust size */ /* margin-bottom: 3px;*/ /*}*/ /* --- Active state --- */
+
+            .bottom_navigation ul li.active a {
+                color: #f9a825; /* orange-yellow for active */
+            }
+
+.nav-icon {
+    font-size: 18px !important; /* adjust size */
+    margin-bottom: 3px;
+}
+
+.nav-label {
+    font-size: 10px !important; /* adjust size */
+}
+/* --- Notification Badge --- */
+
+.notif_count {
+    position: absolute;
+    top: 2px;
+    right: 22%;
+    background: #f9a825;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 10px;
+    border-radius: 50%;
+}
+/* --- Center Floating Button --- */
+
+.bottom_navigation ul li.center-button {
+    position: relative;
+    top: -40px; /* lift it above bar */
+    flex: 0;
+    z-index:1;
+}
+
+    .bottom_navigation ul li.center-button a {
+        background: #f9a825; /* yellow */
+        color: #fff;
+        font-size: 28px;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        
+    }
+
+    .bottom_navigation ul li.center-button span {
+        margin-top: 5px;
+        font-size: 10px;
+        color: #0a2d5a;
+        position: absolute;
+        bottom: -25px; /*To move the Go Plan word*/
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    /* Only affect the label under Go Plan when active */
+    .bottom_navigation ul li.center-button.active span {
+        color: #f9a825; /* orange-yellow */
+        
+    }
+
+
+   
+
+   
+
+
+
