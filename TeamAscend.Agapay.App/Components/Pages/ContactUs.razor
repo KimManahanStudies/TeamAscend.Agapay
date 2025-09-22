@@ -1,0 +1,26 @@
+@page "/ContactUs"
+
+<section class="contact-section py-5">
+    <div class="container text-center">
+        <h2 class="title-text mb-4">How can we help?</h2>
+
+        <form class="contact-form mx-auto" style="max-width: 600px;">
+            <!-- Subject Field -->
+            <div class="mb-3 text-start">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="subject" placeholder="Enter subject" required />
+            </div>
+
+            <!-- Message Field -->
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" class="form-control resizable-textarea" rows="5" maxlength="300"
+                              placeholder="Type your message (max 300 characters)" required></textarea>
+                    <small class="text-muted"><span id="charCount">0</span>/300</small>
+                </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary px-4">Submit</button>
+        </form>
+    </div>
+</section>

@@ -211,11 +211,116 @@
         color: #f9a825; /* orange-yellow */
         
     }
+    
+    
+    
+    /* --- Account Page Styles --- */
 
+.account-page {
+    padding: 1rem;
+}
 
-   
+.user-info {
+    margin: 1rem 0;
+    gap: 1rem;
+}
 
-   
+.profile-img {
+    width: 100px;
+    height: 80px;
+    border-radius: 50%;
+}
 
+.user-details h5 {
+    margin: 0;
+    font-weight: bold;
+}
 
+.menu-list {
+    margin-top: 2rem;
+}
 
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: #f9f9f9;
+}
+
+.arrow {
+    font-size: 1.5rem;
+    color: #003366;
+}
+
+/* Remove default link styles */
+.menu-list a,
+.menu-list .nav-link {
+    text-decoration: none !important;
+    color: #003366 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+/* Hover effect */
+.menu-list a:hover {
+    background-color: #f9f9f9;
+}
+
+/* Optional arrow style */
+.menu-list .arrow {
+    font-size: 1.2rem;
+    color: #003366;
+}
+
+/* About Page Styles */
+.about-page {
+    position: relative;
+    padding: 4rem 2rem;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+/* Main Title */
+.title-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #003366; /* Dark blue */
+    margin-bottom: 1.5rem;
+}
+
+/* Subtitle */
+.subtitle-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #003366;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Paragraphs */
+.about-page p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #333;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+/* Contact Us Section */
+
+.resizable-textarea {
+    resize: both; 
+    overflow: auto;
+}

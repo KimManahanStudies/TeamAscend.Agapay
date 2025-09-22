@@ -1,0 +1,34 @@
+@page "/Settings"
+<h3 text-align="center">Settings</h3>
+<br/>
+<!-- Menu List -->
+<div class="menu-list">
+    <p>PRIVACY AND SECURITY</p>
+    <NavLink href="/AccountSettings" onclick="setSelectedNav(this)" class="menu-item">
+        <span>Account Settings</span>
+        <span class="arrow">›</span>
+    </NavLink>
+
+    <NavLink href="/NotificationSettings" onclick="setSelectedNav(this)" class="menu-item">
+        <span>Notification Settings</span>
+        <span class="arrow">›</span>
+    </NavLink>
+    <br/> 
+    <p>ABOUT AGAPAY</p>
+    <NavLink href="/PrivacyPolicy" class="menu-item">
+        <span>Privacy Policy</span>
+        <span class="arrow">›</span>
+    </NavLink>
+
+    <NavLink href="/TermsConditions" onclick="setSelectedNav(this)" class="menu-item">
+        <span>Terms and Conditions</span>
+        <span class="arrow">›</span>
+    </NavLink>
+</div>
+
+<script>
+    function setSelectedNav(src) {
+        $('.bottom_navigation ul li').removeClass('active');
+        $(src).parent().addClass('active');
+    }
+</script>

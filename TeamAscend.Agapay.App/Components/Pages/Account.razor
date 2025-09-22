@@ -1,6 +1,55 @@
 ﻿@page "/account"
-<h3>Account</h3>
 
-@code {
+<PageTitle>Account</PageTitle>
 
-}
+<div class="account-page">
+    <!-- User Info -->
+    <div class="user-info d-flex align-items-center">
+        <img src="imgs/undraw_profile_3.svg" alt="Profile" class="profile-img" />
+        <div class="user-details">
+            <h5>Hi, LIAM YESHA</h5>
+            <p class="text-muted">+639111111111</p>
+            <p class="text-muted">ADMIN@AGAPAY.COM.PH</p>
+        </div>
+    </div>
+
+    <!-- Menu List -->
+    <div class="menu-list">
+        <NavLink href="/faqs" class="menu-item">
+            <span>FAQs</span>
+            <span class="arrow">›</span>
+        </NavLink>
+
+        <NavLink href="/About" onclick="setSelectedNav(this)" class="menu-item">
+            <span>About eGovPH</span>
+            <span class="arrow">›</span>
+        </NavLink>
+
+        <NavLink href="/ContactUs" class="menu-item">
+            <span>Contact Us</span>
+            <span class="arrow">›</span>
+        </NavLink>
+
+        <NavLink href="/rate" class="menu-item">
+            <span>Rate our app</span>
+            <span class="arrow">›</span>
+        </NavLink>
+
+        <NavLink href="/Settings" onclick="setSelectedNav(this)" class="menu-item">
+            <span>Settings</span>
+            <span class="arrow">›</span>
+        </NavLink>
+
+        <NavLink href="/logout" class="menu-item">
+            <span>Logout</span>
+            <span class="arrow">›</span>
+        </NavLink>
+    </div>
+</div>
+
+<script>
+    function setSelectedNav(src) {
+        $('.bottom_navigation ul li').removeClass('active');
+        $(src).parent().addClass('active');
+    }
+</script>
