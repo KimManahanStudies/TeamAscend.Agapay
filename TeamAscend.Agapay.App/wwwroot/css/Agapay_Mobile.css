@@ -213,8 +213,7 @@
     }
     
     
-    
-    /* --- Account Page Styles --- */
+/* --- Account Page Styles --- */
 
 .account-page {
     padding: 1rem;
@@ -323,4 +322,268 @@
 .resizable-textarea {
     resize: both; 
     overflow: auto;
+}
+
+/* --- Go Plan Page Styles --- */
+
+/* ===== Page Layout ===== */
+.plan-page {
+    font-family: "Segoe UI", sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ===== Section 1: Header with Background Image ===== */
+.header-section {
+    position: relative;
+    height: 40vh; /* adjust how tall you want the header */
+    background: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* show whole image */
+    background: #f9fafb; /* fill empty space */
+}
+
+/* Optional overlay (dim the image if needed) */
+.header-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2); /* adjust transparency */
+}
+
+/* ===== Section 2: Overlapping Card ===== */
+.card-section {
+    position: relative;
+    top: -40px; /* overlap effect */
+    background: #fff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.plan-card.scrollable {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Go Plan Style */
+/* ===== Section Layout ===== */
+.section {
+    margin-bottom: 20px;
+}
+
+/* Label (title above input) */
+.GoPlan-title .label {
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    color: #1e3a5f;
+}
+
+/* Borderless Input Field */
+.GoPlan-title .input-field {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 0;
+    padding: 8px 0;
+    font-size: 1.1rem;
+    width: 100%;
+    outline: none;
+    background: transparent;
+}
+
+.GoPlan-title .input-field:focus {
+    border-bottom-color: #2563eb;
+}
+
+/* Divider */
+.divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 18px 0;
+}
+
+/* Icons */
+.icon {
+    font-size: 1.5rem;
+    color: #2563eb;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.icon-img {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+/* Phone Input */
+.phone-input {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #ccc;
+    padding: 6px 0;
+}
+
+.phone-input .prefix {
+    color: #1e3a5f;
+    font-weight: bold;
+    margin-right: 6px;
+    white-space: nowrap;
+}
+
+.phone-input .input-field {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 1.1rem;
+    background: transparent;
+}
+
+.phone-input .input-field:focus {
+    border: none;
+    box-shadow: none;
+}
+
+/* Dropdown */
+.dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.dropdown-wrapper .arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 1rem;
+    color: #555;
+}
+
+.dropdown:focus {
+    border-bottom-color: #2563eb;
+}
+
+/* Hidden Field */
+.hidden {
+    display: none;
+    margin-top: 10px;
+}
+
+/* Checklist */
+.checklist-header {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #1e3a5f;
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+.checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.checklist-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.checklist-item input[type="checkbox"]:checked {
+    border-color: #2563eb;
+    background-color: #2563eb;
+}
+
+.checklist-item input[type="checkbox"]:checked::after {
+    content: "✔";
+    color: white;
+    font-size: 0.8rem;
+    position: absolute;
+    left: 3px;
+    top: -1px;
+}
+/* Button group container */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+/* Base button style */
+.btn {
+    flex: 1;
+    padding: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 70px; /* fully rounded */
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+/* Submit button (green) */
+.submit-btn {
+    background: #22c55e !important; /* green */
+    color: #fff;
+}
+.submit-btn:hover {
+    background: #16a34a;
+}
+
+/* Cancel button (red) */
+.cancel-btn {
+    background: #ef4444 !important; /* red */
+    color: #fff;
+}
+.cancel-btn:hover {
+    background: #dc2626;
 }
