@@ -1,30 +1,45 @@
 @page "/Settings"
-<h3 text-align="center">Settings</h3>
-<br/>
-<!-- Menu List -->
-<div class="menu-list">
-    <p>PRIVACY AND SECURITY</p>
-    <NavLink href="/AccountSettings" onclick="setSelectedNav(this)" class="menu-item">
-        <span>Account Settings</span>
-        <span class="arrow">›</span>
-    </NavLink>
 
-    <NavLink href="/NotificationSettings" onclick="setSelectedNav(this)" class="menu-item">
-        <span>Notification Settings</span>
-        <span class="arrow">›</span>
-    </NavLink>
-    <br/> 
-    <p>ABOUT AGAPAY</p>
-    <NavLink href="/PrivacyPolicy" class="menu-item">
-        <span>Privacy Policy</span>
-        <span class="arrow">›</span>
-    </NavLink>
 
-    <NavLink href="/TermsConditions" onclick="setSelectedNav(this)" class="menu-item">
-        <span>Terms and Conditions</span>
-        <span class="arrow">›</span>
-    </NavLink>
+<div class="settings-page">
+    <!-- Page Title -->
+    <h3 class="settings-title">Settings</h3>
+
+    <!-- Privacy and Security Section -->
+    <div class="settings-section">
+        <p class="section-header">PRIVACY AND SECURITY</p>
+
+        <NavLink href="/AccountSettings" class="menu-item">
+            <i class="fas fa-cog icon"></i>
+            <span class="label">Account Settings</span>
+            <span class="arrow">›</span>
+        </NavLink>
+
+        <NavLink href="/NotificationSettings" class="menu-item">
+            <i class="fas fa-bell icon"></i>
+            <span class="label">Notification Settings</span>
+            <span class="arrow">›</span>
+        </NavLink>
+    </div>
+
+    <!-- About Agapay Section -->
+    <div class="settings-section">
+        <p class="section-header">ABOUT AGAPAY</p>
+
+        <NavLink href="/PrivacyPolicy" class="menu-item">
+            <i class="fas fa-lock icon"></i>
+            <span class="label">Privacy Policy</span>
+            <span class="arrow">›</span>
+        </NavLink>
+
+        <NavLink href="/TermsConditions" class="menu-item">
+            <i class="fas fa-file-alt icon"></i>
+            <span class="label">Terms and Conditions</span>
+            <span class="arrow">›</span>
+        </NavLink>
+    </div>
 </div>
+
 
 <script>
     function setSelectedNav(src) {

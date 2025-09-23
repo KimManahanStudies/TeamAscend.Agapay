@@ -3,49 +3,56 @@
 <PageTitle>Account</PageTitle>
 
 <div class="account-page">
-    <!-- User Info -->
-    <div class="user-info d-flex align-items-center">
+    <!-- User Info (Clickable) -->
+    <NavLink href="/CreateAccount" class="user-info d-flex align-items-center clickable">
         <img src="imgs/undraw_profile_3.svg" alt="Profile" class="profile-img" />
         <div class="user-details">
             <h5>Hi, LIAM YESHA</h5>
             <p class="text-muted">+639111111111</p>
             <p class="text-muted">ADMIN@AGAPAY.COM.PH</p>
         </div>
-    </div>
+    </NavLink>
 
     <!-- Menu List -->
     <div class="menu-list">
         <NavLink href="/faqs" class="menu-item">
-            <span>FAQs</span>
+            <i class="fas fa-question-circle icon"></i>
+            <span class="label">FAQs</span>
             <span class="arrow">›</span>
         </NavLink>
 
-        <NavLink href="/About" onclick="setSelectedNav(this)" class="menu-item">
-            <span>About eGovPH</span>
+        <NavLink href="/about" class="menu-item">
+            <i class="fas fa-info-circle icon"></i>
+            <span class="label">About Agapay</span>
             <span class="arrow">›</span>
         </NavLink>
 
-        <NavLink href="/ContactUs" class="menu-item">
-            <span>Contact Us</span>
+        <NavLink href="/contactus" class="menu-item">
+            <i class="fas fa-envelope icon"></i>
+            <span class="label">Contact Us</span>
             <span class="arrow">›</span>
         </NavLink>
 
         <NavLink href="/rate" class="menu-item">
-            <span>Rate our app</span>
+            <i class="fas fa-thumbs-up icon"></i>
+            <span class="label">Rate our app</span>
             <span class="arrow">›</span>
         </NavLink>
 
-        <NavLink href="/Settings" onclick="setSelectedNav(this)" class="menu-item">
-            <span>Settings</span>
+        <NavLink href="/settings" class="menu-item">
+            <i class="fas fa-cog icon"></i>
+            <span class="label">Settings</span>
             <span class="arrow">›</span>
         </NavLink>
 
         <NavLink href="/logout" class="menu-item">
-            <span>Logout</span>
+            <i class="fas fa-sign-out-alt icon"></i>
+            <span class="label">Log out</span>
             <span class="arrow">›</span>
         </NavLink>
     </div>
 </div>
+
 
 <script>
     function setSelectedNav(src) {

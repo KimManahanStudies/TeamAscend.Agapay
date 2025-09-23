@@ -1,0 +1,131 @@
+﻿@page "/CreateAccount"
+
+
+<div class="ca-container">
+    <a class="ca-back" href="/Account" aria-label="Back">
+        <span class="ca-back-icon">‹</span>
+    </a>
+
+    <h1 class="ca-title">Create an Account</h1>
+    <p class="ca-sub">Please enter your personal information</p>
+
+    <p class="ca-section">Personal Information</p>
+
+    <div class="ca-field">
+        <input class="ca-input" type="email" placeholder="@@gmail.com" />
+    </div>
+
+    <div class="ca-row">
+        <div class="ca-col">
+            <input class="ca-input" type="text" placeholder="First Name" value="" />
+        </div>
+
+        <div class="ca-col ca-col-suffix">
+            <select class="ca-input ca-select">
+                <option value="">Suffix</option>
+                <option>Jr.</option>
+                <option>Sr.</option>
+                <option>III</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="ca-field">
+        <input class="ca-input" type="text" placeholder="Middle Name" />
+    </div>
+
+    <label class="ca-checkline">
+        <input type="checkbox" />
+        <span class="ca-checklabel">I have no middle name</span>
+    </label>
+
+    <div class="ca-field">
+        <input class="ca-input" type="text" placeholder="Last Name" value="" />
+    </div>
+
+    <div class="ca-field">
+        <input class="ca-input" type="text" placeholder="MM/DD/YYYY" onfocus="this.type='date'" />
+    </div>
+
+    <div class="ca-field">
+        <input class="ca-input" type="text" placeholder="Home Address" />
+    </div>
+
+    <div class="ca-gender">
+        <label class="ca-gender-item">
+            <input type="radio" name="gender" />
+            <span class="ca-radio"></span>
+            <span class="ca-gender-icon">♂</span>
+            <span class="ca-gender-text">Male</span>
+        </label>
+
+        <label class="ca-gender-item">
+            <input type="radio" name="gender" />
+            <span class="ca-radio"></span>
+            <span class="ca-gender-icon">♀</span>
+            <span class="ca-gender-text">Female</span>
+        </label>
+    </div>
+
+    <label class="ca-checkline">
+        <input type="checkbox" />
+        <span class="ca-checklabel">I prefer not to say</span>
+    </label>
+
+    <!-- Password with Show/Hide -->
+    <div class="ca-field ca-password">
+        <input id="create-password" class="ca-input" type="password" placeholder="Password" />
+        <span class="toggle-password" onclick="togglePassword('create-password', this)">Show</span>
+    </div>
+
+    <!-- Confirm Password with Show/Hide -->
+    <div class="ca-field ca-password">
+        <input id="confirm-password" class="ca-input" type="password" placeholder="Confirm Password" />
+        <span class="toggle-password" onclick="togglePassword('confirm-password', this)">Show</span>
+    </div>
+
+    <!-- Next Button -->
+    <div class="ca-next">
+        <button type="button" class="ca-btn" onclick="location.href='/VerifyAccount'">
+            Next
+        </button>
+    </div>
+
+    <!-- Sign in button-->
+    <div class="ca-signin">
+        <p class="ca-signin-text">Already have an account?</p>
+        <button type="button" class="ca-btn ca-btn-secondary" onclick="location.href='/SignIn'">
+            Sign In
+        </button>
+    </div>
+
+    <!-- Agree to Terms -->
+    <label class="ca-checkline ca-terms">
+        <input type="checkbox" />
+        <span class="ca-checklabel">
+            I have read and agree to the
+            <a href="/TermsConditions" class="ca-link">Terms and Conditions</a> and
+            <a href="/PrivacyPolicy" class="ca-link">Privacy Policy</a>.
+        </span>
+    </label>
+
+
+</div>
+
+<script>
+    function togglePassword(id, el) {
+        const pwd = document.getElementById(id);
+        if (pwd.type === "password") {
+            pwd.type = "text";
+            el.textContent = "Hide";
+        } else {
+            pwd.type = "password";
+            el.textContent = "Show";
+        }
+    }
+</script>
+
+
+@code {
+
+}

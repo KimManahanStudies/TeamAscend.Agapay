@@ -1,25 +1,23 @@
 @page "/AccountSettings"
-<h3 text-align="center">Account Settings</h3>
-<br/>
-<!-- Menu List -->
-<div class="menu-list">
-    <p>ACCOUNT</p>
-    <NavLink href="/About" onclick="setSelectedNav(this)" class="menu-item">
-        <span>Personal Information</span>
-        <span class="arrow">›</span>
-    </NavLink>
-    <NavLink href="/PrivacyPolicy" class="menu-item">
-        <span>Preferred Language</span>
-        <span class="arrow">›</span>
-    </NavLink>
-    <NavLink href="/TermsConditions" onclick="setSelectedNav(this)" class="menu-item">
-        <span>Access and Control</span>
-        <span class="arrow">›</span>
-    </NavLink>
+
+<div class="settings-page">
+    <!-- Page Title -->
+    <h3 class="settings-title">Account Settings</h3>
+
+    <!-- Account Section -->
+    <div class="settings-section">
+        <p class="section-header">ACCOUNT</p>
+
+        <NavLink href="/PersonalInformation" class="menu-item">
+            <i class="fas fa-user icon"></i>
+            <span class="label">Personal Information</span>
+            <span class="arrow">›</span>
+        </NavLink>
+
+        <NavLink href="/ChangePassword" class="menu-item">
+            <i class="fas fa-key icon"></i>
+            <span class="label">Change Password</span>
+            <span class="arrow">›</span>
+        </NavLink>
+    </div>
 </div>
-<script>
-    function setSelectedNav(src) {
-        $('.bottom_navigation ul li').removeClass('active');
-        $(src).parent().addClass('active');
-    }
-</script>
