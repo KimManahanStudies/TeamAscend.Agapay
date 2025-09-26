@@ -23,7 +23,7 @@ namespace TeamAscend.Agapay.App.Components.Pages
         protected override async Task OnInitializedAsync()
         {
             Model = new HomeVM();
-            Model.FBPosts = await FacebookService.GetPosts();
+            //Model.FBPosts = await FacebookService.GetPosts();
             await InvokeAsync(StateHasChanged);
         }
 
