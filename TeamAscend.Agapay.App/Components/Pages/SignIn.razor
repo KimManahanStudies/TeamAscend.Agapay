@@ -1,0 +1,35 @@
+﻿@page "/SignIn"
+
+
+<div class="login-container">
+    <h1 class="login-title">Log In</h1>
+
+    <div class="login-field">
+        <input class="login-input" type="email" placeholder="Email" />
+    </div>
+
+    <div class="login-field login-password">
+        <input id="password" class="login-input" type="password" placeholder="Password" />
+        <span class="toggle-password" onclick="togglePassword()">Show</span>
+    </div>
+
+    <button class="login-btn">Log In</button>
+</div>
+
+<script>
+function togglePassword() {
+    const pwd = document.getElementById("password");
+    const toggle = document.querySelector(".toggle-password");
+    if (pwd.type === "password") {
+        pwd.type = "text";
+        toggle.textContent = "Hide";
+    } else {
+        pwd.type = "password";
+        toggle.textContent = "Show";
+    }
+}
+</script>
+
+@code {
+
+}

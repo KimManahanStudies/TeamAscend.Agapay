@@ -1,0 +1,1244 @@
+﻿/* Start of style for Guidelines section in Home page */
+
+.main-label {
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 5px;
+    padding: 0; /* make sure no padding adds space */
+    display: block; /* make sure no weird inline spacing */
+}
+
+.scroll-pane.guidelines {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 0 0 5px 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Each set behaves like a page */
+.guideline-set {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    display: flex;
+    gap: 10px;
+}
+
+    /* --- PRIMARY (first page: 2 big + 3 small) --- */
+    .guideline-set.primary .left {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .guideline-set.primary .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+    /* --- SECONDARY (next pages: 3 by 3 small cards) --- */
+    .guideline-set.secondary {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-start;
+    }
+
+        .guideline-set.secondary .only-small {
+            display: flex;
+            flex: 1;
+            gap: 10px;
+        }
+
+        /* Split into two sides like the first page */
+        .guideline-set.secondary .left,
+        .guideline-set.secondary .right {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Left side = 2 small */
+        .guideline-set.secondary .left {
+            flex: 1;
+        }
+
+        /* Right side = 3 small */
+        .guideline-set.secondary .right {
+            flex: 1;
+        }
+
+
+
+/* Card styles */
+.guide-card {
+    display: block;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    position: relative;
+}
+
+    .guide-card.tall {
+        height: 140px;
+        width: 100%;
+    }
+
+    .guide-card.small {
+        height: 90px;
+        width: 100%;
+    }
+
+    .guide-card .label {
+        position: absolute;
+        bottom: 8px; /* small space from bottom */
+        left: 10px; /* push it a bit from left */
+        right: auto; /* remove right alignment */
+        background: none; /* remove black transparent box */
+        padding: 0; /* remove padding */
+        font-size: 18px; /* make it bigger */
+        font-weight: bold; /* bold style */
+        color: white; /* keep text visible (adjust if background is bright) */
+        text-align: left; /* align left */
+    }
+
+/* End of style for Guidelines section in Home page */
+
+
+
+/* --- Bottom Navigation Container --- */ .bottom_navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff; /* white background */ /*box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);*/
+    border-top-left-radius: 0; /*Kung gusto mo lagyan ng curve sa nav*/
+    border-top-right-radius: 0;
+    z-index: 100;
+}
+
+    .bottom_navigation ul {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0;
+        padding: 0.3px 0; /*Lumalaki yng navigation bar*/
+        list-style: none;
+    }
+        /* --- Navigation Items --- */
+
+        .bottom_navigation ul li {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+            .bottom_navigation ul li a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-size: 12px;
+                color: #0a2d5a; /* dark navy blue */
+                text-decoration: none;
+            }
+            /* Normal icons: Home, Map, Notification, Account */ /* .bottom_navigation ul li:not(.center-button) i {*/ /* font-size: 40px !important; /* adjust size */ /* margin-bottom: 3px;*/ /*}*/ /* --- Active state --- */
+
+            .bottom_navigation ul li.active a {
+                color: #f9a825; /* orange-yellow for active */
+            }
+
+.nav-icon {
+    font-size: 18px !important; /* adjust size */
+    margin-bottom: 3px;
+}
+
+.nav-label {
+    font-size: 10px !important; /* adjust size */
+}
+/* --- Notification Badge --- */
+
+.notif_count {
+    position: absolute;
+    top: 2px;
+    right: 22%;
+    background: #f9a825;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 10px;
+    border-radius: 50%;
+}
+/* --- Center Floating Button --- */
+
+.bottom_navigation ul li.center-button {
+    position: relative;
+    top: -40px; /* lift it above bar */
+    flex: 0;
+    z-index:1;
+}
+
+    .bottom_navigation ul li.center-button a {
+        background: #f9a825; /* yellow */
+        color: #fff;
+        font-size: 28px;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        
+    }
+
+    .bottom_navigation ul li.center-button span {
+        margin-top: 5px;
+        font-size: 10px;
+        color: #0a2d5a;
+        position: absolute;
+        bottom: -25px; /*To move the Go Plan word*/
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    /* Only affect the label under Go Plan when active */
+    .bottom_navigation ul li.center-button.active span {
+        color: #f9a825; /* orange-yellow */
+        
+    }
+    
+    
+/* --- Account Page Styles --- */
+
+.account-page {
+    padding: 1rem;
+}
+
+.user-info {
+    margin: 1rem 0;
+    gap: 1rem;
+}
+
+.profile-img {
+    width: 100px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.user-details h5 {
+    margin: 0;
+    font-weight: bold;
+}
+
+.menu-list {
+    margin-top: 2rem;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: #f9f9f9;
+}
+
+.arrow {
+    font-size: 1.5rem;
+    color: #003366;
+}
+
+/* Remove default link styles */
+.menu-list a,
+.menu-list .nav-link {
+    text-decoration: none !important;
+    color: #003366 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+/* Hover effect */
+.menu-list a:hover {
+    background-color: #f9f9f9;
+}
+
+/* Optional arrow style */
+.menu-list .arrow {
+    font-size: 1.2rem;
+    color: #003366;
+}
+
+/* About Page Styles */
+.about-page {
+    position: relative;
+    padding: 4rem 2rem;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+/* Main Title */
+.title-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #003366; /* Dark blue */
+    margin-bottom: 1.5rem;
+}
+
+/* Subtitle */
+.subtitle-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #003366;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Paragraphs */
+.about-page p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #333;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+/* Contact Us Section */
+
+.resizable-textarea {
+    resize: both; 
+    overflow: auto;
+}
+
+/* --- Go Plan Page Styles --- */
+
+/* ===== Page Layout ===== */
+.plan-page {
+    font-family: "Segoe UI", sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ===== Section 1: Header with Background Image ===== */
+.header-section {
+    position: relative;
+    height: 40vh; /* adjust how tall you want the header */
+    background: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* show whole image */
+    background: #f9fafb; /* fill empty space */
+}
+
+/* Optional overlay (dim the image if needed) */
+.header-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2); /* adjust transparency */
+}
+
+/* ===== Section 2: Overlapping Card ===== */
+.card-section {
+    position: relative;
+    top: -40px; /* overlap effect */
+    background: #fff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.plan-card.scrollable {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Go Plan Style */
+/* ===== Section Layout ===== */
+.section {
+    margin-bottom: 20px;
+}
+
+/* Label (title above input) */
+.GoPlan-title .label {
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    color: #1e3a5f;
+}
+
+/* Borderless Input Field */
+.GoPlan-title .input-field {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    border-radius: 0;
+    padding: 8px 0;
+    font-size: 1.1rem;
+    width: 100%;
+    outline: none;
+    background: transparent;
+}
+
+.GoPlan-title .input-field:focus {
+    border-bottom-color: #2563eb;
+}
+
+/* Divider */
+.divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 18px 0;
+}
+
+/* Icons */
+.icon {
+    font-size: 1.5rem;
+    color: #2563eb;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.icon-img {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+/* Phone Input */
+.phone-input {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #ccc;
+    padding: 6px 0;
+}
+
+.phone-input .prefix {
+    color: #1e3a5f;
+    font-weight: bold;
+    margin-right: 6px;
+    white-space: nowrap;
+}
+
+.phone-input .input-field {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 1.1rem;
+    background: transparent;
+}
+
+.phone-input .input-field:focus {
+    border: none;
+    box-shadow: none;
+}
+
+/* Dropdown */
+.dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.dropdown {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+}
+
+.dropdown-wrapper .arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 1rem;
+    color: #555;
+}
+
+.dropdown:focus {
+    border-bottom-color: #2563eb;
+}
+
+/* Hidden Field */
+.hidden {
+    display: none;
+    margin-top: 10px;
+}
+
+/* Checklist */
+.checklist-header {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #1e3a5f;
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+.checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.checklist-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.checklist-item input[type="checkbox"]:checked {
+    border-color: #2563eb;
+    background-color: #2563eb;
+}
+
+.checklist-item input[type="checkbox"]:checked::after {
+    content: "✔";
+    color: white;
+    font-size: 0.8rem;
+    position: absolute;
+    left: 3px;
+    top: -1px;
+}
+/* Button group container */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+/* Base button style */
+.btn {
+    flex: 1;
+    padding: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 70px; /* fully rounded */
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+/* Submit button (green) */
+.submit-btn {
+    background: #22c55e !important; /* green */
+    color: #fff;
+}
+.submit-btn:hover {
+    background: #16a34a;
+}
+
+/* Cancel button (red) */
+.cancel-btn {
+    background: #ef4444 !important; /* red */
+    color: #fff;
+}
+.cancel-btn:hover {
+    background: #dc2626;
+}
+
+
+/*CSS NEW*/
+
+/* --- Account Page Styles --- */
+
+
+.account-page {
+    padding: 1rem;
+}
+
+/* User Info */
+.user-info {
+    margin: 1rem 0;
+    gap: 1rem;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-details h5 {
+    margin: 0;
+    font-weight: bold;
+    color: #003366;
+}
+
+/* Menu List */
+.menu-list {
+    margin-top: 2rem;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #003366;
+    cursor: pointer;
+}
+
+    .menu-item:hover {
+        background-color: #f9f9f9;
+    }
+
+    /* Left-side icons */
+    .menu-item .icon {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+        color: #003366;
+        min-width: 24px; /* keeps icons aligned */
+        text-align: center;
+    }
+
+    /* Text label expands and pushes arrow */
+    .menu-item .label {
+        flex: 1;
+    }
+
+    /* Chevron arrow (always on far right) */
+    .menu-item .arrow {
+        font-size: 1.2rem;
+        color: #003366;
+        margin-left: auto; /* pushes arrow fully to right */
+    }
+
+/*------------------------------*/
+
+/* Settings Page */
+.settings-page {
+    padding: 1rem;
+}
+
+/* Title */
+.settings-title {
+    text-align: center;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 1.5rem;
+}
+
+/* Section headers */
+.section-header {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #999;
+    margin: 1rem 0 0.5rem;
+    text-transform: uppercase;
+}
+
+/* Menu item */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #003366;
+}
+
+    .menu-item:hover {
+        background-color: #f9f9f9;
+    }
+
+    /* Icons */
+    .menu-item .icon {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+        color: #003366;
+        min-width: 24px;
+        text-align: center;
+    }
+
+    /* Text expands */
+    .menu-item .label {
+        flex: 1;
+    }
+
+    /* Arrow right aligned */
+    .menu-item .arrow {
+        font-size: 1.2rem;
+        color: #003366;
+        margin-left: auto;
+    }
+
+.clickable {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+    .clickable:hover {
+        background: #f5f5f5;
+        border-radius: 8px;
+    }
+
+/*-------------------------------*/
+
+/* Account Settings Page */
+.settings-page {
+    padding: 1rem;
+}
+
+/* Title */
+.settings-title {
+    text-align: center;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 1.5rem;
+}
+
+/* Section headers */
+.section-header {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #999;
+    margin: 1rem 0 0.5rem;
+    text-transform: uppercase;
+}
+
+/* Menu item */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #003366;
+}
+
+    .menu-item:hover {
+        background-color: #f9f9f9;
+    }
+
+    /* Icons */
+    .menu-item .icon {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+        color: #003366;
+        min-width: 24px;
+        text-align: center;
+    }
+
+    /* Text expands */
+    .menu-item .label {
+        flex: 1;
+    }
+
+    /* Arrow right aligned */
+    .menu-item .arrow {
+        font-size: 1.2rem;
+        color: #003366;
+        margin-left: auto;
+    }
+
+
+/*------------*/
+
+/* About Page Styles */
+.about-page {
+    position: relative;
+    padding: 4rem 2rem;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+/* Main Title */
+.title-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #003366; /* Dark blue */
+    margin-bottom: 1.5rem;
+}
+
+/* Subtitle */
+.subtitle-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #003366;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Paragraphs */
+.about-page p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #333;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+/* Contact Us Section */
+
+.resizable-textarea {
+    resize: both;
+    overflow: auto;
+}
+
+/*----------------------------------*/
+
+/* CreateAccount.razor */
+.ca-container {
+    max-width: 420px;
+    margin: 18px auto;
+    padding: 18px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: #07223a;
+}
+
+/* Back arrow */
+.ca-back {
+    text-decoration: none;
+    display: inline-block;
+    color: #06324f;
+    margin-bottom: 12px;
+}
+
+.ca-back-icon {
+    font-size: 26px;
+    line-height: 1;
+    display: inline-block;
+}
+
+/* Title */
+.ca-title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #042a45;
+    margin-bottom: 6px;
+}
+
+.ca-sub {
+    margin: 0 0 12px 0;
+    color: #6b7b86;
+    font-size: 14px;
+}
+
+/* Section label */
+.ca-section {
+    font-weight: 700;
+    margin: 8px 0 10px 0;
+    font-size: 14px;
+}
+
+/* Fields */
+.ca-field {
+    margin-bottom: 12px;
+}
+
+.ca-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    color: #03263a;
+    outline: none;
+}
+
+/* Row for first name + suffix */
+.ca-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.ca-col {
+    flex: 1;
+}
+
+.ca-col-suffix {
+    width: 110px;
+    flex: 0 0 110px;
+}
+
+/* Make select look like input */
+.ca-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+}
+
+/* Checkbox line */
+.ca-checkline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+    color: #1b3444;
+}
+
+    .ca-checkline input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #0a4a78; /* modern browsers */
+    }
+
+/* Select-wrapper with caret on the right */
+.ca-select-wrapper {
+    position: relative;
+}
+
+.ca-caret {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 16px;
+    color: #345b72;
+}
+
+/* Gender */
+.ca-gender {
+    display: flex;
+    gap: 14px;
+    margin: 10px 0;
+}
+
+.ca-gender-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    user-select: none;
+    background: #fff;
+}
+
+    .ca-gender-item input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+.ca-radio {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #8aa3b6;
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.ca-gender-item input[type="radio"]:checked + .ca-radio {
+    background-color: #063a63;
+    border-color: #063a63;
+}
+
+.ca-radio::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.ca-gender-item input[type="radio"]:checked + .ca-radio::after {
+    opacity: 1;
+    background: #fff;
+}
+
+.ca-gender-icon {
+    font-size: 16px;
+    color: #153b51;
+    margin-left: 2px;
+}
+
+.ca-gender-text {
+    font-weight: 600;
+    color: #062b40;
+    font-size: 14px;
+}
+
+/* Button */
+.ca-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 14px;
+    border-radius: 26px;
+    border: none;
+    background: #003366;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+
+
+.ca-password {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #1976d2;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ca-btn-secondary {
+    background: #e0e0e0;
+    color: #333;
+    margin-top: 10px;
+}
+
+    .ca-btn-secondary:hover {
+        background: #c7c7c7;
+    }
+
+.ca-signin-text {
+    text-align: center;
+    font-size: 14px;
+    color: #666; /* light gray for subtle look */
+    margin-bottom: 4px;
+    margin-top: 8px;
+}
+
+.ca-terms {
+    display: block;
+    margin-top: 16px;
+    font-size: 14px;
+    color: #444;
+}
+
+    .ca-terms input {
+        margin-right: 8px;
+    }
+
+.ca-link {
+    color: #007bff; /* blue for links */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+    .ca-link:hover {
+        text-decoration: underline;
+    }
+
+
+/* Small responsive tweak */
+@media (max-width: 420px) {
+    .ca-container {
+        padding: 14px;
+    }
+
+    .ca-col-suffix {
+        width: 96px;
+    }
+}
+
+
+/*-----------------------------------------*/
+
+/*SignIn page*/
+.login-container {
+    max-width: 360px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.login-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #003366;
+}
+
+.login-field {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 12px;
+    padding-right: 60px; /* space for the Show/Hide text */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.login-password .toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #1976d2;
+    cursor: pointer;
+    user-select: none;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #003366;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+    .login-btn:hover {
+        background: #0a2d5a;
+    }
+
+
+/* Verify Account */
+
+.verify-container {
+    max-width: 320px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+}
+
+.verify-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.verify-sub {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 16px;
+}
+
+.verify-code {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.verify-input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+    .verify-input:focus {
+        outline: none;
+        border-color: #0056b3;
+        box-shadow: 0 0 3px rgba(0, 86, 179, 0.5);
+    }
+
+.verify-btn {
+    width: 100%;
+    padding: 12px;
+    background: #002D62;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+    .verify-btn:hover {
+        background: #004080;
+    }
+
+.verify-resend {
+    margin-top: 12px;
+}
+
+    .verify-resend a {
+        font-size: 14px;
+        color: #0056b3;
+        text-decoration: none;
+    }
+
+        .verify-resend a:hover {
+            text-decoration: underline;
+        }

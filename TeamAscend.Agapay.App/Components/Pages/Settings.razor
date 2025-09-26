@@ -1,0 +1,49 @@
+@page "/Settings"
+
+
+<div class="settings-page">
+    <!-- Page Title -->
+    <h3 class="settings-title">Settings</h3>
+
+    <!-- Privacy and Security Section -->
+    <div class="settings-section">
+        <p class="section-header">PRIVACY AND SECURITY</p>
+
+        <NavLink href="/AccountSettings" class="menu-item">
+            <i class="fas fa-cog icon"></i>
+            <span class="label">Account Settings</span>
+            <span class="arrow">›</span>
+        </NavLink>
+
+        <NavLink href="/NotificationSettings" class="menu-item">
+            <i class="fas fa-bell icon"></i>
+            <span class="label">Notification Settings</span>
+            <span class="arrow">›</span>
+        </NavLink>
+    </div>
+
+    <!-- About Agapay Section -->
+    <div class="settings-section">
+        <p class="section-header">ABOUT AGAPAY</p>
+
+        <NavLink href="/PrivacyPolicy" class="menu-item">
+            <i class="fas fa-lock icon"></i>
+            <span class="label">Privacy Policy</span>
+            <span class="arrow">›</span>
+        </NavLink>
+
+        <NavLink href="/TermsConditions" class="menu-item">
+            <i class="fas fa-file-alt icon"></i>
+            <span class="label">Terms and Conditions</span>
+            <span class="arrow">›</span>
+        </NavLink>
+    </div>
+</div>
+
+
+<script>
+    function setSelectedNav(src) {
+        $('.bottom_navigation ul li').removeClass('active');
+        $(src).parent().addClass('active');
+    }
+</script>

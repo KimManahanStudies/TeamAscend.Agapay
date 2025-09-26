@@ -1,0 +1,43 @@
+@page "/NotificationSettings"
+
+<div class="container py-5">
+    <h2 class="mb-4">Notification Settings</h2>
+
+<div class="menu-list">
+    <!-- Push Notification -->
+    <div class="d-flex justify-content-between align-items-center mb-4 menu-item">
+        <div>
+            <h5>Push Notification</h5>
+            <p class="@GetTextClass(IsPushEnabled)">
+                Receive important updates and alerts directly on your device, even when the app isn't open.
+            </p>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" @bind="IsPushEnabled">
+        </div>
+    </div>
+
+    <!-- In-App Notification -->
+    <div class="d-flex justify-content-between align-items-center menu-item">
+        <div>
+            <h5>In-App Notification</h5>
+            <p class="@GetTextClass(IsInAppEnabled)">
+                Get timely messages and alerts within the app itself.
+            </p>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" @bind="IsInAppEnabled">
+        </div>
+    </div>
+</div>
+</div>
+
+@code {
+    private bool IsPushEnabled { get; set; }
+    private bool IsInAppEnabled { get; set; }
+
+    private string GetTextClass(bool isEnabled)
+    {
+        return isEnabled ? "fw-bold" : "";
+    }
+}
