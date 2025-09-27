@@ -1242,3 +1242,280 @@
         .verify-resend a:hover {
             text-decoration: underline;
         }
+        
+/* WTD Rainstorm Style Section */
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+.safety-guide {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    background-image: url("../imgs/wtd_banners/wtd_rainstorm.png");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-flooding {
+    background-image: url("../imgs/wtd_banners/wtd_flooding.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-earthquake {
+    background-image: url("../imgs/wtd_banners/wtd_flooding.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-landslide {
+    background-image: url("../imgs/wtd_banners/wtd_landslide.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-fire {
+    background-image: url("../imgs/wtd_banners/wtd_landslide.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 10px 20px 20px 20px;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.page-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+
+.section {
+    padding: 0 15px 10px 15px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    margin: 20px 0 10px 0;
+    padding-left: 5px;
+}
+
+.action-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ffa500;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    min-height: 55px;
+}
+
+.icon-box {
+    width: 50px; 
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #003366; 
+    font-size: 28px;
+    margin-right: 15px;
+    position: relative;
+}
+
+.action-text {
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.icon-stay-indoors {
+    font-size: 35px;
+    position: relative;
+}
+
+.person-icon {
+    position: absolute;
+    font-size: 18px;
+    top: 22px;
+    left: 16px;
+    color: #003366;
+}
+
+.clock-icon {
+    position: absolute;
+    font-size: 14px;
+    bottom: 5px;
+    right: 5px;
+    color: #003366;
+    background-color: #fff8e1;
+    border-radius: 50%;
+}
+
+/* FIRST AID HOME SECTION */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.first-aid-guide {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding-top: 100px;
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: inherit; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 15px 15px 10px 15px;
+    background-color: white;
+    border-bottom: 1px solid #eee;
+    z-index: 100;
+}
+
+.page-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+}
+
+.tabs {
+    position: fixed;
+    top: 60px; 
+    width: 100%;
+    max-width: inherit;
+    display: flex;
+    justify-content: space-around;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    z-index: 99;
+}
+
+.tab {
+    flex-grow: 1;
+    text-align: center;
+    padding: 12px 0;
+    text-decoration: none;
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.tab.active {
+    color: #003366; 
+    border-bottom: 3px solid #003366;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 15px;
+}
+
+.guide-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    transition: transform 0.2s;
+}
+
+.guide-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-image {
+    padding-top: 80%;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    min-height: 40px;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 5px;
+}
+
+.bookmark-icon {
+    color: #003366;
+    font-size: 16px;
+}
