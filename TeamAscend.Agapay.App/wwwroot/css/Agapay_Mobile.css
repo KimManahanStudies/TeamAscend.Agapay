@@ -1401,121 +1401,328 @@ body {
     border-radius: 50%;
 }
 
+
+/*------------------------------------------------------------------------*/
 /* FIRST AID HOME SECTION */
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.first-aid-guide {
-    max-width: 600px;
+.wtdfa-container {
+    max-width: 420px;
     margin: 0 auto;
-    background-color: white;
-    padding-top: 100px;
     min-height: 100vh;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    max-width: inherit; 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    padding: 15px 15px 10px 15px;
-    background-color: white;
-    border-bottom: 1px solid #eee;
-    z-index: 100;
-}
-
-.page-title {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
-    color: #333;
-}
-
-.tabs {
-    position: fixed;
-    top: 60px; 
-    width: 100%;
-    max-width: inherit;
-    display: flex;
-    justify-content: space-around;
-    background-color: white;
-    border-bottom: 1px solid #ddd;
-    z-index: 99;
-}
-
-.tab {
-    flex-grow: 1;
-    text-align: center;
-    padding: 12px 0;
-    text-decoration: none;
-    color: #666;
-    font-size: 14px;
-    font-weight: 500;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s;
-}
-
-.tab.active {
-    color: #003366; 
-    border-bottom: 3px solid #003366;
-}
-
-.card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 15px;
-}
-
-.guide-card {
+    background: #fff;
+    box-shadow: none;
     display: flex;
     flex-direction: column;
+}
+
+/* Header */
+.wtdfa-header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.wtdfa-header-row {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    justify-content: center; /* Center the row horizontally */
+    position: relative;
+}
+
+.wtdfa-back {
+    color: #003366;
+    font-size: 22px;
     text-decoration: none;
-    border-radius: 8px;
+    margin-left: 8px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.wtdfa-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #003366;
+    text-align: center;
+    margin: 0 auto;
+    /* Center the title horizontally */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+}
+
+.wtdfa-header-spacer {
+    width: 32px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Segmented Control */
+.wtdfa-segmented {
+    display: flex;
+    justify-content: center; /* Center the toggle horizontally */
+    align-items: center;
+    margin: 0 8px;
+    gap: 0;
+    width: 100%;
+}
+
+/* --- Segmented Control: Make both toggle buttons same color --- */
+.wtdfa-segment-btn {
+    flex: 1 1 0;
+    background: none !important;
+    border: none !important;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 0;
+    color: #222 !important;
+    border-bottom: none !important;
+    transition: color 0.2s;
+    cursor: pointer;
+    outline: none !important;
+    position: relative;
+    text-decoration: none !important;
+    text-align: center;
+    margin: 0 8px;
+    min-width: 120px;
+    max-width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    /* Only text and icon inside button change color on hover */
+    .wtdfa-segment-btn:hover .fa-book-medical,
+    .wtdfa-segment-btn:hover .fa-bookmark,
+    .wtdfa-segment-btn:hover span,
+    .wtdfa-segment-btn:hover {
+        color: #003366 !important;
+    }
+
+    /* Active state remains neutral */
+    .wtdfa-segment-btn.active {
+        color: #222 !important;
+        background: none !important;
+        border-bottom: none !important;
+    }
+
+    /* Remove background hover effect */
+    .wtdfa-segment-btn:hover {
+        background: none !important;
+    }
+
+/* --- Guide List: Bookmark icon hover color --- */
+.wtdfa-bookmark:hover,
+.wtdfa-bookmark:focus {
+    color: #003366 !important;
+    transform: scale(1.2);
+}
+
+/* Active state for bookmark icon remains yellow */
+.wtdfa-bookmark.active {
+    color: #f9a825 !important;
+    transform: scale(1.2);
+}
+
+/* Scrollable Guide List */
+.wtdfa-scroll-list {
+    overflow-y: auto;
+    padding: 12px 8px 0 8px;
+    height: calc(100vh - 100px);
+}
+
+/* Grid */
+.wtdfa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Card */
+.wtdfa-card {
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    transition: transform 0.2s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none !important;
+    color: inherit !important;
+    outline: none !important;
 }
 
-.guide-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
+    .wtdfa-card:focus,
+    .wtdfa-card:active {
+        outline: none !important;
+        box-shadow: none !important;
+        color: #222 !important;
+        background: none !important;
+    }
 
-.card-image {
-    padding-top: 80%;
+/* Card Image */
+.wtdfa-card-image {
+    width: 100%;
+    height: 100px;
     background-size: cover;
     background-position: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
-.card-footer {
+/* Card Footer */
+.wtdfa-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+}
+
+/* Card Title - Remove blue color and underline */
+.wtdfa-card-title {
+    font-size: 0.98rem;
+    font-weight: 500;
+    color: #222 !important;
+    text-decoration: none !important;
+}
+
+/* Bookmark Icon */
+.wtdfa-bookmark {
+    color: #888;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+
+    .wtdfa-bookmark:hover,
+    .wtdfa-bookmark:focus,
+    .wtdfa-bookmark.active {
+        color: #f9a825;
+        transform: scale(1.2);
+    }
+
+/* Remove tap highlight on mobile */
+.wtdfa-card,
+.wtdfa-segment-btn {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/*---------------------------------------------------------------*/
+/* Emergency Hotlines */
+.hotline-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.hotline-header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    z-index: 10;
+    text-align: center;
+}
+
+    .hotline-header h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: bold;
+        color: #003366;
+    }
+
+.segmented-control {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    min-height: 40px;
+    margin-top: 8px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #f9f9f9;
 }
 
-.card-title {
+.segment-dropdown {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #003366;
+    font-weight: 600;
+    background: #fff;
+    cursor: pointer;
+}
+
+.segment-favorites {
+    background: none;
+    border: none;
     font-size: 14px;
     font-weight: 600;
-    color: #333;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-right: 5px;
+    color: gray;
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
-.bookmark-icon {
-    color: #003366;
-    font-size: 16px;
+    .segment-favorites.active {
+        color: #003366;
+    }
+
+.hotline-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
 }
+
+.hotline-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.hotline-info h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #c00;
+}
+
+.hotline-info p {
+    margin: 2px 0 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.hotline-logo img {
+    width: 40px;
+    height: 40px;
+}
+
+
+.hotline-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.favorite-star {
+    font-size: 22px;
+    cursor: pointer;
+    color: gray;
+    transition: color 0.2s;
+}
+
+    .favorite-star.active {
+        color: gold;
+    }
