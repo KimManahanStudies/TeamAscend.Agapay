@@ -2,9 +2,9 @@
 
 namespace TeamAscend.Agapay.Web.Controllers
 {
-    public class UserController : Controller
+    public class ProfileController : Controller
     {
-        public IActionResult Profile()
+        public IActionResult Index()
         {
             return View();
         }

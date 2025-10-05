@@ -1,0 +1,130 @@
+/*******************************
+    * MODAL AS LEFT/RIGHT SIDEBAR
+    * Add "left" or "right" in modal parent div, after class="modal".
+    * Get free snippets on bootpen.com
+    *******************************/
+.modal.left .modal-dialog,
+.modal.right .modal-dialog {
+    position: fixed;
+    margin: auto;
+    width: 50%;
+    height: 100%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+    max-width:60vw;
+}
+
+.modal.left .modal-content,
+.modal.right .modal-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal.left .modal-body,
+.modal.right .modal-body {
+    padding: 15px 15px 80px;
+}
+
+/*Left*/
+.modal.left.fade .modal-dialog {
+    left: -320px;
+    -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+    transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.left.fade.in .modal-dialog {
+    left: 0;
+}
+
+/*Right*/
+.modal.right.fade .modal-dialog {
+    right: 0px;
+    -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+    transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+.modal.right.fade.in .modal-dialog {
+    right: 0;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+    border-radius: 0;
+    border: none;
+}
+
+.modal-header {
+    border-bottom-color: #EEEEEE;
+    background-color: #FAFAFA;
+}
+
+.buttonsets {
+    text-align: right;
+}
+
+
+
+.modal-body .control-label {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.modal-body .toggle-button {
+    font-size: 14px;
+    font-weight: 400;
+    /* text-transform: uppercase; */
+    vertical-align: middle;
+    display: inline-block;
+    margin: 3px 0px;
+    padding: 10px 29px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+    .modal-body .toggle-button input.togglbtn[type="radio"] {
+        vertical-align: -2px;
+        margin: 0px 5px;
+        visibility: hidden;
+        margin-left: -20px;
+    }
+
+    .modal-body .toggle-button.active {
+        /*color: #FFFFFF;
+        background-color: #dd4b39;*/
+        color: #071d49;
+        border-color: #071d49;
+        /*font-weight: bold;*/
+    }
+
+.ui-autocomplete .ui-menu-item {
+    background: #FFFFFF !important;
+}
+
+/*.main-panel.modal-open {
+        overflow: hidden;
+    }*/
+
+.tooltip-arrow, .bottom-header-tooltip + .tooltip > .tooltip-inner {
+    background-color: #071E48;
+    color: #FFFFFF;
+    padding: 10px;
+}
+
+    .tooltip-arrow, .bottom-header-tooltip + .tooltip > .tooltip-inner:before {
+        border-bottom-color: #071E48 !important;
+    }
+
+    .tooltip-arrow, .bottom-header-tooltip + .tooltip > .tooltip-inner:after {
+        border-bottom-color: #071E48 !important;
+    }
+
+table.dataTable .btn-simple.btn-icon {
+    font-size: 20px;
+}
+

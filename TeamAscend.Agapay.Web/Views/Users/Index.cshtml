@@ -13,7 +13,7 @@
         }
     </style>
 }
-<form id="frmDetails" method="post" action="/api/User/PostData">
+<form id="frmDetails" method="post" action="/Users/SaveRecord">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Users</h1>
@@ -78,21 +78,30 @@
         </div>
     </div>
 
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+    <div class="modal fade right" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="userModalLabel">User: <span class="selected-user"></span></h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    @* <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
-                    </button>
+                    </button> *@
+
+                    <span style="float:right">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    </span>                    
                 </div>
                 <div class="modal-body">
                     <!-- Form Group (username)-->
                     <div class="mb-3">
                         <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
                         <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="small mb-1" for="inputUsername">Password:</label>
+                        <input class="form-control" id="inputUsername" type="text" placeholder="Enter your password" value="" />
                     </div>
                     <!-- Form Row-->
                     <div class="row gx-3 mb-3">
@@ -140,8 +149,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit">Save</button>                    
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <!--Bottom Toolbar here-->
                 </div>
             </div>
         </div>
@@ -155,7 +163,7 @@
     <script>
         function NewUser(){
             $('#frmDetails').trigger('reset');
-            $('#userModal').modal('show');
+            $('#userModal').modal('show')
         }
 
 
