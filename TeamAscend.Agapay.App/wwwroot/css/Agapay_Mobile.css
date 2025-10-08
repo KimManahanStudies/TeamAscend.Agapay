@@ -1242,3 +1242,697 @@
         .verify-resend a:hover {
             text-decoration: underline;
         }
+        
+/* WTD Rainstorm Style Section */
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+.safety-guide {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    background-image: url("../imgs/wtd_banners/wtd_rainstorm.png");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-flooding {
+    background-image: url("../imgs/wtd_banners/wtd_flooding.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-earthquake {
+    background-image: url("../imgs/wtd_banners/wtd_flooding.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-landslide {
+    background-image: url("../imgs/wtd_banners/wtd_landslide.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-fire {
+    background-image: url("../imgs/wtd_banners/wtd_landslide.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 10px 20px 20px 20px;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.page-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+
+.section {
+    padding: 0 15px 10px 15px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    margin: 20px 0 10px 0;
+    padding-left: 5px;
+}
+
+.action-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ffa500;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    min-height: 55px;
+}
+
+.icon-box {
+    width: 50px; 
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #003366; 
+    font-size: 28px;
+    margin-right: 15px;
+    position: relative;
+}
+
+.action-text {
+    flex-grow: 1;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.icon-stay-indoors {
+    font-size: 35px;
+    position: relative;
+}
+
+.person-icon {
+    position: absolute;
+    font-size: 18px;
+    top: 22px;
+    left: 16px;
+    color: #003366;
+}
+
+.clock-icon {
+    position: absolute;
+    font-size: 14px;
+    bottom: 5px;
+    right: 5px;
+    color: #003366;
+    background-color: #fff8e1;
+    border-radius: 50%;
+}
+
+
+/*------------------------------------------------------------------------*/
+/* FIRST AID HOME SECTION */
+.wtdfa-container {
+    max-width: 420px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #fff;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.wtdfa-header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 10;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.wtdfa-header-row {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    justify-content: center; /* Center the row horizontally */
+    position: relative;
+}
+
+.wtdfa-back {
+    color: #003366;
+    font-size: 22px;
+    text-decoration: none;
+    margin-left: 8px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.wtdfa-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #003366;
+    text-align: center;
+    margin: 0 auto;
+    /* Center the title horizontally */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+}
+
+.wtdfa-header-spacer {
+    width: 32px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Segmented Control */
+.wtdfa-segmented {
+    display: flex;
+    justify-content: center; /* Center the toggle horizontally */
+    align-items: center;
+    margin: 0 8px;
+    gap: 0;
+    width: 100%;
+}
+
+/* --- Segmented Control: Make both toggle buttons same color --- */
+.wtdfa-segment-btn {
+    flex: 1 1 0;
+    background: none !important;
+    border: none !important;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 0;
+    color: #222 !important;
+    border-bottom: none !important;
+    transition: color 0.2s;
+    cursor: pointer;
+    outline: none !important;
+    position: relative;
+    text-decoration: none !important;
+    text-align: center;
+    margin: 0 8px;
+    min-width: 120px;
+    max-width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    /* Only text and icon inside button change color on hover */
+    .wtdfa-segment-btn:hover .fa-book-medical,
+    .wtdfa-segment-btn:hover .fa-bookmark,
+    .wtdfa-segment-btn:hover span,
+    .wtdfa-segment-btn:hover {
+        color: #003366 !important;
+    }
+
+    /* Active state remains neutral */
+    .wtdfa-segment-btn.active {
+        color: #222 !important;
+        background: none !important;
+        border-bottom: none !important;
+    }
+
+    /* Remove background hover effect */
+    .wtdfa-segment-btn:hover {
+        background: none !important;
+    }
+
+/* --- Guide List: Bookmark icon hover color --- */
+.wtdfa-bookmark:hover,
+.wtdfa-bookmark:focus {
+    color: #003366 !important;
+    transform: scale(1.2);
+}
+
+/* Active state for bookmark icon remains yellow */
+.wtdfa-bookmark.active {
+    color: #f9a825 !important;
+    transform: scale(1.2);
+}
+
+/* Scrollable Guide List */
+.wtdfa-scroll-list {
+    overflow-y: auto;
+    padding: 12px 8px 0 8px;
+    height: calc(100vh - 100px);
+}
+
+/* Grid */
+.wtdfa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Card */
+.wtdfa-card {
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none !important;
+    color: inherit !important;
+    outline: none !important;
+}
+
+    .wtdfa-card:focus,
+    .wtdfa-card:active {
+        outline: none !important;
+        box-shadow: none !important;
+        color: #222 !important;
+        background: none !important;
+    }
+
+/* Card Image */
+.wtdfa-card-cpr {
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-image: url("../imgs/wtd_banners/wtdfa_banners/wtd_cpr.jpg");
+}
+.wtdfa-card-burns {
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-image: url("../imgs/wtd_banners/wtdfa_banners/wtd_burns.jpg");
+}
+.wtdfa-card-splinting {
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-image: url("../imgs/wtd_banners/wtdfa_banners/wtd_splinting.jpg");
+}
+.wtdfa-card-choking {
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-image: url("../imgs/wtd_banners/wtdfa_banners/wtd_choking.png");
+}
+.wtdfa-card-bleeding {
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-image: url("../imgs/wtd_banners/wtdfa_banners/wtd_bleeding.jpg");
+}
+.wtdfa-card-cuts {
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-image: url("../imgs/wtd_banners/wtdfa_banners/wtd_cuts.jpg");
+}
+.wtdfa-card-hyperthermia {
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-image: url("../imgs/wtd_banners/wtdfa_banners/wtd_hyperthermia.jpg");
+}
+.wtdfa-card-stroke {
+    width: 100%;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-image: url("../imgs/wtd_banners/wtdfa_banners/wtd_heatstroke.jpg");
+}
+
+/* Card Footer */
+.wtdfa-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+}
+
+/* Card Title - Remove blue color and underline */
+.wtdfa-card-title {
+    font-size: 0.98rem;
+    font-weight: 500;
+    color: #222 !important;
+    text-decoration: none !important;
+}
+
+/* Bookmark Icon */
+.wtdfa-bookmark {
+    color: #888;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+}
+
+    .wtdfa-bookmark:hover,
+    .wtdfa-bookmark:focus,
+    .wtdfa-bookmark.active {
+        color: #f9a825;
+        transform: scale(1.2);
+    }
+
+/* Remove tap highlight on mobile */
+.wtdfa-card,
+.wtdfa-segment-btn {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/*---------------------------------------------------------------*/
+/* Emergency Hotlines */
+.hotline-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.hotline-header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    z-index: 10;
+    text-align: center;
+}
+
+    .hotline-header h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: bold;
+        color: #003366;
+    }
+
+.segmented-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.segment-dropdown {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #003366;
+    font-weight: 600;
+    background: #fff;
+    cursor: pointer;
+}
+
+.segment-favorites {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: gray;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+    .segment-favorites.active {
+        color: #003366;
+    }
+
+.hotline-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.hotline-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.hotline-info h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #c00;
+}
+
+.hotline-info p {
+    margin: 2px 0 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.hotline-logo img {
+    width: 40px;
+    height: 40px;
+}
+
+
+.hotline-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.favorite-star {
+    font-size: 22px;
+    cursor: pointer;
+    color: gray;
+    transition: color 0.2s;
+}
+
+    .favorite-star.active {
+        color: gold;
+    }
+
+/* First Aid Guidelines Style (basic cpr, burns, etc..) */
+.first-aid-guide-page {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    color: #333; /* softer black for text */
+    background-color: #fafafa; /* light gray background for contrast */
+}
+
+.headerwtdfa {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.back-link {
+    color: #003366 !important; 
+    font-size: 22px;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: #ffa500; 
+}
+
+
+.page-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+}
+
+.content {
+    border: none;             
+    border-radius: 12px;     
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    padding: 20px;
+}
+
+
+.section-title {
+    font-size: 26px;
+    color: #222;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.image-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.cpr-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.intro-text {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    text-align: justify;
+    color: #444;
+}
+
+.subsection-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #444;
+    margin-top: 25px;
+    margin-bottom: 12px;
+    border-left: 4px solid #ffa500;
+    padding-left: 8px;
+}
+
+.step-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.step-item {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    background: #f9f9f9;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.step-number {
+    font-weight: bold;
+    margin-right: 8px;
+    min-width: 20px;
+    color: #003366;
+}
+
+.bullet-list {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin: 10px 0;
+}
+
+.bullet-item {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 6px;
+    color: #444;
+}
+
+.important-note {
+    background-color: #003366;
+    border: 1px solid #ffeeba;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-top: 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+.important-note a:hover {
+    color: #ffa500; /* turns orange on hover, optional */
+}
+
+.important-note h3 {
+    margin-top: 0;
+    font-weight: bold;
+    color: #ffa500;
+    font-size: 18px;
+}

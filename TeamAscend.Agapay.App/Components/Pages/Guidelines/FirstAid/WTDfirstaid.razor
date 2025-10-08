@@ -1,0 +1,120 @@
+@page "/WTDfirstaid"
+
+
+<div class="wtdfa-container">
+    <!-- Header: Back Arrow + Title -->
+    <div class="wtdfa-header">
+        <div class="wtdfa-header-row">
+            <a href="/" class="wtdfa-back">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div class="wtdfa-title">
+                First Aid Guide
+            </div>
+            <div class="wtdfa-header-spacer"></div>
+        </div>
+        <!-- Segmented Control -->
+        <div class="wtdfa-segmented">
+            <a class="wtdfa-segment-btn active" id="segment-guide" href="/">
+                <i class="fas fa-book-medical"></i> First Aid Guide
+            </a>
+            <a class="wtdfa-segment-btn" id="segment-bookmarks" href="/">
+                <i class="fas fa-bookmark"></i> Bookmarks
+            </a>
+        </div>
+    </div>
+
+    <!-- Scrollable Guide List -->
+    <div class="wtdfa-scroll-list">
+        <div class="wtdfa-grid">
+            <a href="/WTDcpr" class="wtdfa-card">
+                <div class="wtdfa-card-cpr"></div>
+                <div class="wtdfa-card-footer">
+                    <span class="wtdfa-card-title">Basic CPR</span>
+                    <i class="far fa-bookmark wtdfa-bookmark"></i>
+                </div>
+            </a>
+            <a href="/WTDburns" class="wtdfa-card">
+                <div class="wtdfa-card-burns"></div>
+                <div class="wtdfa-card-footer">
+                    <span class="wtdfa-card-title">Healing Burns</span>
+                    <i class="far fa-bookmark wtdfa-bookmark"></i>
+                </div>
+            </a>
+            <a href="/WTDsplinting" class="wtdfa-card">
+                <div class="wtdfa-card-splinting"></div>
+                <div class="wtdfa-card-footer">
+                    <span class="wtdfa-card-title">Splinting</span>
+                    <i class="far fa-bookmark wtdfa-bookmark"></i>
+                </div>
+            </a>
+            <a href="/WTDchoking" class="wtdfa-card">
+                <div class="wtdfa-card-choking"></div>
+                <div class="wtdfa-card-footer">
+                    <span class="wtdfa-card-title">Choking</span>
+                    <i class="far fa-bookmark wtdfa-bookmark"></i>
+                </div>
+            </a>
+            <a href="/WTDbleeding" class="wtdfa-card">
+                <div class="wtdfa-card-bleeding"></div>
+                <div class="wtdfa-card-footer">
+                    <span class="wtdfa-card-title">Bleeding</span>
+                    <i class="far fa-bookmark wtdfa-bookmark"></i>
+                </div>
+            </a>
+            <a href="/WTDminorcutswounds" class="wtdfa-card">
+                <div class="wtdfa-card-cuts"></div>
+                <div class="wtdfa-card-footer">
+                    <span class="wtdfa-card-title">Minor Cuts and Wounds</span>
+                    <i class="far fa-bookmark wtdfa-bookmark"></i>
+                </div>
+            </a>
+            <a href="/WTDhyperthermia" class="wtdfa-card">
+                <div class="wtdfa-card-hyperthermia"></div>
+                <div class="wtdfa-card-footer">
+                    <span class="wtdfa-card-title">Hyperthermia</span>
+                    <i class="far fa-bookmark wtdfa-bookmark"></i>
+                </div>
+            </a>
+            <a href="/WTDstroke" class="wtdfa-card">
+                <div class="wtdfa-card-stroke"></div>
+                <div class="wtdfa-card-footer">
+                    <span class="wtdfa-card-title">Heat Stroke</span>
+                    <i class="far fa-bookmark wtdfa-bookmark"></i>
+                </div>
+            </a>
+          
+            <!-- Add more guide cards as needed -->
+        </div>
+    </div>
+</div>
+
+<script>
+    // Toggle segment control active state
+    document.addEventListener("DOMContentLoaded", function () {
+        const guideBtn = document.getElementById("segment-guide");
+        const bookmarksBtn = document.getElementById("segment-bookmarks");
+        const segmentBtns = [guideBtn, bookmarksBtn];
+
+        segmentBtns.forEach(btn => {
+            btn.addEventListener("click", function () {
+                segmentBtns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+            });
+        });
+
+        // Bookmark icon hover/click effect
+        document.querySelectorAll(".wtdfa-bookmark").forEach(function (icon) {
+            icon.addEventListener("click", function (e) {
+                icon.classList.toggle("active");
+                e.preventDefault();
+            });
+            icon.addEventListener("keydown", function (e) {
+                if (e.key === "Enter" || e.key === " ") {
+                    icon.classList.toggle("active");
+                    e.preventDefault();
+                }
+            });
+        });
+    });
+</script>
