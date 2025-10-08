@@ -13,7 +13,7 @@
         }
     </style>
 }
-<form id="frmDetails" method="post" action="~/Users/SaveRecord">
+<form id="frmDetails" method="post" action="~/Users/SaveRecord" autocomplete="off">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Users</h1>
@@ -64,10 +64,10 @@
                             <td>@itm.CreatedDate</td>
                             <td>@itm.ModifiedDate</td>
                             <td>
-                                <a href="#" class="text-success" title="Edit">
+                                <a href="#" class="text-success" title="Edit" onclick="EditUser(@itm.ID)">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="#" class="text-danger" title="Delete">
+                                <a href="#" class="text-danger" title="Delete" onclick="DeleteUser(@itm.ID)">
                                     <i class="fa fa-times"></i>
                                 </a>
                             </td>
@@ -212,12 +212,47 @@
 @section Scripts {
     <script>
         function NewUser(){
+            $('#ID').val(0);
             $('#frmDetails').trigger('reset');
             $('#userModal').modal('show')
         }
 
         function EditUser(uID){
-            $('#userModal').modal('show');
+
+            //Pull DataTransfer via AJAX Approach
+            $.ajax({
+                url: '/Users/GetUser?ID=' + uID,
+                method: 'GET',
+                success: function (res) {
+                    console.log('GetAccount > res: ', res);
+                    for (let kk of Object.keys(res)) {
+                        $('#' + kk).val(res[kk]);
+                    }
+                    $('#userModal').modal('show');
+                },
+                err: function (err) {
+                    alert('Error Getting Data!');
+                },
+            });
+        }
+
+        function DeletUser(uID){
+            let askDeletion = confirm('Do you want to delete User?');
+            if(askDeletion){
+                $.ajax({
+                url: '/Users/DeleteUser?ID=' + uID,
+                method: 'GET',
+                success: function (res) {
+                    if(res == '1'){
+                        alert('Deletion Successfully!');
+                        window.location.reload();
+                    }                    
+                },
+                err: function (err) {
+                    alert('Error Getting Data!');
+                },
+            });
+            }
         }
 
         $(document).ready(function() {
@@ -225,11 +260,10 @@
             //TransformStream HTML Table to Datatable
             $('#dataTable').DataTable();
 
-
             $('#frmDetails').validate({
                 submitHandler: function(form) {
                     // Form is valid, submit via AJAX or other custom logic
-                    alert("Form submitted successfully!");
+                    //alert("Form submitted successfully!");
                     form.submit(); // Or use AJAX
                 }
             });

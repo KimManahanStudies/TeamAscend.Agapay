@@ -27,6 +27,37 @@ namespace TeamAscend.Agapay.Web.Controllers
             return View(resp);
         }
 
+        [HttpGet]
+        public UserAccount GetUser(int ID)
+        {
+            UserAccount resp = null;
+
+            using (AgapayTestDBContext db = new AgapayTestDBContext())
+            {
+                resp = (from row in db.UserAccounts where row.ID == ID && !row.IsDeleted select row).FirstOrDefault();
+            }
+
+            return resp;
+        }
+
+        [HttpGet]
+        public int DeleteUser(int ID)
+        {
+            int res = 0;
+
+            using (AgapayTestDBContext db = new AgapayTestDBContext())
+            {
+                var resp = (from row in db.UserAccounts where row.ID == ID && !row.IsDeleted select row).FirstOrDefault();
+                if(resp != null)
+                {
+                    db.UserAccounts.Remove(resp);
+                    res = db.SaveChanges();
+                }
+            }
+
+            return res;
+        }
+
         [HttpPost]
         [Route("~/Users/SaveRecord")]
         public IActionResult SaveRecord(UserAccount request)
