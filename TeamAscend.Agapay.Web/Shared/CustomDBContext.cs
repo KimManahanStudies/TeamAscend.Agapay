@@ -15,8 +15,8 @@ namespace TeamAscend.Agapay.Web.Shared
             string[] args = Environment.GetCommandLineArgs().Skip(1).ToArray();
 
             HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
-            //optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("Con1"));
-            optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=AgapayTestDB;User ID=sa;Password=pass@123;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("AgapayTestDBCon"));
+            //optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=AgapayTestDB;User ID=sa;Password=pass@123;Trust Server Certificate=True");
 
             if (!optionsBuilder.IsConfigured)
             {
