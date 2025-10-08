@@ -1,4 +1,158 @@
-﻿@{
+﻿@model List<TeamAscend.Agapay.Web.Models.BlogPost>
+@{
     Layout = "_BackEndLayout";
-    ViewData["Title"] = "Blog";
+    ViewData["Title"] = "Announcements";
+}
+@section Header
+{
+    <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+}
+
+<form id="frmDetails" method="post" action="~/Content/SaveBlogPost" autocomplete="off">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Blog Posts</h1>
+        <button class="btn btn-primary btn-icon-split shadow" type="button" id="btnNewPost">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">New Post</span>            
+        </button>
+    </div>
+
+    <div class="card shadow" style="padding:10px">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Created Date</th>
+                        <th>Modified Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var post in Model)                
+                    {
+                        <tr>
+                            <td>@post.ID</td>
+                            <td>@post.Title</td>
+                            <td>@post.BlogStatus</td>
+                            <td>@post.CreatedDate</td>
+                            <td>@post.ModifiedDate</td>
+                            <td>
+                                <a href="#" class="text-success" title="Edit" onclick="EditPost(@post.ID)">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="#" class="text-danger" title="Delete" onclick="DeletePost(@post.ID)">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade right" id="blogModal" tabindex="-1" role="dialog" aria-labelledby="blogModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blogModalLabel">Blog Post</h5>
+                    <span style="float:right">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    </span>                    
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="ID" name="ID" />
+                    <input type="hidden" id="UserID" name="UserID" />
+                    
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Title">Title</label>
+                            <input class="form-control" id="Title" name="Title" type="text" placeholder="Enter title" required/>
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Content">Content</label>
+                            <textarea class="form-control" id="Content" name="Content" rows="10" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="BlogStatus">Status</label>
+                            <select class="form-control" id="BlogStatus" name="BlogStatus">
+                                <option value="DRAFT">Draft</option>
+                                <option value="PUBLISHED">Published</option>
+                                <option value="ARCHIVED">Archived</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="HashSlug">Hash Slug</label>
+                            <input class="form-control" id="HashSlug" name="HashSlug" type="text" placeholder="Enter hash slug"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        function NewPost(){
+            $('#ID').val(0);
+            $('#UserID').val(1); // Set default user ID or get from session
+            $('#frmDetails').trigger('reset');
+            $('#blogModal').modal('show')
+        }
+
+        function EditPost(postId){
+            $.ajax({
+                url: '/Content/GetBlogPost?ID=' + postId,
+                method: 'GET',
+                success: function (res) {
+                    console.log('GetBlogPost > res: ', res);
+                    for (let key of Object.keys(res)) {
+                        $('#' + key).val(res[key]);
+                    }
+                    $('#blogModal').modal('show');
+                },
+                error: function (err) {
+                    alert('Error Getting Data!');
+                },
+            });
+        }
+
+        function DeletePost(postId){
+            if(confirm('Do you want to delete this blog post?')){
+                $.ajax({
+                    url: '/Content/DeleteBlogPost?ID=' + postId,
+                    method: 'GET',
+                    success: function (res) {
+                        if(res == '1'){
+                            alert('Deletion Successful!');
+                            window.location.reload();
+                        }                    
+                    },
+                    error: function (err) {
+                        alert('Error Deleting Data!');
+                    },
+                });
+            }
+        }
+
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+
+            $('#btnNewPost').on('click', function(){
+                NewPost();
+            });
+        });
+    </script>
 }
