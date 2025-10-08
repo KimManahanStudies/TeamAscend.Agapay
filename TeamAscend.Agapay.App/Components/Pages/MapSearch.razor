@@ -1,39 +1,133 @@
 ﻿@page "/mapsearch"
 <style>
-	#mapview{
-		position: relative;
-		width: 100vw;
-		height: calc(100vh - 50px);
-		display: block;
-		outline-style: none;
-		margin: -18px -25px;
-		padding: 0px;
-		overflow: hidden;
-		z-index: 0;
-	}
+   
 </style>
+
+<!-- Map -->
 <div id="mapview"></div>
 
-@* <link rel="stylesheet" href="/libs/leafletjs/leaflet.css" />
-<script src="/libs/leafletjs/leaflet.js"></script> *@
+<!-- Floating Search Bar -->
+<div class="map-search-container">
+    <i class="fas fa-search icon"></i>
+    <input type="text" placeholder="Search here" />
+</div>
+
+<!-- Scrollable Shortcut Buttons -->
+<div class="shortcut-scroll">
+    <div class="shortcut-btn"><i class="fas fa-hospital"></i> Hospitals</div>
+    <div class="shortcut-btn"><i class="fas fa-house-damage"></i> Evacuation Site</div>
+    <div class="shortcut-btn"><i class="fas fa-store"></i> Supply Store</div>
+    <div class="shortcut-btn"><i class="fas fa-building"></i> Government Centers</div>
+    <div class="shortcut-btn"><i class="fas fa-warehouse"></i> Relief Warehouse</div>
+    <div class="shortcut-btn"><i class="fas fa-water"></i> Water Refill Station</div>
+</div>
+
+<!-- Bottom Sheet -->
+<div class="bottom-sheet" id="bottomSheet">
+    <div class="sheet-header" id="dragHandle">
+        <div class="sheet-drag-handle"></div>
+    </div>
+    <div class="sheet-content">
+        <div class="sheet-title" id="sheetTitle">Sample Location</div>
+        <div class="sheet-address" id="sheetAddress">123 Example St, City Name</div>
+        <div class="sheet-actions">
+            <button onclick="alert('Directions feature coming soon!')">Get Directions</button>
+        </div>
+    </div>
+</div>
+
+<!-- Leaflet Map Script -->
 <script>
+    $(function () {
+        const map = L.map('mapview', { zoomControl: false }).setView([51.5, -0.09], 13);
 
-	//Page Load
-	$(function(){
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
 
-		const map = L.map('mapview').setView([51.5, -0.09], 13);
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-		}).addTo(map);
+        // Bottom sheet elements
+        const sheet = document.getElementById("bottomSheet");
+        const dragHandle = document.getElementById("dragHandle");
+        const titleEl = document.getElementById("sheetTitle");
+        const addrEl = document.getElementById("sheetAddress");
 
+        // Create demo markers
+        const markers = [
+            { coords: [51.5, -0.09], title: "Community Hospital", address: "123 Health St, London" },
+            { coords: [51.495, -0.083], title: "Evacuation Site A", address: "45 Safe Rd, London" },
+            { coords: [51.49, -0.1], title: "Supply Store 1", address: "78 Relief Ave, London" }
+        ];
 
-		const mGreen = L.marker([51.5, -0.09]).bindPopup('I am a green leaf.').addTo(map);
-		const mRed = L.marker([51.495, -0.083]).bindPopup('I am a red leaf.').addTo(map);
-		const mOrange = L.marker([51.49, -0.1]).bindPopup('I am an orange leaf.').addTo(map);
+        markers.forEach(m => {
+            const marker = L.marker(m.coords).addTo(map);
+            marker.on("click", () => {
+                titleEl.textContent = m.title;
+                addrEl.textContent = m.address;
+                sheet.classList.add("show");
+                sheet.classList.remove("expanded", "half");
+                setTimeout(() => sheet.classList.add("half"), 50); // start in half-open state
+            });
+        });
 
+        map.on("click", () => {
+            sheet.classList.remove("show", "expanded", "half");
+        });
 
-	});
+        // Dragging logic
+        let startY = 0;
+        let startHeight = 0;
+        let dragging = false;
+
+        const startDrag = (e) => {
+            dragging = true;
+            startY = e.touches ? e.touches[0].clientY : e.clientY;
+            startHeight = sheet.offsetHeight;
+            sheet.style.transition = "none";
+        };
+
+        const duringDrag = (e) => {
+            if (!dragging) return;
+            const currentY = e.touches ? e.touches[0].clientY : e.clientY;
+            const delta = startY - currentY;
+            const newHeight = startHeight + delta;
+
+            const maxHeight = window.innerHeight * 0.8;
+            const minHeight = window.innerHeight * 0.25;
+            if (newHeight >= minHeight && newHeight <= maxHeight) {
+                sheet.style.height = newHeight + "px";
+            }
+        };
+
+        const stopDrag = () => {
+            if (!dragging) return;
+            dragging = false;
+            sheet.style.transition = "transform 0.3s ease, height 0.3s ease";
+
+            const currentHeight = sheet.offsetHeight;
+            const screenHeight = window.innerHeight;
+
+            if (currentHeight > screenHeight * 0.55) {
+                sheet.classList.add("expanded");
+                sheet.classList.remove("half");
+            } else if (currentHeight > screenHeight * 0.3) {
+                sheet.classList.add("half");
+                sheet.classList.remove("expanded");
+            } else {
+                sheet.classList.remove("show", "expanded", "half");
+            }
+        };
+
+        dragHandle.addEventListener("mousedown", startDrag);
+        dragHandle.addEventListener("touchstart", startDrag);
+
+        window.addEventListener("mousemove", duringDrag);
+        window.addEventListener("touchmove", duringDrag);
+
+        window.addEventListener("mouseup", stopDrag);
+        window.addEventListener("touchend", stopDrag);
+    });
 </script>
 @code {
 
