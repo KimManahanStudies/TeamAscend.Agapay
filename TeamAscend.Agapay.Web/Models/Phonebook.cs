@@ -5,19 +5,17 @@ using System.Collections.Generic;
 
 namespace TeamAscend.Agapay.Web.Models;
 
-public partial class GoPlan
+public partial class Phonebook
 {
     public int ID { get; set; }
 
-    public int UserID { get; set; }
+    public string ContactName { get; set; }
 
-    public string MeetingPointPIN { get; set; }
+    public string ContactNo { get; set; }
 
-    public string MeetingPointAddresss { get; set; }
+    public string Location { get; set; }
 
-    public string PhoneNumber { get; set; }
-
-    public string FamilyMemberRole { get; set; }
+    public string BarangayName { get; set; }
 
     public bool IsDeleted { get; set; }
 

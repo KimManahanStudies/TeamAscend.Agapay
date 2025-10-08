@@ -6,13 +6,19 @@ using TeamAscend.Agapay.Web.Shared;
 namespace TeamAscend.Agapay.Web.Controllers
 {
     [PortalAuthorized]
-    public class DashboardController : Controller
+    public class ResourcesController : Controller
     {
-        [Route("~/Admin/Dashboard")]
-        public IActionResult Index()
+        
+        [Route("~/Admin/Locations")]
+        public IActionResult Locations()
         {
             return View();
-        } 
-        
+        }
+
+        [Route("~/Admin/Map")]
+        public IActionResult MapView()
+        {
+            return View();
+        }
     }
 }

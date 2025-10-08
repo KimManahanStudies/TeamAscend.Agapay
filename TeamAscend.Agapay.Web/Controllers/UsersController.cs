@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using TeamAscend.Agapay.Web.Attributes;
 using TeamAscend.Agapay.Web.Models;
 using TeamAscend.Agapay.Web.Shared;
 
@@ -6,9 +8,9 @@ namespace TeamAscend.Agapay.Web.Controllers
 {
     public class UsersController : Controller
     {
-
+        [PortalAuthorized]
         [Route("~/Admin/Users")]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var resp = new UsersPageViewModel();
 
@@ -25,8 +27,10 @@ namespace TeamAscend.Agapay.Web.Controllers
             return View(resp);
         }
 
-
-        public UserAccount SaveRecord([FromBody] UserAccount request)
+        [HttpPost]
+        [Route("~/Users/SaveRecord")]
+        public IActionResult SaveRecord(UserAccount request)
+        //public IActionResult SaveRecord([FromBody] UserAccount request)
         {
             UserAccount resp = new UserAccount();
 
@@ -74,13 +78,64 @@ namespace TeamAscend.Agapay.Web.Controllers
                 resp = request;
             }
 
-            return resp;
+            //return resp;
+            return Redirect("/Admin/Users");
         }
 
 
-        public IActionResult Login()
+        public IActionResult Login(LoginVM request = null)
         {
-            return RedirectToAction("Index");
+            //Default
+            if(request== null)
+            {
+                request = new LoginVM();
+            }
+
+            return View(request);
+        }
+
+        public IActionResult Logout()
+        {
+            if (Request.Cookies.Keys.Contains("AGPSession"))
+            {
+                string currentUserCookie = Request.Cookies["AGPSession"];
+                Response.Cookies.Delete("AGPSession");
+            }
+            return Redirect("/Admin/Dashboard");
+        }
+
+        [HttpPost]
+        public IActionResult LoginAuthenticate(LoginVM request)
+        {
+            var resp = new LoginVM();
+            using (AgapayTestDBContext db = new AgapayTestDBContext())
+            {
+                if (request != null)
+                {
+                    var loggingUser = (from row in db.UserAccounts 
+                                       where row.Username == request.Username
+                                       && row.Password == request.Password
+                                       select row).FirstOrDefault();
+                    if (loggingUser != null)
+                    {
+                        //clear session remnants
+                        if (Request.Cookies.Keys.Contains("AGPSession"))
+                        {
+                            string currentUserCookie = Request.Cookies["AGPSession"];
+                            Response.Cookies.Delete("AGPSession");
+                        }
+                        CookieOptions option = new CookieOptions();
+                        option.Expires = DateTime.Now.AddDays(2);
+                        option.Secure = true;
+                        string acc_json = JsonConvert.SerializeObject(loggingUser);
+                        Response.Cookies.Append("AGPSession", acc_json, option);
+                        return Redirect("/Admin/Dashboard");
+                    }
+                }
+                
+            }
+
+            return Redirect("/Users/Login?Status=INVALID");
         }
     }
 }

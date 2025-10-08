@@ -15,11 +15,19 @@
    "T4TemplatePath": null,
    "Tables": [
       {
+         "Name": "[dbo].[BlogPost]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[GoBag]",
          "ObjectType": 0
       },
       {
          "Name": "[dbo].[GoPlan]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Phonebook]",
          "ObjectType": 0
       },
       {

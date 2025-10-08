@@ -11,6 +11,8 @@ public partial class GoBag
 
     public int GoPlanID { get; set; }
 
+    public int UserID { get; set; }
+
     public string Category { get; set; }
 
     public string Description { get; set; }

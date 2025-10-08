@@ -14,17 +14,45 @@ public partial class AgapayTestDBContext : DbContext
     {
     }
 
+    public virtual DbSet<BlogPost> BlogPosts { get; set; }
+
     public virtual DbSet<GoBag> GoBags { get; set; }
 
     public virtual DbSet<GoPlan> GoPlans { get; set; }
+
+    public virtual DbSet<Phonebook> Phonebooks { get; set; }
 
     public virtual DbSet<UserAccount> UserAccounts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<BlogPost>(entity =>
+        {
+            entity.HasKey(e => e.ID).HasName("PK__BlogPost__3214EC27736E8D6E");
+
+            entity.ToTable("BlogPost");
+
+            entity.Property(e => e.BlogStatus)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.Content)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.CreatedBy).HasMaxLength(255);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.HashSlug)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.ModifiedBy).HasMaxLength(255);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.Title)
+                .IsRequired()
+                .HasMaxLength(255);
+        });
+
         modelBuilder.Entity<GoBag>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__GoBag__3214EC27C6BA0A4A");
+            entity.HasKey(e => e.ID).HasName("PK__GoBag__3214EC27507E3A00");
 
             entity.ToTable("GoBag");
 
@@ -42,7 +70,7 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<GoPlan>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__GoPlan__3214EC273C2979A6");
+            entity.HasKey(e => e.ID).HasName("PK__GoPlan__3214EC27CED69F47");
 
             entity.ToTable("GoPlan");
 
@@ -62,6 +90,30 @@ public partial class AgapayTestDBContext : DbContext
             entity.Property(e => e.PhoneNumber)
                 .IsRequired()
                 .HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<Phonebook>(entity =>
+        {
+            entity.HasKey(e => e.ID).HasName("PK__Phoneboo__3214EC27866C2EDE");
+
+            entity.ToTable("Phonebook");
+
+            entity.Property(e => e.BarangayName)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.ContactName)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.ContactNo)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.CreatedBy).HasMaxLength(255);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Location)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.ModifiedBy).HasMaxLength(255);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<UserAccount>(entity =>

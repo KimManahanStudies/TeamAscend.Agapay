@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TeamAscend.Agapay.Web.Attributes;
 
 namespace TeamAscend.Agapay.Web.Controllers
 {
+    [PortalAuthorized]
     public class ProfileController : Controller
     {
         public IActionResult Index()

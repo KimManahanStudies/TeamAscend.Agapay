@@ -13,7 +13,7 @@
         }
     </style>
 }
-<form id="frmDetails" method="post" action="/Users/SaveRecord">
+<form id="frmDetails" method="post" action="~/Users/SaveRecord">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Users</h1>
@@ -94,57 +94,110 @@
                     </span>                    
                 </div>
                 <div class="modal-body">
-                    <!-- Form Group (username)-->
-                    <div class="mb-3">
-                        <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                        <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="small mb-1" for="inputUsername">Password:</label>
-                        <input class="form-control" id="inputUsername" type="text" placeholder="Enter your password" value="" />
-                    </div>
-                    <!-- Form Row-->
+                    <input type="hidden" id="ID" name="ID" />
+                    
+                    <!-- Username and Password Section -->
                     <div class="row gx-3 mb-3">
-                        <!-- Form Group (first name)-->
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="inputFirstName">First name</label>
-                            <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie" />
-                        </div>
-                        <!-- Form Group (last name)-->
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="inputLastName">Last name</label>
-                            <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna" />
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Username">Username</label>
+                            <input class="form-control" id="Username" name="Username" type="text" placeholder="Enter username" required/>
                         </div>
                     </div>
-                    <!-- Form Row        -->
                     <div class="row gx-3 mb-3">
-                        <!-- Form Group (organization name)-->
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="inputOrgName">Organization name</label>
-                            <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap" />
-                        </div>
-                        <!-- Form Group (location)-->
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="inputLocation">Location</label>
-                            <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA" />
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Password">Password</label>
+                            <div class="input-group">
+                                <input class="form-control" id="Password" name="Password" type="password" placeholder="Enter password" required />
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- Form Group (email address)-->
-                    <div class="mb-3">
-                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com" />
-                    </div>
-                    <!-- Form Row-->
+
+                    <!-- Name Fields -->
                     <div class="row gx-3 mb-3">
-                        <!-- Form Group (phone number)-->
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="inputPhone">Phone number</label>
-                            <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567" />
+                        <div class="col-md-4">
+                            <label class="small mb-1" for="FirstName">First Name</label>
+                            <input class="form-control" id="FirstName" name="FirstName" type="text" placeholder="Enter first name" required />
                         </div>
-                        <!-- Form Group (birthday)-->
+                        <div class="col-md-4">
+                            <label class="small mb-1" for="MiddleName">Middle Name</label>
+                            <input class="form-control" id="MiddleName" name="MiddleName" type="text" placeholder="Enter middle name" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="small mb-1" for="LastName">Last Name</label>
+                            <input class="form-control" id="LastName" name="LastName" type="text" placeholder="Enter last name" required />
+                        </div>
+                    </div>
+
+                    <!-- Role and Birth Date -->
+                    <div class="row gx-3 mb-3">
                         <div class="col-md-6">
-                            <label class="small mb-1" for="inputBirthday">Birthday</label>
-                            <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988" />
+                            <label class="small mb-1" for="Role">Role</label>
+                            <select class="form-control" id="Role" name="Role">
+                                <option value="ADMIN">Admin</option>
+                                <option value="STAFF">Staff</option>
+                                <option value="USER">GoPlan User</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="BirthDate">Birth Date</label>
+                            <input class="form-control" id="BirthDate" name="BirthDate" type="date" />
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="EmailAddress">Email Address</label>
+                            <input class="form-control" id="EmailAddress" name="EmailAddress" type="email" placeholder="Enter email address" />
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="ContactNo1">Primary Contact</label>
+                            <input class="form-control" id="ContactNo1" name="ContactNo1" type="tel" placeholder="Enter primary contact" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="ContactNo2">Secondary Contact</label>
+                            <input class="form-control" id="ContactNo2" name="ContactNo2" type="tel" placeholder="Enter secondary contact" />
+                        </div>
+                    </div>
+
+                    <!-- Address Information -->
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="AddressLine1">Address Line 1</label>
+                            <input class="form-control" id="AddressLine1" name="AddressLine1" type="text" placeholder="Enter address line 1" />
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="AddressLine2">Address Line 2</label>
+                            <input class="form-control" id="AddressLine2" name="AddressLine2" type="text" placeholder="Enter address line 2" />
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="Barangay">Barangay</label>
+                            <input class="form-control" id="Barangay" name="Barangay" type="text" placeholder="Enter barangay" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="City">City</label>
+                            <input class="form-control" id="City" name="City" type="text" placeholder="Enter city" />
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="Region">Region</label>
+                            <input class="form-control" id="Region" name="Region" type="text" placeholder="Enter region" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="ZipPostCode">Zip Code</label>
+                            <input class="form-control" id="ZipPostCode" name="ZipPostCode" type="text" placeholder="Enter zip code" />
                         </div>
                     </div>
                 </div>
@@ -157,21 +210,19 @@
     
 </form>
 @section Scripts {
-    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script>
         function NewUser(){
             $('#frmDetails').trigger('reset');
             $('#userModal').modal('show')
         }
 
-
         function EditUser(uID){
             $('#userModal').modal('show');
         }
 
         $(document).ready(function() {
+
+            //TransformStream HTML Table to Datatable
             $('#dataTable').DataTable();
 
 
@@ -186,7 +237,25 @@
             $('#btnNewUser').on('click',function(){
                 NewUser();
             });
+
+            // Password visibility toggle
+            document.getElementById('togglePassword').addEventListener('click', function() {
+                const passwordInput = document.getElementById('Password');
+                const icon = this.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
         });
+
+        
     </script>
 
 }
