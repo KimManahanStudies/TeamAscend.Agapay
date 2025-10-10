@@ -5,18 +5,61 @@
     <p class="verify-sub">Enter the verification code we sent to ***</p>
 
     <div class="verify-code">
-        <input class="verify-input" type="text" maxlength="1" />
-        <input class="verify-input" type="text" maxlength="1" />
-        <input class="verify-input" type="text" maxlength="1" />
-        <input class="verify-input" type="text" maxlength="1" />
+        <input class="verify-input" type="text" maxlength="1" oninput="moveToNext(this, event)" onkeydown="moveToPrev(this, event)" />
+        <input class="verify-input" type="text" maxlength="1" oninput="moveToNext(this, event)" onkeydown="moveToPrev(this, event)" />
+        <input class="verify-input" type="text" maxlength="1" oninput="moveToNext(this, event)" onkeydown="moveToPrev(this, event)" />
+        <input class="verify-input" type="text" maxlength="1" oninput="moveToNext(this, event)" onkeydown="moveToPrev(this, event)" />
     </div>
 
-    <button class="verify-btn">Continue</button>
+    <button class="verify-btn" onclick="verifyCode()">Continue</button>
 
     <div class="verify-resend">
         <a href="#">Resend Code</a>
     </div>
 </div>
+
+<script>
+    function moveToNext(input, event) {
+        if (input.value.length === 1) {
+            let next = input.nextElementSibling;
+            while (next && !next.classList.contains("verify-input")) {
+                next = next.nextElementSibling;
+            }
+            if (next) {
+                next.focus();
+            }
+        }
+    }
+
+    function moveToPrev(input, event) {
+        if (event.key === "Backspace" && input.value === "") {
+            let prev = input.previousElementSibling;
+            while (prev && !prev.classList.contains("verify-input")) {
+                prev = prev.previousElementSibling;
+            }
+            if (prev) {
+                prev.focus();
+            }
+        }
+    }
+
+    // Optional: gather code when clicking "Continue"
+    function verifyCode() {
+        const inputs = document.querySelectorAll(".verify-input");
+        let code = "";
+        inputs.forEach(input => code += input.value);
+
+        if (code.length < inputs.length) {
+            alert("Please enter the full verification code.");
+            return;
+        }
+
+        // Redirect or handle code verification
+        alert("Verification successful! (demo)");
+        location.href = "/Home"; // change to your next page
+    }
+</script>
+
 
 @code {
 

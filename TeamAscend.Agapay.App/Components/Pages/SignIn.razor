@@ -1,33 +1,58 @@
 ﻿@page "/SignIn"
 
-
 <div class="login-container">
     <h1 class="login-title">Log In</h1>
 
-    <div class="login-field">
-        <input class="login-input" type="email" placeholder="Email" />
-    </div>
+    <form id="loginForm" onsubmit="return validateLogin()">
+        <div class="login-field">
+            <input id="loginEmail" class="login-input" type="email" placeholder="Email" required />
+        </div>
 
-    <div class="login-field login-password">
-        <input id="password" class="login-input" type="password" placeholder="Password" />
-        <span class="toggle-password" onclick="togglePassword()">Show</span>
-    </div>
+        <div class="login-field login-password">
+            <input id="password" class="login-input" type="password" placeholder="Password" required />
+            <span class="toggle-password" onclick="togglePassword()">Show</span>
+        </div>
 
-    <button class="login-btn">Log In</button>
+        <button type="submit" class="login-btn">Log In</button>
+    </form>
+
+    <!-- Sign Up Section -->
+    <div class="login-signup">
+        <p class="login-signup-text">
+            Don’t have an account?
+            <a href="/CreateAccount" class="login-link">Create one</a>
+        </p>
+    </div>
 </div>
 
 <script>
-function togglePassword() {
-    const pwd = document.getElementById("password");
-    const toggle = document.querySelector(".toggle-password");
-    if (pwd.type === "password") {
-        pwd.type = "text";
-        toggle.textContent = "Hide";
-    } else {
-        pwd.type = "password";
-        toggle.textContent = "Show";
+    function togglePassword() {
+        const pwd = document.getElementById("password");
+        const toggle = document.querySelector(".toggle-password");
+        if (pwd.type === "password") {
+            pwd.type = "text";
+            toggle.textContent = "Hide";
+        } else {
+            pwd.type = "password";
+            toggle.textContent = "Show";
+        }
     }
-}
+
+    // Validate Email & Password before redirecting
+    function validateLogin() {
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (email === "" || password === "") {
+            alert("Please fill out both Email and Password to continue.");
+            return false; // Stop submission
+        }
+
+        // ✅ Redirect to your Home page
+        location.href = "/"; // or "/Index" — change based on your route
+
+        return false; // Prevent actual form submission
+    }
 </script>
 
 @code {
