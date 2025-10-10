@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAscend.Agapay.App", "TeamAscend.Agapay.App\TeamAscend.Agapay.App.csproj", "{BE3454C4-7460-8012-2B66-FEEFEAE88DA5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAscend.Agapay.Web", "TeamAscend.Agapay.Web\TeamAscend.Agapay.Web.csproj", "{DC17751C-6F99-4561-ADF4-E96790517644}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamAscend.Agapay.App", "TeamAscend.Agapay.App\TeamAscend.Agapay.App.csproj", "{4D209546-2E2D-4A05-9993-D7995A9DBC59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,16 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BE3454C4-7460-8012-2B66-FEEFEAE88DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE3454C4-7460-8012-2B66-FEEFEAE88DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE3454C4-7460-8012-2B66-FEEFEAE88DA5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{BE3454C4-7460-8012-2B66-FEEFEAE88DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE3454C4-7460-8012-2B66-FEEFEAE88DA5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE3454C4-7460-8012-2B66-FEEFEAE88DA5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{DC17751C-6F99-4561-ADF4-E96790517644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC17751C-6F99-4561-ADF4-E96790517644}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC17751C-6F99-4561-ADF4-E96790517644}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC17751C-6F99-4561-ADF4-E96790517644}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D209546-2E2D-4A05-9993-D7995A9DBC59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D209546-2E2D-4A05-9993-D7995A9DBC59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D209546-2E2D-4A05-9993-D7995A9DBC59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D209546-2E2D-4A05-9993-D7995A9DBC59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

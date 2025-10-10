@@ -1,5 +1,6 @@
 ﻿@page "/CreateAccount"
-
+@using Newtonsoft.Json
+@using TeamAscend.Agapay.Web.Models
 
 <div class="ca-container">
     <a class="ca-back" href="/Account" aria-label="Back">
@@ -12,17 +13,17 @@
     <p class="ca-section">Personal Information</p>
 
     <div class="ca-field">
-        <input class="ca-input" type="email" placeholder="@@gmail.com" />
+        <input class="ca-input" type="email" placeholder="@@gmail.com" @bind="Model.EmailAddress" />
     </div>
 
     <div class="ca-row">
         <div class="ca-col">
-            <input class="ca-input" type="text" placeholder="First Name" value="" />
+            <input class="ca-input" type="text" placeholder="First Name"  @bind="Model.FirstName" />
         </div>
 
         <div class="ca-col ca-col-suffix">
             <select class="ca-input ca-select">
-                <option value="">Suffix</option>
+                <option >Suffix</option>
                 <option>Jr.</option>
                 <option>Sr.</option>
                 <option>III</option>
@@ -31,7 +32,7 @@
     </div>
 
     <div class="ca-field">
-        <input class="ca-input" type="text" placeholder="Middle Name" />
+        <input class="ca-input" type="text" placeholder="Middle Name" @bind="Model.MiddleName" />
     </div>
 
     <label class="ca-checkline">
@@ -40,20 +41,20 @@
     </label>
 
     <div class="ca-field">
-        <input class="ca-input" type="text" placeholder="Last Name" value="" />
+        <input class="ca-input" type="text" placeholder="Last Name"  @bind="Model.LastName" />
     </div>
 
     <div class="ca-field">
-        <input class="ca-input" type="text" placeholder="MM/DD/YYYY" onfocus="this.type='date'" />
+        <input class="ca-input" type="text" placeholder="MM/DD/YYYY" onfocus="this.type='date'" @bind="Model.BirthDate" />
     </div>
 
     <div class="ca-field">
-        <input class="ca-input" type="text" placeholder="Home Address" />
+        <input class="ca-input" type="text" placeholder="Home Address" @bind="Model.AddressLine1" />
     </div>
 
     <div class="ca-gender">
         <label class="ca-gender-item">
-            <input type="radio" name="gender" />
+            <input type="radio" name="gender"  />
             <span class="ca-radio"></span>
             <span class="ca-gender-icon">♂</span>
             <span class="ca-gender-text">Male</span>
@@ -74,7 +75,7 @@
 
     <!-- Password with Show/Hide -->
     <div class="ca-field ca-password">
-        <input id="create-password" class="ca-input" type="password" placeholder="Password" />
+        <input id="create-password" class="ca-input" type="password" placeholder="Password" @bind="Model.Password" />
         <span class="toggle-password" onclick="togglePassword('create-password', this)">Show</span>
     </div>
 
@@ -86,7 +87,10 @@
 
     <!-- Next Button -->
     <div class="ca-next">
-        <button type="button" class="ca-btn" onclick="location.href='/VerifyAccount'">
+        @* <button type="button" class="ca-btn" onclick="location.href='/VerifyAccount'">
+            Next
+        </button> *@
+        <button type="button" class="ca-btn" @onclick="Register">
             Next
         </button>
     </div>
@@ -127,5 +131,21 @@
 
 
 @code {
+    public UserAccount Model { get; set; }
 
+    protected override void OnInitialized()
+    {
+        Model = new UserAccount();
+    }
+
+    public async void Register()
+    {
+        //var userInfo = JsonConvert.SerializeObject(Model);
+        var RegistrationURL = "https://localhost:44352/api/AppCenter/Register";
+        using (var httpClient = new HttpClient())
+        {
+            var rawResp1 = await httpClient.PostAsync(RegistrationURL, JsonContent.Create(Model));
+            Console.WriteLine(rawResp1);
+        }
+    }
 }
