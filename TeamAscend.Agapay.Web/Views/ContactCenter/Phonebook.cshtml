@@ -150,6 +150,7 @@
 
             $('#frmDetails').validate({
                 submitHandler: function(form) {
+                    IsBusy(true,'Processing...');
                     form.submit();
                 }
             });

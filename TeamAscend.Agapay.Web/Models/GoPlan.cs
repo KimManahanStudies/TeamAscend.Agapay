@@ -11,6 +11,8 @@ public partial class GoPlan
 
     public int UserID { get; set; }
 
+    public string Name { get; set; }
+
     public string MeetingPointPIN { get; set; }
 
     public string MeetingPointAddresss { get; set; }
@@ -18,6 +20,8 @@ public partial class GoPlan
     public string PhoneNumber { get; set; }
 
     public string FamilyMemberRole { get; set; }
+
+    public string ShareCode { get; set; }
 
     public bool IsDeleted { get; set; }
 

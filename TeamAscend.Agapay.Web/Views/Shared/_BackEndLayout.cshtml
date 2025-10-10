@@ -28,11 +28,43 @@
     <link href="/css/sb-admin-2.css" rel="stylesheet">
     <link href="/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="/css/back-end-style.css" rel="stylesheet">
+    <link href="/css/loading.css" rel="stylesheet">
+    <style>
+        #busyBlocker{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: rgba(0,0,0,0.1);
+            display: none
+        }
+
+        #busyBlockerContent{
+            margin: 10% auto;
+            background-color: white;
+            width: 300px;
+            height: 200px;
+            border-radius: 30px;
+            box-shadow: 0px 0px 10px #CCC;
+            overflow: hidden;
+            text-align: center;
+        }
+    </style>
     @RenderSection("Header", required: false)
 </head>
 
 <body id="page-top">
-
+    <div id="busyBlocker" style="">
+        <div id="busyBlockerContent" style="">
+            <div class="loadingio-spinner-ripple-2by998twmg8">
+                <div class="ldio-yzaezf3dcmj">
+                    <div></div><div></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -428,7 +460,15 @@
     <script src="/js/demo/chart-area-demo.js"></script>
     <script src="/js/demo/chart-pie-demo.js"></script> *@
     <script>
-
+        /*PreMade Functions*/
+        function IsBusy(show,message){
+            if(show){
+                $('#busyBlocker').show('fade');
+            }
+            else{
+                $('#busyBlocker').hide('fade');
+            }
+        }
     </script>
     @RenderSection("Scripts", required: false)
     <script>

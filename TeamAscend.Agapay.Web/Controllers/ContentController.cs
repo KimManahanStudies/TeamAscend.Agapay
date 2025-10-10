@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TeamAscend.Agapay.Web.Attributes;
 using TeamAscend.Agapay.Web.Models;
 using TeamAscend.Agapay.Web.Shared;
@@ -15,19 +16,33 @@ namespace TeamAscend.Agapay.Web.Controllers
 
             using (AgapayTestDBContext db = new AgapayTestDBContext())
             {
-                var posts = (from row in db.BlogPosts where !row.IsDeleted select row).ToList();
+                var posts = (from row in db.BlogPosts 
+                            where !row.IsDeleted && row.BlogType == "ANNOUNCEMENT" 
+                            select row).ToList();
                 if (posts != null)
                 {
                     resp = posts;
                 }
             }
-            return View("Index",resp);
+            return View("Index", resp);
         }
 
         [Route("~/Admin/InfoGraphs")]
         public IActionResult InfoGraphs()
         {
-            return View("Index");
+            var resp = new List<BlogPost>();
+
+            using (AgapayTestDBContext db = new AgapayTestDBContext())
+            {
+                var posts = (from row in db.BlogPosts 
+                            where !row.IsDeleted && row.BlogType == "INFOGRAPH" 
+                            select row).ToList();
+                if (posts != null)
+                {
+                    resp = posts;
+                }
+            }
+            return View("Index", resp);
         }
 
         [HttpGet]
@@ -37,7 +52,9 @@ namespace TeamAscend.Agapay.Web.Controllers
 
             using (AgapayTestDBContext db = new AgapayTestDBContext())
             {
-                resp = (from row in db.BlogPosts where row.ID == ID && !row.IsDeleted select row).FirstOrDefault();
+                resp = (from row in db.BlogPosts 
+                       where row.ID == ID && !row.IsDeleted 
+                       select row).FirstOrDefault();
             }
 
             return resp;
@@ -50,7 +67,9 @@ namespace TeamAscend.Agapay.Web.Controllers
 
             using (AgapayTestDBContext db = new AgapayTestDBContext())
             {
-                var post = (from row in db.BlogPosts where row.ID == ID && !row.IsDeleted select row).FirstOrDefault();
+                var post = (from row in db.BlogPosts 
+                           where row.ID == ID && !row.IsDeleted 
+                           select row).FirstOrDefault();
                 if(post != null)
                 {
                     post.IsDeleted = true;
@@ -65,15 +84,25 @@ namespace TeamAscend.Agapay.Web.Controllers
         [Route("~/Content/SaveBlogPost")]
         public IActionResult SaveBlogPost(BlogPost request)
         {
+            // Get current user from session
+            if (Request.Cookies.TryGetValue("AGPSession", out string userJson))
+            {
+                var currentUser = JsonConvert.DeserializeObject<UserAccount>(userJson);
+                request.UserID = currentUser.ID;
+            }
+
             using (AgapayTestDBContext db = new AgapayTestDBContext())
             {
-                var existingPost = (from row in db.BlogPosts where row.ID == request.ID select row).FirstOrDefault();
+                var existingPost = (from row in db.BlogPosts 
+                                  where row.ID == request.ID 
+                                  select row).FirstOrDefault();
                 if (existingPost != null)
                 {
                     existingPost.Title = request.Title;
                     existingPost.Content = request.Content;
                     existingPost.BlogStatus = request.BlogStatus;
-                    existingPost.HashSlug = request.HashSlug;
+                    existingPost.BlogType = request.BlogType;
+                    existingPost.CoverPhoto = request.CoverPhoto;
                     existingPost.ModifiedBy = request.ModifiedBy ?? "SYSTEM";
                     existingPost.ModifiedDate = DateTime.Now;
                 }
@@ -91,7 +120,7 @@ namespace TeamAscend.Agapay.Web.Controllers
                 db.SaveChanges();
             }
 
-            return Redirect("/Admin/Announcements");
+            return Redirect(request.BlogType == "INFOGRAPH" ? "/Admin/InfoGraphs" : "/Admin/Announcements");
         }
     }
 }

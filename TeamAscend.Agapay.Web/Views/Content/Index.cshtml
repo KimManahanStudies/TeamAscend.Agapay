@@ -1,14 +1,21 @@
 ﻿@model List<TeamAscend.Agapay.Web.Models.BlogPost>
 @{
     Layout = "_BackEndLayout";
-    ViewData["Title"] = "Announcements";
+    ViewData["Title"] = "Blog Posts";
 }
 @section Header
 {
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <style>
+        .cover-photo-preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 10px;
+        }
+    </style>
 }
 
-<form id="frmDetails" method="post" action="~/Content/SaveBlogPost" autocomplete="off">
+<form id="frmDetails" method="post" action="~/Content/SaveBlogPost" autocomplete="off" enctype="multipart/form-data">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Blog Posts</h1>
         <button class="btn btn-primary btn-icon-split shadow" type="button" id="btnNewPost">
@@ -26,6 +33,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
+                        <th>Type</th>
                         <th>Status</th>
                         <th>Created Date</th>
                         <th>Modified Date</th>
@@ -38,6 +46,7 @@
                         <tr>
                             <td>@post.ID</td>
                             <td>@post.Title</td>
+                            <td>@post.BlogType</td>
                             <td>@post.BlogStatus</td>
                             <td>@post.CreatedDate</td>
                             <td>@post.ModifiedDate</td>
@@ -77,24 +86,41 @@
                             <input class="form-control" id="Title" name="Title" type="text" placeholder="Enter title" required/>
                         </div>
                     </div>
-                    <div class="row gx-3 mb-3">
-                        <div class="col-md-12">
-                            <label class="small mb-1" for="Content">Content</label>
-                            <textarea class="form-control" id="Content" name="Content" rows="10" required></textarea>
-                        </div>
-                    </div>
+
+                    <!-- Blog Type and Status -->
                     <div class="row gx-3 mb-3">
                         <div class="col-md-6">
+                            <label class="small mb-1" for="BlogType">Type</label>
+                            <select class="form-control" id="BlogType" name="BlogType" required>
+                                <option value="ANNOUNCEMENT">Announcement</option>
+                                <option value="INFOGRAPH">Infograph</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
                             <label class="small mb-1" for="BlogStatus">Status</label>
-                            <select class="form-control" id="BlogStatus" name="BlogStatus">
+                            <select class="form-control" id="BlogStatus" name="BlogStatus" required>
                                 <option value="DRAFT">Draft</option>
                                 <option value="PUBLISHED">Published</option>
                                 <option value="ARCHIVED">Archived</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <label class="small mb-1" for="HashSlug">Hash Slug</label>
-                            <input class="form-control" id="HashSlug" name="HashSlug" type="text" placeholder="Enter hash slug"/>
+                    </div>
+
+                    <!-- Cover Photo -->
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="CoverPhotoUpload">Cover Photo</label>
+                            <input class="form-control" id="CoverPhotoUpload" type="file" accept="image/*" />
+                            <input type="hidden" id="CoverPhoto" name="CoverPhoto" />
+                            <img id="coverPhotoPreview" class="cover-photo-preview" style="display: none;" />
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Content">Content</label>
+                            <textarea class="form-control" id="Content" name="Content" rows="10" required></textarea>
                         </div>
                     </div>
                 </div>
@@ -104,10 +130,13 @@
 </form>
 
 @section Scripts {
+    <script src="~/lib/ckeditor.4.5.3/ckeditor.js"></script>
     <script>
         function NewPost(){
             $('#ID').val(0);
-            $('#UserID').val(1); // Set default user ID or get from session
+            $('#UserID').val(1);
+            $('#coverPhotoPreview').hide();
+            CKEDITOR.instances['Content'].setData('');
             $('#frmDetails').trigger('reset');
             $('#blogModal').modal('show')
         }
@@ -119,8 +148,14 @@
                 success: function (res) {
                     console.log('GetBlogPost > res: ', res);
                     for (let key of Object.keys(res)) {
-                        $('#' + key).val(res[key]);
+                        if (key === 'CoverPhoto' && res[key]) {
+                            $('#ExistingCoverPhoto').val(res[key]);
+                            $('#coverPhotoPreview').attr('src', res[key]).show();
+                        } else {
+                            $('#' + key).val(res[key]);
+                        }
                     }
+                    CKEDITOR.instances['Content'].setData(res['Content']);
                     $('#blogModal').modal('show');
                 },
                 error: function (err) {
@@ -150,9 +185,41 @@
         $(document).ready(function() {
             $('#dataTable').DataTable();
 
+            $('#frmDetails').validate({
+                submitHandler: function(form) {
+                    let txtContent = CKEDITOR.instances['Content'].getData();
+                    $('#Content').val(txtContent);
+                    IsBusy(true,'Processing...');
+                    form.submit();
+                }
+            });
+
+            var editor = CKEDITOR.replace('Content');
+
             $('#btnNewPost').on('click', function(){
                 NewPost();
             });
+
+            // Cover photo preview
+            $('#CoverPhotoUpload').change(function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#coverPhotoPreview').attr('src', e.target.result).show();
+                        $('#CoverPhoto').val( e.target.result);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Set initial BlogType based on current route
+            const path = window.location.pathname;
+            if (path.includes('InfoGraphs')) {
+                $('#BlogType').val('INFOGRAPH');
+            } else {
+                $('#BlogType').val('ANNOUNCEMENT');
+            }
         });
     </script>
 }

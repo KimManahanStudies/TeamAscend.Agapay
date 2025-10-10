@@ -50,7 +50,8 @@ namespace TeamAscend.Agapay.Web.Controllers
                 var resp = (from row in db.UserAccounts where row.ID == ID && !row.IsDeleted select row).FirstOrDefault();
                 if(resp != null)
                 {
-                    db.UserAccounts.Remove(resp);
+                    //db.UserAccounts.Remove(resp);//hard-delete
+                    resp.IsDeleted = true;//soft-delete
                     res = db.SaveChanges();
                 }
             }

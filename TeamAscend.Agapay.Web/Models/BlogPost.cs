@@ -17,7 +17,9 @@ public partial class BlogPost
 
     public string BlogStatus { get; set; }
 
-    public string HashSlug { get; set; }
+    public string BlogType { get; set; }
+
+    public string CoverPhoto { get; set; }
 
     public bool IsDeleted { get; set; }
 

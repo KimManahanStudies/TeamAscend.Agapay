@@ -264,6 +264,7 @@
                 submitHandler: function(form) {
                     // Form is valid, submit via AJAX or other custom logic
                     //alert("Form submitted successfully!");
+                    IsBusy(true,'Processing...');
                     form.submit(); // Or use AJAX
                 }
             });

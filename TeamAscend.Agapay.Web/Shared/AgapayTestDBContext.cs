@@ -20,6 +20,8 @@ public partial class AgapayTestDBContext : DbContext
 
     public virtual DbSet<GoPlan> GoPlans { get; set; }
 
+    public virtual DbSet<MapLocation> MapLocations { get; set; }
+
     public virtual DbSet<Phonebook> Phonebooks { get; set; }
 
     public virtual DbSet<UserAccount> UserAccounts { get; set; }
@@ -28,21 +30,20 @@ public partial class AgapayTestDBContext : DbContext
     {
         modelBuilder.Entity<BlogPost>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__BlogPost__3214EC27736E8D6E");
+            entity.HasKey(e => e.ID).HasName("PK__BlogPost__3214EC272BCC2A7F");
 
             entity.ToTable("BlogPost");
 
             entity.Property(e => e.BlogStatus)
                 .IsRequired()
                 .HasMaxLength(255);
-            entity.Property(e => e.Content)
+            entity.Property(e => e.BlogType)
                 .IsRequired()
                 .HasMaxLength(255);
+            entity.Property(e => e.Content).IsRequired();
+            entity.Property(e => e.CoverPhoto).IsRequired();
             entity.Property(e => e.CreatedBy).HasMaxLength(255);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.HashSlug)
-                .IsRequired()
-                .HasMaxLength(255);
             entity.Property(e => e.ModifiedBy).HasMaxLength(255);
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
             entity.Property(e => e.Title)
@@ -52,7 +53,7 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<GoBag>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__GoBag__3214EC27507E3A00");
+            entity.HasKey(e => e.ID).HasName("PK__GoBag__3214EC27E9A20484");
 
             entity.ToTable("GoBag");
 
@@ -70,7 +71,7 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<GoPlan>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__GoPlan__3214EC27CED69F47");
+            entity.HasKey(e => e.ID).HasName("PK__GoPlan__3214EC27B159D5C1");
 
             entity.ToTable("GoPlan");
 
@@ -87,14 +88,47 @@ public partial class AgapayTestDBContext : DbContext
                 .HasMaxLength(255);
             entity.Property(e => e.ModifiedBy).HasMaxLength(255);
             entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(255);
             entity.Property(e => e.PhoneNumber)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.ShareCode)
+                .IsRequired()
+                .HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<MapLocation>(entity =>
+        {
+            entity.HasKey(e => e.ID).HasName("PK__MapLocat__3214EC274426459C");
+
+            entity.ToTable("MapLocation");
+
+            entity.Property(e => e.Address)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.CreatedBy).HasMaxLength(255);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Description)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.ExtraDetails)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.MapCoordinates)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.ModifiedBy).HasMaxLength(255);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(255);
         });
 
         modelBuilder.Entity<Phonebook>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__Phoneboo__3214EC27866C2EDE");
+            entity.HasKey(e => e.ID).HasName("PK__Phoneboo__3214EC27BCBDEBE9");
 
             entity.ToTable("Phonebook");
 
@@ -118,7 +152,7 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<UserAccount>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__UserAcco__3214EC27F5BE24B7");
+            entity.HasKey(e => e.ID).HasName("PK__UserAcco__3214EC272287C523");
 
             entity.ToTable("UserAccount");
 
