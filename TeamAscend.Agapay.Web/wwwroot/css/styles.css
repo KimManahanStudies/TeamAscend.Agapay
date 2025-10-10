@@ -7350,6 +7350,12 @@ textarea.form-control-lg {
 
 .flex-shrink-0 {
   flex-shrink: 0 !important;
+    padding-bottom: 15%;
+}
+
+.flex-shrink-about {
+    flex-shrink: 0 !important;
+    padding-bottom: 15%;
 }
 
 .flex-shrink-1 {
@@ -7932,8 +7938,7 @@ textarea.form-control-lg {
 }
 
 .py-5 {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
+    padding-top: 3rem !important;
 }
 
 .pt-0 {
