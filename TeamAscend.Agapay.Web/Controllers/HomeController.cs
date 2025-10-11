@@ -42,6 +42,11 @@ namespace TeamAscend.Agapay.Web.Controllers
         {
             return View();
         }
+        [Route("~/Pages/FAQs")]
+        public IActionResult FAQs()
+        {
+            return View();
+        }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

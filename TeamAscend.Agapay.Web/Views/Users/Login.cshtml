@@ -4,11 +4,11 @@
     Layout = "_BaseLayout";
     ViewData["Title"] = "Users";
 }
-<div class="container">
+<div class="container h-100">
     <!-- Outer Row -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-center min-vh-100">
         <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card o-hidden border-0 shadow-lg">
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
@@ -16,7 +16,10 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome to Agapay</h1>
+                                    <h1 class="h4 mb-4">
+                                        <span style="color: #003366; font-weight: bold;">Welcome to </span>
+                                        <span style="color: #f6a623; font-weight: bold;">Agapay</span>
+                                    </h1>
                                 </div>
                                 @if (!string.IsNullOrWhiteSpace(Model.Status))
                                 {
@@ -47,7 +50,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    <button type="submit" class="btn btn-primary btn-user btn-block custom-hover">
                                         Login
                                     </button>
                                 </form>
@@ -69,6 +72,12 @@
 
 @section Scripts {
     @* <script src="/lib/jquery-validation/dist/jquery.validate.js"></script> *@
+    <style>
+        .custom-hover:hover {
+            background-color: #f6a623 !important;
+            border-color: #f6a623 !important;
+        }
+    </style>
     <script>
         $(document).ready(function() {
 

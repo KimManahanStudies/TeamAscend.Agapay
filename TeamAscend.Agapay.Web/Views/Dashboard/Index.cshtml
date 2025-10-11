@@ -40,32 +40,38 @@
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Weather - Wind Direction</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Live Weather Map</h6>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        <i class="fas fa-chevron-down fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                          aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-header">Live Map Views:</div>
+                        <a class="dropdown-item" href="#" onclick="changeMap('wind')">Wind</a>
+                        <a class="dropdown-item" href="#" onclick="changeMap('waves')">Waves</a>
+                        <a class="dropdown-item" href="#" onclick="changeMap('current')">Current</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#" onclick="changeMap('other')">Other Live Map Views</a>
                     </div>
                 </div>
             </div>
+
             <!-- Card Body -->
             <div class="card-body">
                 <div class="chart-area">
-                    @* <canvas id="myAreaChart"></canvas> *@
-                    <iframe src="https://earth.nullschool.net/#2025/09/11/1700Z/wind/surface/level/grid=on/orthographic=-240.33,12.22,1716/loc=121.054,14.616"
-                            frameborder="0" style="height:100%;width:100%;"></iframe>
+                    <iframe 
+                        id="liveMapFrame"
+                        src="https://earth.nullschool.net/#2025/09/11/1700Z/wind/surface/level/grid=on/orthographic=-240.33,12.22,1716/loc=121.054,14.616"
+                        frameborder="0" 
+                        style="height:100%; width:100%;">
+                    </iframe>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Pie Chart -->
     <div class="col-xl-4 col-lg-5">
@@ -264,5 +270,23 @@
             initCalendar();
             initMap();
         });
+        // Live Map
+        function changeMap(type) {
+            const iframe = document.getElementById('liveMapFrame');
+            switch (type) {
+                case 'wind':
+                    iframe.src = "https://earth.nullschool.net/#2025/09/11/1700Z/wind/surface/level/grid=on/orthographic=-240.33,12.22,1716/loc=110.152,26.474";
+                    break;
+                case 'waves':
+                    iframe.src = "https://earth.nullschool.net/#2025/09/11/1700Z/wind/primary/waves/overlay=wind/grid=on/orthographic=-240.33,12.22,1716/loc=110.152,26.474";
+                    break;
+                case 'current':
+                    iframe.src = "https://earth.nullschool.net/#2025/09/11/1700Z/wind/surface/currents/overlay=wind/grid=on/orthographic=-240.33,12.22,1716/loc=110.152,26.474";
+                    break;
+                case 'other':
+                    window.open("https://earth.nullschool.net/#2025/09/11/1700Z/wind/surface/level/grid=on/orthographic=-240.33,12.22,1716/loc=115.760,14.063", "_blank");
+                    break;
+            }
+        }
     </script>
 }
