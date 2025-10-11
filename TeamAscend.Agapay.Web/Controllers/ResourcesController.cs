@@ -101,6 +101,21 @@ namespace TeamAscend.Agapay.Web.Controllers
             return Redirect("/Admin/Locations");
         }
 
+        [HttpGet]
+        public JsonResult GetAllLocations()
+        {
+            var locations = new List<MapLocation>();
+
+            using (AgapayTestDBContext db = new AgapayTestDBContext())
+            {
+                locations = (from row in db.MapLocations 
+                            where !row.IsDeleted 
+                            select row).ToList();
+            }
+
+            return Json(locations);
+        }
+
         [Route("~/Admin/Map")]
         public IActionResult MapView()
         {

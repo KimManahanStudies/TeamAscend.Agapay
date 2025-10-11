@@ -7,6 +7,7 @@
 {
     <!-- Custom styles for this page -->
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="~/lib/leafletjs/leaflet.css" rel="stylesheet" />
 }
 <form id="frmDetails" method="post" action="~/Resources/SaveLocation" autocomplete="off">
     <!-- Page Heading -->
@@ -14,7 +15,7 @@
         <h1 class="h3 mb-0 text-gray-800">Location Pins</h1>
         <button class="btn btn-primary btn-icon-split shadow" type="button" id="btnNewLocation">
             <span class="icon text-white-50">
-                <i class="fas fa-map-pin"></i>
+                <i class="fas fa-map-marker-alt"></i>
             </span>
             <span class="text">New Location</span>            
         </button>
@@ -29,9 +30,9 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Type</th>  <!-- Added LocationType column -->
-                        <th>Address</th>
-                        <th>Coordinates</th>
-                        <th>Created Date</th>
+                        @* <th>Address</th> *@
+                        @* <th>Coordinates</th> *@
+                        @* <th>Created Date</th> *@
                         <th>Modified Date</th>
                         <th>Action</th>
                     </tr>
@@ -43,9 +44,9 @@
                             <td>@location.ID</td>
                             <td>@location.Name</td>
                             <td>@location.LocationType</td>  <!-- Added LocationType data -->
-                            <td>@location.Address</td>
-                            <td>@location.MapCoordinates</td>
-                            <td>@location.CreatedDate</td>
+                            @* <td>@location.Address</td> *@
+                            @* <td>@location.MapCoordinates</td> *@
+                            @* <td>@location.CreatedDate</td> *@
                             <td>@location.ModifiedDate</td>
                             <td>
                                 <a href="#" class="text-success" title="Edit" onclick="EditLocation(@location.ID)">
@@ -87,12 +88,16 @@
                             <label class="small mb-1" for="LocationType">Location Type</label>
                             <select class="form-control" id="LocationType" name="LocationType" required>
                                 <option value="">Select type...</option>
-                                <option value="Emergency">Emergency</option>
                                 <option value="Hospital">Hospital</option>
+                                <option value="Supply Store">Supply Store</option>
+                                <option value="Evacuation Site">Evacuation Site</option>
+                                <option value="Government Centers">Government Centers</option>
+                                <option value="Relief Warehouse">Relief Warehouse</option>
+                                <option value="Water Refill Station">Water Refill Station</option>
                                 <option value="Police">Police Station</option>
                                 <option value="Fire">Fire Station</option>
                                 <option value="Shelter">Shelter</option>
-                                <option value="Other">Other</option>
+                                <option value="Others">Others</option>
                             </select>
                         </div>
                     </div>
@@ -107,8 +112,11 @@
                     <div class="row gx-3 mb-3">
                         <div class="col-md-12">
                             <label class="small mb-1" for="MapCoordinates">Map Coordinates</label>
-                            <input class="form-control" id="MapCoordinates" name="MapCoordinates" type="text" placeholder="Enter coordinates (lat,lng)" required/>
-                        </div>
+                            <input class="form-control" id="MapCoordinates" name="MapCoordinates" type="text" 
+                                   placeholder="Click on map to set coordinates" readonly required/>
+                            <div id="mapPinLocator" style="width:100%;height:300px;margin-top:10px;">
+                            </div>
+                        </div>                        
                     </div>
 
                     <!-- Description -->
@@ -120,10 +128,10 @@
                     </div>
 
                     <!-- Extra Details -->
-                    <div class="row gx-3 mb-3">
+                    <div class="row gx-3 mb-3" style="display:none">
                         <div class="col-md-12">
                             <label class="small mb-1" for="ExtraDetails">Additional Details</label>
-                            <textarea class="form-control" id="ExtraDetails" name="ExtraDetails" rows="3" placeholder="Enter additional details"></textarea>
+                            <textarea class="form-control" id="ExtraDetails" name="ExtraDetails" rows="3" placeholder="Enter additional details">EXTRA</textarea>
                         </div>
                     </div>
                 </div>
@@ -133,11 +141,65 @@
 </form>
 
 @section Scripts {
+    <script src="~/lib/leafletjs/leaflet.js"></script>
     <script>
+        let map;
+        let marker;
+        
+        function initializeMap() {
+            // Default to Manila coordinates if geolocation fails
+            const defaultPosition = [14.5995, 120.9842];
+
+            // Initialize the map
+            map = L.map('mapPinLocator').setView(defaultPosition, 13);
+
+            // Add the OpenStreetMap tiles
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Try to get user's location
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+                    map.setView([userLat, userLng], 13);
+                });
+            }
+
+            // Handle map clicks
+            map.on('click', function(e) {
+                const lat = e.latlng.lat.toFixed(6);
+                const lng = e.latlng.lng.toFixed(6);
+                
+                // Remove existing marker if any
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+                
+                // Add new marker
+                marker = L.marker([lat, lng]).addTo(map);
+                
+                // Update coordinates input
+                $('#MapCoordinates').val(`${lat},${lng}`);
+            });
+        }
+
         function NewLocation(){
             $('#ID').val(0);
             $('#frmDetails').trigger('reset');
-            $('#locationModal').modal('show')
+            $('#locationModal').modal('show');
+            
+            // Initialize map after modal is shown
+            $('#locationModal').on('shown.bs.modal', function () {
+                setTimeout(function() {
+                    map.invalidateSize();
+                    if (marker) {
+                        map.removeLayer(marker);
+                    }
+                }, 100);
+            });
         }
 
         function EditLocation(locationId){
@@ -150,6 +212,23 @@
                         $('#' + key).val(res[key]);
                     }
                     $('#locationModal').modal('show');
+                    
+                    // Handle map for edit
+                    $('#locationModal').on('shown.bs.modal', function () {
+                        setTimeout(function() {
+                            map.invalidateSize();
+                            
+                            // Add marker for existing coordinates
+                            if (res.MapCoordinates) {
+                                const [lat, lng] = res.MapCoordinates.split(',');
+                                if (marker) {
+                                    map.removeLayer(marker);
+                                }
+                                marker = L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map);
+                                map.setView([lat, lng], 13);
+                            }
+                        }, 100);
+                    });
                 },
                 error: function (err) {
                     alert('Error Getting Data!');
@@ -177,6 +256,9 @@
 
         $(document).ready(function() {
             $('#dataTable').DataTable();
+            
+            // Initialize map
+            initializeMap();
 
             $('#frmDetails').validate({
                 submitHandler: function(form) {

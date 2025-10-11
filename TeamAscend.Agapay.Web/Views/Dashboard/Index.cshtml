@@ -23,6 +23,28 @@
     .fc-scroller.fc-scroller-liquid-absolute {
         overflow:visible !important;
     }
+
+    .location-popup-mini {
+        max-width: 250px;
+    }
+    .location-popup-mini h4 {
+        margin: 0 0 5px 0;
+        color: #003366;
+        font-size: 14px;
+    }
+    .location-popup-mini p {
+        margin: 3px 0;
+        font-size: 12px;
+    }
+    .location-popup-mini .type-badge {
+        display: inline-block;
+        padding: 1px 6px;
+        background-color: #e8f4f8;
+        color: #003366;
+        border-radius: 10px;
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
 </style>
 <!-- Page Heading -->
 @* <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -215,54 +237,100 @@
 
 <!-- Content Row -->
 
-@section Scripts{
+@section Scripts {
     <link href="~/lib/leafletjs/leaflet.css" rel="stylesheet" />
     <script src="~/js/fullcalendar.js"></script>
     <script src="~/lib/leafletjs/leaflet.js"></script>
     <script>
+        let dashboardMap;
+        let dashboardMarkers = [];
+        
+        function createMiniPopup(location) {
+            return `
+                <div class="location-popup-mini">
+                    <h4>${location.Name}</h4>
+                    <span class="type-badge">${location.LocationType}</span>
+                    <p><i class="fas fa-map-marker-alt mr-1"></i>${location.Address}</p>
+                </div>`;
+        }
+
         function initMap() {
+            // Default to Manila coordinates
+            const defaultPosition = [14.5995, 120.9842];
 
-            const map = L.map('rmap').setView([51.5, -0.09], 13);
+            // Initialize the map
+            dashboardMap = L.map('rmap').setView(defaultPosition, 11);
 
+            // Add the OpenStreetMap tiles
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(dashboardMap);
 
-            const LeafIcon = L.Icon.extend({
-                options: {
-                    shadowUrl: 'leaf-shadow.png',
-                    iconSize:     [38, 95],
-                    shadowSize:   [50, 64],
-                    iconAnchor:   [22, 94],
-                    shadowAnchor: [4, 62],
-                    popupAnchor:  [-3, -76]
+            // Try to get user's location
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    dashboardMap.setView([position.coords.latitude, position.coords.longitude], 11);
+                });
+            }
+
+            // Load locations
+            loadDashboardLocations();
+        }
+
+        function loadDashboardLocations() {
+            $.ajax({
+                url: '/Resources/GetAllLocations',
+                method: 'GET',
+                success: function(locations) {
+                    updateDashboardMarkers(locations);
+                },
+                error: function(err) {
+                    console.error('Error loading locations:', err);
+                }
+            });
+        }
+
+        function updateDashboardMarkers(locations) {
+            // Clear existing markers
+            dashboardMarkers.forEach(marker => dashboardMap.removeLayer(marker));
+            dashboardMarkers = [];
+
+            // Add markers for each location
+            locations.forEach(location => {
+                if (location.MapCoordinates) {
+                    const [lat, lng] = location.MapCoordinates.split(',');
+                    const marker = L.marker([parseFloat(lat), parseFloat(lng)])
+                        .bindPopup(createMiniPopup(location));
+                    
+                    marker.addTo(dashboardMap);
+                    dashboardMarkers.push(marker);
                 }
             });
 
-            const greenIcon = new LeafIcon({iconUrl: 'leaf-green.png'});
-            const redIcon = new LeafIcon({iconUrl: 'leaf-red.png'});
-            const orangeIcon = new LeafIcon({iconUrl: 'leaf-orange.png'});
-
-            const mGreen = L.marker([51.5, -0.09], {icon: greenIcon}).bindPopup('I am a green leaf.').addTo(map);
-            const mRed = L.marker([51.495, -0.083], {icon: redIcon}).bindPopup('I am a red leaf.').addTo(map);
-            const mOrange = L.marker([51.49, -0.1], {icon: orangeIcon}).bindPopup('I am an orange leaf.').addTo(map);
-
-
+            // Adjust map view to show all markers
+            if (dashboardMarkers.length > 0) {
+                const group = new L.featureGroup(dashboardMarkers);
+                dashboardMap.fitBounds(group.getBounds().pad(0.1));
+            }
         }
 
-
-        function initCalendar(){
+        function initCalendar() {
             var eventCal = document.getElementById('event-calendar');
             var eventCalendar = new FullCalendar.Calendar(eventCal, {
-              editable: false,
+                editable: false,
             });
-
             eventCalendar.render();
         }
 
         $(function(){
             initCalendar();
             initMap();
+
+            // Ensure map renders correctly in card
+            $('.nav-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                dashboardMap.invalidateSize();
+            });
         });
     </script>
 }
