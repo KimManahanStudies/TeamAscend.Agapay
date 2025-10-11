@@ -2,3 +2,227 @@
     Layout = "_BackEndLayout";
     ViewData["Title"] = "Map";
 }
+@section Header
+{
+    <!-- Custom styles for this page -->
+    <link href="~/lib/leafletjs/leaflet.css" rel="stylesheet" />
+    <style>
+        .location-popup {
+            max-width: 300px;
+        }
+        .location-popup h4 {
+            margin: 0 0 10px 0;
+            color: #003366;
+            font-size: 16px;
+        }
+        .location-popup p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .location-popup .type-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color: #e8f4f8;
+            color: #003366;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .location-popup .actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .location-popup .btn-sm {
+            padding: 2px 8px;
+            font-size: 12px;
+        }
+    </style>
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Resources Map</h1>
+    <div>
+        <a href="/Admin/Locations" class="btn btn-info btn-icon-split shadow mr-2">
+            <span class="icon text-white-50">
+                <i class="fas fa-table"></i>
+            </span>
+            <span class="text">View List</span>
+        </a>
+        <button class="btn btn-primary btn-icon-split shadow" type="button" onclick="window.location.href='/Admin/Locations'">
+            <span class="icon text-white-50">
+                <i class="fas fa-map-marker-alt"></i>
+            </span>
+            <span class="text">New Location</span>
+        </button>
+    </div>
+</div>
+
+<!-- Map Card -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Resource Locations</h6>
+        <div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="filterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-filter fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="filterDropdown">
+                <div class="dropdown-header">Filter By Type:</div>
+                <a class="dropdown-item filter-type" href="#" data-type="all">All Locations</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item filter-type" href="#" data-type="Hospital">Hospitals</a>
+                <a class="dropdown-item filter-type" href="#" data-type="Supply Store">Supply Stores</a>
+                <a class="dropdown-item filter-type" href="#" data-type="Evacuation Site">Evacuation Sites</a>
+                <a class="dropdown-item filter-type" href="#" data-type="Government Centers">Government Centers</a>
+                <a class="dropdown-item filter-type" href="#" data-type="Relief Warehouse">Relief Warehouses</a>
+                <a class="dropdown-item filter-type" href="#" data-type="Water Refill Station">Water Stations</a>
+                <a class="dropdown-item filter-type" href="#" data-type="Police">Police Stations</a>
+                <a class="dropdown-item filter-type" href="#" data-type="Fire">Fire Stations</a>
+                <a class="dropdown-item filter-type" href="#" data-type="Shelter">Shelters</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="mapView" style="width:100%;height:70vh;">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/leafletjs/leaflet.js"></script>
+    <script>
+        let map;
+        let markers = [];
+        let allLocations = [];
+        
+        function createCustomPopup(location) {
+            return `
+                <div class="location-popup">
+                    <h4>${location.Name}</h4>
+                    <span class="type-badge">${location.LocationType}</span>
+                    <p><i class="fas fa-map-marker-alt mr-2"></i>${location.Address}</p>
+                    <p><i class="fas fa-info-circle mr-2"></i>${location.Description || 'No description available'}</p>
+                    <div class="actions">
+                        <button class="btn btn-primary btn-sm" onclick="editLocation(${location.ID})">
+                            <i class="fas fa-edit mr-1"></i>Edit
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteLocation(${location.ID})">
+                            <i class="fas fa-trash mr-1"></i>Delete
+                        </button>
+                    </div>
+                </div>`;
+        }
+
+        function initializeMap() {
+            // Default to Manila coordinates
+            const defaultPosition = [14.5995, 120.9842];
+
+            // Initialize the map
+            map = L.map('mapView').setView(defaultPosition, 13);
+
+            // Add the OpenStreetMap tiles
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Try to get user's location
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    map.setView([position.coords.latitude, position.coords.longitude], 13);
+                });
+            }
+
+            // Load all locations
+            loadLocations();
+        }
+
+        function loadLocations(filterType = 'all') {
+            $.ajax({
+                url: '/Resources/GetAllLocations',
+                method: 'GET',
+                success: function(locations) {
+                    allLocations = locations;
+                    updateMarkers(filterType);
+                },
+                error: function(err) {
+                    console.error('Error loading locations:', err);
+                    alert('Error loading locations!');
+                }
+            });
+        }
+
+        function updateMarkers(filterType) {
+            // Clear existing markers
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+
+            // Filter locations if needed
+            const locationsToShow = filterType === 'all' 
+                ? allLocations 
+                : allLocations.filter(l => l.LocationType === filterType);
+
+            // Add debug logging
+            console.log('Locations to show:', locationsToShow);
+
+            // Add markers for each location
+            locationsToShow.forEach(location => {
+                if (location.MapCoordinates) {
+                    const [lat, lng] = location.MapCoordinates.split(',');
+                    
+                    // Add debug logging
+                    console.log('Creating marker at:', lat, lng);
+                    
+                    const marker = L.marker([parseFloat(lat), parseFloat(lng)])
+                        .bindPopup(createCustomPopup(location));
+                    
+                    marker.addTo(map);
+                    markers.push(marker);
+                }
+            });
+
+            // Debug logging for marker count
+            console.log('Total markers created:', markers.length);
+
+            // Adjust map view to show all markers if there are any
+            if (markers.length > 0) {
+                const group = new L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.1));
+            }
+        }
+
+        function editLocation(id) {
+            window.location.href = `/Admin/Locations#${id}`;
+        }
+
+        function deleteLocation(id) {
+            if(confirm('Do you want to delete this location?')) {
+                $.ajax({
+                    url: '/Resources/DeleteLocation?ID=' + id,
+                    method: 'GET',
+                    success: function(res) {
+                        if(res == 1) {
+                            loadLocations(); // Reload markers
+                            alert('Location deleted successfully!');
+                        }
+                    },
+                    error: function(err) {
+                        alert('Error deleting location!');
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function() {
+            initializeMap();
+
+            // Handle filter clicks
+            $('.filter-type').on('click', function(e) {
+                e.preventDefault();
+                const filterType = $(this).data('type');
+                updateMarkers(filterType);
+            });
+        });
+    </script>
+}
