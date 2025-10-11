@@ -1,5 +1,11 @@
+@using TeamAscend.Agapay.App.Components.Layout
+@layout BaseLayout
 @page "/Settings"
 
+<!-- Back Button -->
+<a href="/Account" class="settings-back-btn">
+    <i class="fas fa-chevron-left"></i>
+</a>
 
 <div class="settings-page">
     <!-- Page Title -->
@@ -39,7 +45,6 @@
         </NavLink>
     </div>
 </div>
-
 
 <script>
     function setSelectedNav(src) {

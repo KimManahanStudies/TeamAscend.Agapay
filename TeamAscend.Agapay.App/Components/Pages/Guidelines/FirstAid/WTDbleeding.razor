@@ -1,8 +1,11 @@
+@using TeamAscend.Agapay.App.Components.Layout
+@layout BaseLayout
 @page "/WTDbleeding"
 
 <div class="first-aid-guide-page">
     <header class="headerwtdfa">
-        <a asp-action="Index" href="/WTDfirstaid" class="back-button">
+        <!-- Updated Back Button -->
+        <a href="/WTDfirstaid" class="back-button">
             <i class="fas fa-arrow-left"></i>
         </a>
     </header>
@@ -13,27 +16,28 @@
         <div class="image-container">
             <img src="../imgs/wtd_banners/wtdfa_banners/wtd_bleeding.jpg" alt="healing a bleeding arm" class="cpr-image" />
         </div>
+
         <section class="begin-cpr">
             <ul class="bullet-list">
                 <li class="bullet-item"><strong>Call 911 or your local emergency number if the wound is deep or you're not sure how serious it is.</strong> Don't move the injured person except if needed to avoid further injury. Before checking for the source of the wound, put on disposable gloves and other personal protective equipment if you have them.</li>
                 <li class="bullet-item"><strong>Remove any clothing or debris from the wound.</strong> Look for the source of the bleeding. There could be more than one injury. Remove any obvious debris but don't try to clean the wound. Don't remove large or deeply embedded objects, and don't probe the wound.</li>
-                <li class="bullet-item"><strong>Stop the bleeding.</strong>- Cover the wound with sterile gauze or a clean cloth. Press on it firmly with the palm of your hand until bleeding stops. But don't press on an eye injury or embedded object. Don't press on a head wound if you suspect a skull fracture.<br/>Wrap the wound with a thick bandage or clean cloth and tape. Lift the wound above heart level if possible.</li>
-                <li class="bullet-item"><strong>Help the injured person lie down.</strong>If possible, place the person on a rug or blanket to prevent loss of body heat. Elevate the feet if you notice signs of shock, such as weakness, clammy skin or a rapid pulse. Calmly reassure the injured person.</li>
-                <li class="bullet-item"><strong>Add more bandages as needed.</strong>If the blood seeps through the bandage, add more gauze or cloth on top of the existing bandage. Then keep pressing firmly on the area.</li>
-                <li class="bullet-item"><strong>Tourniquets:</strong>A tourniquet is effective in controlling life-threatening bleeding from a limb. If needed, apply a commercially made tourniquet if it's available and you're trained in how to use it. Don't use an improvised tourniquet, such as a scarf or a belt.<br/>When emergency help arrives, tell them how long the tourniquet has been in place.</li>
-                <li class="bullet-item"><strong>Keep the person still.</strong>If you're waiting for emergency help to arrive, try to keep the injured person from moving.<br/>If you haven't called for emergency help, get the injured person to an emergency room as soon as possible.</li>
-                <li class="bullet-item"><strong>Wash your hands.</strong>After helping the injured person, wash your hands, even if it doesn't look like any blood got on your hands.</li>
+                <li class="bullet-item"><strong>Stop the bleeding.</strong> - Cover the wound with sterile gauze or a clean cloth. Press on it firmly with the palm of your hand until bleeding stops. But don't press on an eye injury or embedded object. Don't press on a head wound if you suspect a skull fracture.<br />Wrap the wound with a thick bandage or clean cloth and tape. Lift the wound above heart level if possible.</li>
+                <li class="bullet-item"><strong>Help the injured person lie down.</strong> If possible, place the person on a rug or blanket to prevent loss of body heat. Elevate the feet if you notice signs of shock, such as weakness, clammy skin or a rapid pulse. Calmly reassure the injured person.</li>
+                <li class="bullet-item"><strong>Add more bandages as needed.</strong> If the blood seeps through the bandage, add more gauze or cloth on top of the existing bandage. Then keep pressing firmly on the area.</li>
+                <li class="bullet-item"><strong>Tourniquets:</strong> A tourniquet is effective in controlling life-threatening bleeding from a limb. If needed, apply a commercially made tourniquet if it's available and you're trained in how to use it. Don't use an improvised tourniquet, such as a scarf or a belt.<br />When emergency help arrives, tell them how long the tourniquet has been in place.</li>
+                <li class="bullet-item"><strong>Keep the person still.</strong> If you're waiting for emergency help to arrive, try to keep the injured person from moving.<br />If you haven't called for emergency help, get the injured person to an emergency room as soon as possible.</li>
+                <li class="bullet-item"><strong>Wash your hands.</strong> After helping the injured person, wash your hands, even if it doesn't look like any blood got on your hands.</li>
             </ul>
         </section>
+
         <!-- Reference Section -->
         <section class="important-note">
             <h3 class="subsection-title">Reference:</h3>
             <p>
                 <a href="https://www.mayoclinic.org/first-aid/first-aid-severe-bleeding/basics/art-20056661" target="_blank">
-                https://www.mayoclinic.org/first-aid/first-aid-severe-bleeding/basics/art-20056661
+                    https://www.mayoclinic.org/first-aid/first-aid-severe-bleeding/basics/art-20056661
                 </a>
             </p>
         </section>
-
     </main>
 </div>

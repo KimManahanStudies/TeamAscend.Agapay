@@ -317,13 +317,39 @@
     line-height: 1.6;
 }
 
-/* Contact Us Section */
+/* Back Button */
+.about-back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #003366; /* same dark blue as your title */
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+    z-index: 1000;
+}
 
+    .about-back-btn:hover {
+        background: #f3f3f3;
+    }
+
+/*--------------------------------------------*/
+/* Contact Us Section */
 .resizable-textarea {
     resize: both; 
     overflow: auto;
 }
 
+
+/*--------------------------------------------*/
 /* --- Go Plan Page Styles --- */
 
 /* ===== Page Layout ===== */
@@ -730,9 +756,40 @@
         background: #f5f5f5;
         border-radius: 8px;
     }
+/* === Back Button for Settings Page === */
+.settings-back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #003366; /* match your theme */
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+    z-index: 1000;
+}
+
+    .settings-back-btn:hover {
+        background: #f3f3f3;
+    }
+
+/* Adjust the title so it doesn’t overlap with the back button */
+.settings-title {
+    text-align: center;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 1.5rem;
+    margin-top: 10px; /* small gap below back button */
+}
 
 /*-------------------------------*/
-
 /* Account Settings Page */
 .settings-page {
     padding: 1rem;
@@ -791,6 +848,35 @@
         margin-left: auto;
     }
 
+/* Back button style (white, soft shadow, blue arrow) */
+.Account_Setting_back-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #003366; /* dark blue arrow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease-in-out;
+    z-index: 10;
+}
+
+    .Account_Setting_back-button:hover {
+        background-color: #f1f4f8;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .Account_Setting_back-button i {
+        font-size: 1.2rem;
+    }
+
+
 
 /*------------*/
 
@@ -829,6 +915,40 @@
     line-height: 1.6;
 }
 
+/* === Back Button for Privacy Policy Page === */
+.privacy-back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #003366;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+    z-index: 1000;
+}
+
+    .privacy-back-btn:hover {
+        background: #f3f3f3;
+    }
+
+/* Adjust content spacing to avoid overlap */
+.about-page {
+    position: relative;
+    padding: 4rem 2rem 2rem 2rem; /* Added top padding for back button space */
+    max-width: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+/*-------------------------------------*/
 /* Contact Us Section */
 
 .resizable-textarea {
@@ -837,7 +957,6 @@
 }
 
 /*----------------------------------*/
-
 /* CreateAccount.razor */
 .ca-container {
     max-width: 420px;
@@ -1937,34 +2056,92 @@ body {
     color: #ffa500;
     font-size: 18px;
 }
+/* Shared Back Button Style */
+.back-button {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: #ffffff;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #003366; /* dark blue chevron */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease-in-out;
+    z-index: 10;
+}
+
+    .back-button:hover {
+        background-color: #f1f4f8;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-button i {
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+
 
 /*-------------------------------------------*/
-/* Map container */
+/* Map Css container */
 #mapview {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100vw;
-    height: calc(100vh - 50px);
-    display: block;
-    margin: -18px -25px;
+    height: 100vh;
+    margin: 0;
     padding: 0;
     overflow: hidden;
     z-index: 0;
 }
 
-/* Floating top search bar */
-.map-search-container {
+.map-topbar {
     position: absolute;
     top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    gap: 10px;
+}
+
+/* Back Button Style */
+.back-btn {
+    background: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+    .back-btn:hover {
+        background: #f3f3f3;
+    }
+
+/* Adjusted Search Box */
+.map-search-container {
+    flex: 1;
+    max-width: 80%;
     background: white;
     border-radius: 40px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     display: flex;
     align-items: center;
     padding: 8px 15px;
-    z-index: 1000;
 }
 
     .map-search-container input {
@@ -2111,3 +2288,5 @@ body {
         .sheet-actions button:hover {
             background-color: #e18f00;
         }
+
+

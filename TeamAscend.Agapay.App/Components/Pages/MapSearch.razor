@@ -1,15 +1,20 @@
-﻿@page "/mapsearch"
-<style>
-   
-</style>
+﻿@using TeamAscend.Agapay.App.Components.Layout
+@layout BaseLayout
+@page "/mapsearch"
 
 <!-- Map -->
 <div id="mapview"></div>
 
-<!-- Floating Search Bar -->
-<div class="map-search-container">
-    <i class="fas fa-search icon"></i>
-    <input type="text" placeholder="Search here" />
+<!-- Top Bar: Back Button + Search -->
+<div class="map-topbar">
+    <a href="/" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="map-search-container">
+        <i class="fas fa-search icon"></i>
+        <input type="text" placeholder="Search here" />
+    </div>
 </div>
 
 <!-- Scrollable Shortcut Buttons -->

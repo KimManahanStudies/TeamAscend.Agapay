@@ -1,7 +1,54 @@
-﻿@page "/PersonalInformation"
+﻿@using TeamAscend.Agapay.App.Components.Layout
+@layout BaseLayout
+@page "/PersonalInformation"
 
-<h3>PersonalInformation</h3>
+<div class="personal-info-page">
+    <!-- Back Button -->
+    <a href="/AccountSettings" class="PersonalInformation_back-button">
+        <i class="fas fa-chevron-left"></i>
+    </a>
 
-@code {
+    <!-- Page Title -->
+    <h3 class="settings-title">Personal Information</h3>
+</div>
 
-}
+
+<style>
+    /* Back button style */
+    .PersonalInformation_back-button {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background-color: #ffffff;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: #003366; /* dark blue arrow */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease-in-out;
+        z-index: 10;
+    }
+
+        .PersonalInformation_back-button:hover {
+            background-color: #f1f4f8;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .PersonalInformation_back-button i {
+            font-size: 1.2rem;
+            
+
+    /* Title */
+    .settings-title {
+        text-align: center;
+        font-weight: bold;
+        color: #003366;
+        margin-left: 2.8rem;
+        margin-top: 1rem;
+    }
+
+</style>

@@ -1,36 +1,89 @@
+@using TeamAscend.Agapay.App.Components.Layout
+@layout BaseLayout
 @page "/NotificationSettings"
 
-<div class="container py-5">
-    <h2 class="mb-4">Notification Settings</h2>
+<style>
+    /* Back button style */
+    .NotificationSettings_back-button {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background-color: #ffffff;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: #003366; /* dark blue chevron */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease-in-out;
+        z-index: 10;
+    }
 
-<div class="menu-list">
-    <!-- Push Notification -->
-    <div class="d-flex justify-content-between align-items-center mb-4 menu-item">
-        <div>
-            <h5>Push Notification</h5>
-            <p class="@GetTextClass(IsPushEnabled)">
-                Receive important updates and alerts directly on your device, even when the app isn't open.
-            </p>
-        </div>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" @bind="IsPushEnabled">
-        </div>
-    </div>
+    .NotificationSettings_back-button {
+            background-color: #f1f4f8;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
 
-    <!-- In-App Notification -->
-    <div class="d-flex justify-content-between align-items-center menu-item">
-        <div>
-            <h5>In-App Notification</h5>
-            <p class="@GetTextClass(IsInAppEnabled)">
-                Get timely messages and alerts within the app itself.
-            </p>
-        </div>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" @bind="IsInAppEnabled">
+        .NotificationSettings_back-button i {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+    /* Title */
+    .settings-title {
+        text-align: center;
+        font-weight: bold;
+        color: #003366;
+        margin-left: 2.8rem;
+        margin-top: 1rem;
+    }
+
+</style>
+
+
+<div class="notification-settings-page">
+    <!-- Back Button -->
+    <a href="/Settings" class="NotificationSettings_back-button">
+        <i class="fas fa-chevron-left"></i>
+    </a>
+
+    <!-- Page Title -->
+    <h3 class="settings-title">Notification Settings</h3>
+
+    <div class="container py-5">
+        <div class="menu-list">
+            <!-- Push Notification -->
+            <div class="d-flex justify-content-between align-items-center mb-4 menu-item">
+                <div>
+                    <h5>Push Notification</h5>
+                    <p class="@GetTextClass(IsPushEnabled)">
+                        Receive important updates and alerts directly on your device, even when the app isn't open.
+                    </p>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" @bind="IsPushEnabled">
+                </div>
+            </div>
+
+            <!-- In-App Notification -->
+            <div class="d-flex justify-content-between align-items-center menu-item">
+                <div>
+                    <h5>In-App Notification</h5>
+                    <p class="@GetTextClass(IsInAppEnabled)">
+                        Get timely messages and alerts within the app itself.
+                    </p>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" @bind="IsInAppEnabled">
+                </div>
+            </div>
         </div>
     </div>
 </div>
-</div>
+
 
 @code {
     private bool IsPushEnabled { get; set; }

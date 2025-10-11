@@ -1,8 +1,52 @@
+@using TeamAscend.Agapay.App.Components.Layout
+@layout BaseLayout
 @page "/TermsConditions"
+
+<style>
+    /* === Back Button for Terms and Conditions Page === */
+    .terms-back-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #003366;
+        font-size: 18px;
+        text-decoration: none;
+        transition: background 0.2s ease;
+        z-index: 1000;
+    }
+
+        .terms-back-btn:hover {
+            background: #f3f3f3;
+        }
+
+    /* Adjust spacing for back button */
+    .about-page {
+        position: relative;
+        padding: 4rem 2rem 2rem 2rem; /* top padding for the back button */
+        max-width: 100%;
+        margin: 0 auto;
+        overflow-x: hidden;
+    }
+
+</style>
+
+
+<!-- Back Button -->
+<a href="/Settings" class="terms-back-btn">
+    <i class="fas fa-chevron-left"></i>
+</a>
 
 <div class="about-page">
 
-    <h1 class="title-text">Terms &<br/>Conditions</h1>
+    <h1 class="title-text">Terms &<br />Conditions</h1>
 
     <p class="text-muted"><strong>Last Updated:</strong> August 15, 2025</p>
 

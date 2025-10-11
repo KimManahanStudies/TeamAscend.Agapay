@@ -1,4 +1,6 @@
-﻿@page "/CreateAccount"
+﻿@using TeamAscend.Agapay.App.Components.Layout
+@layout BaseLayout
+@page "/CreateAccount"
 @using Newtonsoft.Json
 @using TeamAscend.Agapay.Web.Models
 
@@ -23,7 +25,7 @@
 
         <div class="ca-col ca-col-suffix">
             <select class="ca-input ca-select">
-                <option >Suffix</option>
+                <option>None</option>
                 <option>Jr.</option>
                 <option>Sr.</option>
                 <option>III</option>
@@ -48,10 +50,25 @@
         <input class="ca-input" type="text" placeholder="MM/DD/YYYY" onfocus="this.type='date'" @bind="Model.BirthDate" />
     </div>
 
+    <!-- Address 1 and 2 -->
     <div class="ca-field">
-        <input class="ca-input" type="text" placeholder="Home Address" @bind="Model.AddressLine1" />
+        <input class="ca-input" type="text" placeholder="Home Address Line 1" @bind="Model.AddressLine1" />
     </div>
 
+    <div class="ca-field">
+        <input class="ca-input" type="text" placeholder="Home Address Line 2" @bind="Model.AddressLine1" />
+    </div>
+
+    <!-- Contact Number 1 and 2 -->
+    <div class="ca-field">
+        <input class="ca-input" type="tel" placeholder="Contact Number 1" />
+    </div>
+
+    <div class="ca-field">
+        <input class="ca-input" type="tel" placeholder="Contact Number 2" />
+    </div>
+
+    <!-- Gender -->
     <div class="ca-gender">
         <label class="ca-gender-item">
             <input type="radio" name="gender"  />
@@ -72,6 +89,26 @@
         <input type="checkbox" />
         <span class="ca-checklabel">I prefer not to say</span>
     </label>
+
+	<!-- Barangay and City -->
+    <div class="ca-field">
+        <input class="ca-input" type="text" placeholder="Barangay" />
+    </div>
+
+     <div class="ca-field">
+        <input class="ca-input" type="text" placeholder="City" />
+    </div>
+
+    <!-- Region and Zip Code -->
+    <div class="ca-row">
+        <div class="ca-col">
+            <input class="ca-input" type="text" placeholder="Region" />
+        </div>
+
+        <div class="ca-col ca-col-suffix">
+            <input class="ca-input" type="text" placeholder="Zip Code" />
+        </div>
+    </div>
 
     <!-- Password with Show/Hide -->
     <div class="ca-field ca-password">
