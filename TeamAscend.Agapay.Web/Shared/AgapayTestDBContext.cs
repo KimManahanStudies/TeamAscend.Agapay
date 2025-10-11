@@ -30,7 +30,7 @@ public partial class AgapayTestDBContext : DbContext
     {
         modelBuilder.Entity<BlogPost>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__BlogPost__3214EC272BCC2A7F");
+            entity.HasKey(e => e.ID).HasName("PK__BlogPost__3214EC27FBE146A0");
 
             entity.ToTable("BlogPost");
 
@@ -53,7 +53,7 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<GoBag>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__GoBag__3214EC27E9A20484");
+            entity.HasKey(e => e.ID).HasName("PK__GoBag__3214EC27507E3A00");
 
             entity.ToTable("GoBag");
 
@@ -71,7 +71,7 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<GoPlan>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__GoPlan__3214EC27B159D5C1");
+            entity.HasKey(e => e.ID).HasName("PK__GoPlan__3214EC270A671360");
 
             entity.ToTable("GoPlan");
 
@@ -101,7 +101,7 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<MapLocation>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__MapLocat__3214EC274426459C");
+            entity.HasKey(e => e.ID).HasName("PK__MapLocat__3214EC27860422AE");
 
             entity.ToTable("MapLocation");
 
@@ -110,10 +110,9 @@ public partial class AgapayTestDBContext : DbContext
                 .HasMaxLength(255);
             entity.Property(e => e.CreatedBy).HasMaxLength(255);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(255);
-            entity.Property(e => e.ExtraDetails)
+            entity.Property(e => e.Description).IsRequired();
+            entity.Property(e => e.ExtraDetails).IsRequired();
+            entity.Property(e => e.LocationType)
                 .IsRequired()
                 .HasMaxLength(255);
             entity.Property(e => e.MapCoordinates)
@@ -128,7 +127,7 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<Phonebook>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__Phoneboo__3214EC27BCBDEBE9");
+            entity.HasKey(e => e.ID).HasName("PK__Phoneboo__3214EC27866C2EDE");
 
             entity.ToTable("Phonebook");
 
@@ -152,7 +151,7 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<UserAccount>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__UserAcco__3214EC272287C523");
+            entity.HasKey(e => e.ID).HasName("PK__UserAcco__3214EC2792193DFF");
 
             entity.ToTable("UserAccount");
 
