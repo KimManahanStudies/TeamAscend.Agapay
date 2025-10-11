@@ -2,61 +2,193 @@
 @layout BaseLayout
 @page "/SignIn"
 
-<div class="login-container">
-    <h1 class="login-title">Log In</h1>
+<style>
+    .signin-page {
+        background-color: white;
+        min-height: 100vh;
+        padding: 2rem;
+    }
 
-    <form id="loginForm" onsubmit="return validateLogin()">
-        <div class="login-field">
-            <input id="loginEmail" class="login-input" type="email" placeholder="Email" required />
-        </div>
+    .progress-container {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        margin-top: 2rem;
+    }
 
-        <div class="login-field login-password">
-            <input id="password" class="login-input" type="password" placeholder="Password" required />
-            <span class="toggle-password" onclick="togglePassword()">Show</span>
-        </div>
+    .progress-bar {
+        height: 4px;
+        flex: 1;
+        border-radius: 2px;
+    }
 
-        <button type="submit" class="login-btn">Log In</button>
-    </form>
+    .progress-bar-active {
+        background-color: #003366;
+    }
 
-    <!-- Sign Up Section -->
-    <div class="login-signup">
-        <p class="login-signup-text">
-            Don’t have an account?
-            <a href="/CreateAccount" class="login-link">Create one</a>
-        </p>
+    .progress-bar-inactive {
+        background-color: #e5e5e5;
+    }
+
+    .login-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #003366;
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+
+    .login-form {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .login-field {
+        margin-bottom: 1rem;
+    }
+
+    .login-input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .login-input::placeholder {
+        color: #999;
+    }
+
+    .login-password {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: white;
+        border: 1px solid #e5e5e5;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .login-password .login-input {
+        border: none;
+        flex: 1;
+    }
+
+    .toggle-password {
+        position: relative;
+        right: 0;
+        padding: 12px;
+        color: #666;
+        cursor: pointer;
+        user-select: none;
+        background: none;
+        border: none;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .toggle-password:hover {
+        color: #003366;
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 14px;
+        background: #003366;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 1rem;
+        transition: background-color 0.2s;
+    }
+
+    .login-btn:hover {
+        background: #ffa500;
+    }
+
+    .login-link {
+        color: #003366;
+        text-decoration: none;
+    }
+
+    .login-link:hover {
+        text-decoration: underline;
+    }
+
+    .forgot-password {
+        display: block;
+        text-align: right;
+        font-size: 14px;
+        margin-top: 8px;
+        color: #003366;
+        text-decoration: none;
+    }
+
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="signin-page">
+    <a href="/" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    
+    <div class="progress-container">
+        <div class="progress-bar progress-bar-active"></div>
+        <div class="progress-bar progress-bar-inactive"></div>
+    </div>
+
+    <div class="login-form">
+        <h1 class="login-title">Login</h1>
+
+        <form id="loginForm" onsubmit="return validateLogin()">
+            <div class="login-field">
+                <input id="loginEmail" class="login-input" type="email" placeholder="Email" required/>
+            </div>
+
+            <div class="login-field login-password">
+                <input id="password" class="login-input" type="password" placeholder="Password" required/>
+                <button type="button" class="toggle-password" onclick="togglePassword()">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <a href="/ForgotPassword" class="forgot-password">Forgot your password?</a>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
     </div>
 </div>
 
 <script>
     function togglePassword() {
         const pwd = document.getElementById("password");
-        const toggle = document.querySelector(".toggle-password");
+        const toggle = document.querySelector(".toggle-password i");
         if (pwd.type === "password") {
             pwd.type = "text";
-            toggle.textContent = "Hide";
+            toggle.className = "fas fa-eye-slash";
         } else {
             pwd.type = "password";
-            toggle.textContent = "Show";
+            toggle.className = "fas fa-eye";
         }
     }
 
-    // Validate Email & Password before redirecting
     function validateLogin() {
         const email = document.getElementById("loginEmail").value.trim();
         const password = document.getElementById("password").value.trim();
 
         if (email === "" || password === "") {
             alert("Please fill out both Email and Password to continue.");
-            return false; // Stop submission
+            return false;
         }
 
-        // ✅ Redirect to your Home page
-        location.href = "/"; // or "/Index" — change based on your route
-
-        return false; // Prevent actual form submission
+        location.href = "/";
+        return false;
     }
 </script>
-
-@code {
-    
-}
