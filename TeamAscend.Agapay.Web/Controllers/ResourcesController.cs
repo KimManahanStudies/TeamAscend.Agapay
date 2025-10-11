@@ -69,6 +69,7 @@ namespace TeamAscend.Agapay.Web.Controllers
                 if (existingLocation != null)
                 {
                     existingLocation.Name = request.Name;
+                    existingLocation.LocationType = request.LocationType;  // Added LocationType
                     existingLocation.Address = request.Address;
                     existingLocation.MapCoordinates = request.MapCoordinates;
                     existingLocation.Description = request.Description;

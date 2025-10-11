@@ -42,12 +42,52 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationIdGuid>a0d4f1a8-7563-4fe4-801a-688af52d477f</ApplicationIdGuid>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-ios|AnyCPU'">
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationIdGuid>a0d4f1a8-7563-4fe4-801a-688af52d477f</ApplicationIdGuid>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-maccatalyst|AnyCPU'">
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationIdGuid>a0d4f1a8-7563-4fe4-801a-688af52d477f</ApplicationIdGuid>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-windows10.0.19041.0|AnyCPU'">
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationIdGuid>a0d4f1a8-7563-4fe4-801a-688af52d477f</ApplicationIdGuid>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationIdGuid>a0d4f1a8-7563-4fe4-801a-688af52d477f</ApplicationIdGuid>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-ios|AnyCPU'">
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationIdGuid>a0d4f1a8-7563-4fe4-801a-688af52d477f</ApplicationIdGuid>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-maccatalyst|AnyCPU'">
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationIdGuid>a0d4f1a8-7563-4fe4-801a-688af52d477f</ApplicationIdGuid>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-windows10.0.19041.0|AnyCPU'">
+      <ApplicationTitle>Agapay</ApplicationTitle>
+      <ApplicationIdGuid>a0d4f1a8-7563-4fe4-801a-688af52d477f</ApplicationIdGuid>
+    </PropertyGroup>
+
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\app_logo.png" ForegroundScale="0.65" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="white" BaseSize="128,128" />
+        <MauiSplashScreen Include="Resources\AppIcon\app_logo.png" Color="#003366" BaseSize="128,128" />
 
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />

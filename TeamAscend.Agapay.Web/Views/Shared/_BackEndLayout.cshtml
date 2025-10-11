@@ -44,8 +44,8 @@
         #busyBlockerContent{
             margin: 10% auto;
             background-color: white;
-            width: 300px;
-            height: 200px;
+            width: 170px;
+            height: 130px;
             border-radius: 30px;
             box-shadow: 0px 0px 10px #CCC;
             overflow: hidden;
@@ -58,11 +58,12 @@
 <body id="page-top">
     <div id="busyBlocker" style="">
         <div id="busyBlockerContent" style="">
-            <div class="loadingio-spinner-ripple-2by998twmg8">
-                <div class="ldio-yzaezf3dcmj">
+            <div class="loadingio-spinner-ripple-nq4q5u6dq7r">
+                <div class="ldio-x2uulkbinbj">
                     <div></div><div></div>
                 </div>
             </div>
+            <div id="busyBlockerMessage"></div>
         </div>
     </div>
     <!-- Page Wrapper -->
@@ -113,12 +114,12 @@
                 </a>
             </li>
 
-            @* <li class="nav-item">
-                <a class="nav-link" href="~/Admin/NewsArticles?Category=Updates">
+            <li class="nav-item">
+                <a class="nav-link" href="~/Admin/Guides">
                     <i class="fas fa-newspaper"></i>
-                    <span>Updates</span>
+                    <span>Guides</span>
                 </a>
-            </li> *@
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="~/Admin/InfoGraphs">
@@ -135,7 +136,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="~/Admin/Phonebook">
                     <i class="fas fa-address-book"></i>
-                    <span>Brgy  Phonebook</span>
+                    <span>Phonebook</span>
                 </a>
             </li>
 
@@ -232,7 +233,7 @@
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
+                                <i class="fab fa-facebook-square" style="font-size: 30px;"></i>
                                 <!-- Counter - Alerts -->
                                 <span class="badge badge-danger badge-counter">3+</span>
                             </a>
@@ -240,7 +241,7 @@
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    Facebook Alert Center
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="mr-3">
@@ -283,7 +284,7 @@
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
+                                <i class="fas fa-envelope fa-fw" style="font-size: 30px;"></i>
                                 <!-- Counter - Messages -->
                                 <span class="badge badge-danger badge-counter">7</span>
                             </a>
@@ -463,10 +464,11 @@
         /*PreMade Functions*/
         function IsBusy(show,message){
             if(show){
-                $('#busyBlocker').show('fade');
+                $('#busyBlocker').show();
+                $('#busyBlockerMessage').html(message);
             }
             else{
-                $('#busyBlocker').hide('fade');
+                $('#busyBlocker').hide();
             }
         }
     </script>

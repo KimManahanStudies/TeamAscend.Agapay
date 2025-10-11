@@ -10151,14 +10151,14 @@ a:focus {
   position: relative;
 }
 
-.sidebar .nav-item .nav-link .badge-counter,
-.topbar .nav-item .nav-link .badge-counter {
-  position: absolute;
-  transform: scale(0.7);
-  transform-origin: top right;
-  right: .25rem;
-  margin-top: -.25rem;
-}
+    .sidebar .nav-item .nav-link .badge-counter,
+    .topbar .nav-item .nav-link .badge-counter {
+        position: absolute;
+        transform: scale(0.7);
+        transform-origin: top right;
+        right: .25rem;
+        margin-top: -20px;
+    }
 
 .sidebar .nav-item .nav-link .img-profile,
 .topbar .nav-item .nav-link .img-profile {
@@ -10307,7 +10307,7 @@ a:focus {
 }
 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link {
-  color: #d1d3e2;
+    color: #003366;
 }
 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link:hover {

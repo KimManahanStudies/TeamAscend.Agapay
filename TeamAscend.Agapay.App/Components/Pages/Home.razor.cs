@@ -16,7 +16,7 @@ namespace TeamAscend.Agapay.App.Components.Pages
         public Home()
         {
             Model = new HomeVM() { 
-                FBPosts = new List<FacebookPagePost>()            
+                //FBPosts = new List<FacebookPagePost>()            
             };
         }
 

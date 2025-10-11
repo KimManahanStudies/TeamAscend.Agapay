@@ -17,12 +17,12 @@
 
 <form id="frmDetails" method="post" action="~/Content/SaveBlogPost" autocomplete="off" enctype="multipart/form-data">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Blog Posts</h1>
+        <h1 class="h3 mb-0 text-gray-800" id="pageTitle">Blog Posts</h1>
         <button class="btn btn-primary btn-icon-split shadow" type="button" id="btnNewPost">
             <span class="icon text-white-50">
                 <i class="fas fa-plus"></i>
             </span>
-            <span class="text">New Post</span>            
+            <span class="text">New Content</span>            
         </button>
     </div>
 
@@ -93,6 +93,7 @@
                             <label class="small mb-1" for="BlogType">Type</label>
                             <select class="form-control" id="BlogType" name="BlogType" required>
                                 <option value="ANNOUNCEMENT">Announcement</option>
+                                <option value="GUIDE">Guide</option>
                                 <option value="INFOGRAPH">Infograph</option>
                             </select>
                         </div>
@@ -217,9 +218,15 @@
             const path = window.location.pathname;
             if (path.includes('InfoGraphs')) {
                 $('#BlogType').val('INFOGRAPH');
-            } else {
+                $('#pageTitle').text('Info Graphics')
+            } else if (path.includes('Announcements')) {
                 $('#BlogType').val('ANNOUNCEMENT');
+                $('#pageTitle').text('Announcements')
+            } else if (path.includes('Guides')) {
+                $('#BlogType').val('GUIDE');
+                $('#pageTitle').text('Guides')
             }
+              
         });
     </script>
 }

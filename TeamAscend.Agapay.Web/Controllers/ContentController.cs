@@ -27,6 +27,24 @@ namespace TeamAscend.Agapay.Web.Controllers
             return View("Index", resp);
         }
 
+        [Route("~/Admin/Guides")]
+        public IActionResult Guides()
+        {
+            var resp = new List<BlogPost>();
+
+            using (AgapayTestDBContext db = new AgapayTestDBContext())
+            {
+                var posts = (from row in db.BlogPosts
+                             where !row.IsDeleted && row.BlogType == "GUIDE"
+                             select row).ToList();
+                if (posts != null)
+                {
+                    resp = posts;
+                }
+            }
+            return View("Index", resp);
+        }
+
         [Route("~/Admin/InfoGraphs")]
         public IActionResult InfoGraphs()
         {
@@ -120,7 +138,25 @@ namespace TeamAscend.Agapay.Web.Controllers
                 db.SaveChanges();
             }
 
-            return Redirect(request.BlogType == "INFOGRAPH" ? "/Admin/InfoGraphs" : "/Admin/Announcements");
+
+            if(request.BlogType == "GUIDE")
+            {
+                return Redirect("/Admin/Guides");
+            }
+            if (request.BlogType == "INFOGRAPH")
+            {
+                return Redirect("/Admin/InfoGraphs");
+            }
+            if (request.BlogType == "ANNOUNCEMENT")
+            {
+                return Redirect("/Admin/Announcements");
+            }
+            else
+            {
+                return Redirect("/Admin/Announcements");
+            }
+
+                
         }
     }
 }
