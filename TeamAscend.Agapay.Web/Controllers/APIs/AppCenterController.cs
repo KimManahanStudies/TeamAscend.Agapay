@@ -8,6 +8,46 @@ namespace TeamAscend.Agapay.Web.Controllers
 {
     public class AppCenterController : ControllerBase
     {
+        [HttpGet]
+        [Route("api/AppCenter/AllData")]
+        public AppDataVM AllAppData(string LasySyncDate)
+        {
+            var resp = new AppDataVM();
+            using (AgapayTestDBContext db = new AgapayTestDBContext())
+            {
+                resp.Contents = (from row in db.BlogPosts
+                                 where !row.IsDeleted 
+                                 && row.BlogStatus == "PUBLISHED"
+                                 select row).ToList();
+                
+                
+                //Convert CoverPhoto to URL
+                foreach(var itm in resp.Contents)
+                {
+                    if (!string.IsNullOrWhiteSpace(itm.CoverPhoto))
+                    {
+                        var splitImgData = itm.CoverPhoto.Split(',');
+                        byte[] fileData = Convert.FromBase64String(splitImgData[1]); //newStream.ToArray();// strm.ToArray();
+
+                        var resizeImgData = Utilities.ProportionallyResizeBitmap(fileData, 1000, 1000);
+
+                        itm.CoverPhoto = $"{splitImgData[0]},{Convert.ToBase64String(resizeImgData)}";
+                    }                    
+                }
+
+
+                resp.Hotlines = (from row in db.Phonebooks
+                                 where !row.IsDeleted 
+                                 select row).ToList();
+                resp.Locations = (from row in db.MapLocations
+                                 where !row.IsDeleted 
+                                 select row).ToList();
+
+            }
+            return resp;
+        }
+
+        [HttpPost]
         [Route("api/AppCenter/Register")]
         public UserAccount Register([FromBody]UserAccount request)
         {

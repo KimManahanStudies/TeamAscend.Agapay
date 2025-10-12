@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
 using TeamAscend.Agapay.Web.Attributes;
 using TeamAscend.Agapay.Web.Models;
@@ -158,5 +159,42 @@ namespace TeamAscend.Agapay.Web.Controllers
 
                 
         }
+
+        [HttpGet]
+        [Route("~/Content/CoverPhoto_{ID}.jpg")]
+        public IActionResult GetCoverPhoto(int ID,int? w,int? h)
+        {
+            using (AgapayTestDBContext db = new AgapayTestDBContext())
+            {
+                BlogPost resp = null;
+                resp = (from row in db.BlogPosts
+                        where row.ID == ID && !row.IsDeleted
+                        select row).FirstOrDefault();
+
+                if (resp != null)
+                {
+                    var splitImgData = resp.CoverPhoto.Split(',');
+
+                    byte[] fileData = Convert.FromBase64String(splitImgData[1]); //newStream.ToArray();// strm.ToArray();
+                    
+                    if(w.HasValue && h.HasValue)
+                    {
+                        var resizeImgData = Utilities.ProportionallyResizeBitmap(fileData, w.Value, h.Value);
+                        return File(resizeImgData, "image/jpeg");
+                    }
+                    else
+                    {
+                        return File(fileData, "image/jpeg");
+                    }
+                    
+                }
+                
+            }
+
+            return NotFound();
+            
+        }
+
+        
     }
 }
