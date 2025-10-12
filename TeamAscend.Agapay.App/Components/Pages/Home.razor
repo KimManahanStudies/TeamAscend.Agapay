@@ -18,18 +18,25 @@
 @*<marquee><h5>@DateTime.Today.ToLongDateString()</h5></marquee>*@
 <div id="newsflash" class="marquee"><p style="margin:0px;padding:0px">@DateTime.Today.ToLongDateString()</p></div>
 
+
+<!--Announcement Section Home Page-->
 <section>
-    <h1 class="main-label" >Announcement</h1>
+    <div class="announcement-header">
+        <h1 class="main-label">Announcement</h1>
+        <a href="/Announcement" class="see-more">See more</a>
+    </div>
+
     <div id="announcementPanel" class="section-highlight" style="/*background-color:pink;*/">
         <div class="cycle-slideshow"
-            data-cycle-fx="scrollHorz"
-            data-cycle-pause-on-hover="true"
-            data-cycle-timeout="5000"
-            data-cycle-slides="> div"
-            data-cycle-swipe="true"
-            data-cycle-swipe-fx="scrollHorz"
-            data-cycle-pager=".sliderannouncement-pager">
-            @if(Model != null)
+             data-cycle-fx="scrollHorz"
+             data-cycle-pause-on-hover="true"
+             data-cycle-timeout="5000"
+             data-cycle-slides="> div"
+             data-cycle-swipe="true"
+             data-cycle-swipe-fx="scrollHorz"
+             data-cycle-pager=".sliderannouncement-pager">
+
+            @if (Model != null)
             {
                 if (Model.FBPosts != null)
                 {
@@ -44,7 +51,7 @@
                 }
             }
 
-             <div class="slide-banner" style="background-image: url('/imgs/banners/rain1.jpg')">
+            <div class="slide-banner" style="background-image: url('/imgs/banners/rain1.jpg')">
                 <h4>Cubao</h4>
                 <h2>Heavy Rain</h2>
                 <h3>Advisory</h3>
@@ -58,11 +65,12 @@
                 <h4>Batasan</h4>
                 <h2>Flood</h2>
                 <h3>Advisory</h3>
-            </div> 
+            </div>
         </div>
         <div class="sliderannouncement-pager"></div>
     </div>
 </section>
+
 
 <!--<div id="sliderSource" style="display:none">-->
     @*

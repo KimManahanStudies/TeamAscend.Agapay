@@ -6,7 +6,7 @@
 
 <div class="ca-container">
     <a class="ca-back" href="/Account" aria-label="Back">
-        <span class="ca-back-icon">‹</span>
+        <i class="fas fa-arrow-left"></i>
     </a>
 
     <h1 class="ca-title">Create an Account</h1>
@@ -110,17 +110,21 @@
         </div>
     </div>
 
-    <!-- Password with Show/Hide -->
+    <!--Password-->
     <div class="ca-field ca-password">
         <input id="create-password" class="ca-input" type="password" placeholder="Password" @bind="Model.Password" />
-        <span class="toggle-password" onclick="togglePassword('create-password', this)">Show</span>
+        <span class="toggle-password" onclick="togglePassword('create-password', this)">
+            <i class="fa fa-eye"></i>
+        </span>
     </div>
 
-    <!-- Confirm Password with Show/Hide -->
     <div class="ca-field ca-password">
         <input id="confirm-password" class="ca-input" type="password" placeholder="Confirm Password" />
-        <span class="toggle-password" onclick="togglePassword('confirm-password', this)">Show</span>
+        <span class="toggle-password" onclick="togglePassword('confirm-password', this)">
+            <i class="fa fa-eye"></i>
+        </span>
     </div>
+
 
     <!-- Next Button -->
     <div class="ca-next">
@@ -134,11 +138,12 @@
 
     <!-- Sign in button-->
     <div class="ca-signin">
-        <p class="ca-signin-text">Already have an account?</p>
-        <button type="button" class="ca-btn ca-btn-secondary" onclick="location.href='/SignIn'">
-            Sign In
-        </button>
+        <p class="ca-signin-text">
+            Already have an account?
+            <a href="/SignIn" class="ca-link">Sign in</a>
+        </p>
     </div>
+
 
     <!-- Agree to Terms -->
     <label class="ca-checkline ca-terms">
@@ -156,15 +161,20 @@
 <script>
     function togglePassword(id, el) {
         const pwd = document.getElementById(id);
+        const icon = el.querySelector("i");
+
         if (pwd.type === "password") {
             pwd.type = "text";
-            el.textContent = "Hide";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
         } else {
             pwd.type = "password";
-            el.textContent = "Show";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
         }
     }
 </script>
+
 
 
 @code {

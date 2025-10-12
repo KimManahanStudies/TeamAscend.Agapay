@@ -1,5 +1,31 @@
-﻿/* Start of style for Guidelines section in Home page */
+﻿/*Annoucement section in Home page*/
+.announcement-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
 
+.main-label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.see-more {
+    font-size: 0.95rem;
+    color: #007BFF;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+    .see-more:hover {
+        text-decoration: underline;
+        color: #0056b3;
+    }
+
+
+/* Start of style for Guidelines section in Home page */
 .main-label {
     font-weight: bold;
     margin-top: 8px;
@@ -966,19 +992,30 @@
     color: #07223a;
 }
 
-/* Back arrow */
+/* Back button - circular with shadow */
 .ca-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    color: #333;
     text-decoration: none;
-    display: inline-block;
-    color: #06324f;
-    margin-bottom: 12px;
+    transition: all 0.2s ease-in-out;
 }
 
-.ca-back-icon {
-    font-size: 26px;
-    line-height: 1;
-    display: inline-block;
-}
+    .ca-back:hover {
+        background: #f2f2f2;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Font Awesome icon inside the button */
+    .ca-back i {
+        font-size: 18px;
+    }
 
 /* Title */
 .ca-title {
@@ -1171,29 +1208,36 @@
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 14px;
     color: #1976d2;
     cursor: pointer;
-    user-select: none;
+    font-size: 18px;
 }
 
-.ca-btn-secondary {
-    background: #e0e0e0;
-    color: #333;
-    margin-top: 10px;
-}
+    .toggle-password:hover {
+        color: #0a4a78;
+    }
 
-.ca-btn-secondary:hover {
-    background: #c7c7c7;
+
+.ca-signin {
+    text-align: center;
+    margin-top: 14px;
 }
 
 .ca-signin-text {
-    text-align: center;
     font-size: 14px;
-    color: #666; /* light gray for subtle look */
-    margin-bottom: 4px;
-    margin-top: 8px;
+    color: #666;
 }
+
+    .ca-signin-text .ca-link {
+        color: #003366;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .ca-signin-text .ca-link:hover {
+            text-decoration: underline;
+        }
+
 
 .ca-terms {
     display: block;
@@ -1216,7 +1260,6 @@
     text-decoration: underline;
 }
 
-
 /* Small responsive tweak */
 @media (max-width: 420px) {
     .ca-container {
@@ -1228,9 +1271,7 @@
     }
 }
 
-
 /*-----------------------------------------*/
-
 /*SignIn page*/
 .login-container {
     max-width: 360px;
@@ -1288,9 +1329,7 @@
     background: #0a2d5a;
 }
 
-
 /* Verify Account */
-
 .verify-container {
     max-width: 320px;
     margin: 0 auto;
@@ -2203,7 +2242,7 @@ body {
     color: #f9a825;
 }
 
-/* ===== Bottom Sheet Styles ===== */
+/* Bottom Sheet Styles */
 .bottom-sheet {
     position: fixed;
     left: 0;
@@ -2289,4 +2328,27 @@ body {
     background-color: #e18f00;
 }
 
+
+.announcement-page {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9fafc;
+    color: #0a1a3d;
+    padding: 20px;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.page-subtitle {
+    text-align: center;
+    color: #6c7a91;
+    margin-bottom: 20px;
+}
+
+/*----------------------------------------------------*/
+/*Announcement page style*/
 

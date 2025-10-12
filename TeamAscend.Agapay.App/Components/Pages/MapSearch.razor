@@ -5,7 +5,7 @@
 <!-- Map -->
 <div id="mapview"></div>
 
-<!-- Top Bar: Back Button + Search -->
+<!-- Top Bar -->
 <div class="map-topbar">
     <a href="/" class="back-btn">
         <i class="fas fa-arrow-left"></i>
@@ -19,12 +19,12 @@
 
 <!-- Scrollable Shortcut Buttons -->
 <div class="shortcut-scroll">
-    <div class="shortcut-btn"><i class="fas fa-hospital"></i> Hospitals</div>
-    <div class="shortcut-btn"><i class="fas fa-house-damage"></i> Evacuation Site</div>
-    <div class="shortcut-btn"><i class="fas fa-store"></i> Supply Store</div>
-    <div class="shortcut-btn"><i class="fas fa-building"></i> Government Centers</div>
-    <div class="shortcut-btn"><i class="fas fa-warehouse"></i> Relief Warehouse</div>
-    <div class="shortcut-btn"><i class="fas fa-water"></i> Water Refill Station</div>
+    <div class="shortcut-btn" onclick="showCategory('Hospitals')"><i class="fas fa-hospital"></i> Hospitals</div>
+    <div class="shortcut-btn" onclick="showCategory('Evacuation Site')"><i class="fas fa-house-damage"></i> Evacuation Site</div>
+    <div class="shortcut-btn" onclick="showCategory('Supply Store')"><i class="fas fa-store"></i> Supply Store</div>
+    <div class="shortcut-btn" onclick="showCategory('Government Centers')"><i class="fas fa-building"></i> Government Centers</div>
+    <div class="shortcut-btn" onclick="showCategory('Relief Warehouse')"><i class="fas fa-warehouse"></i> Relief Warehouse</div>
+    <div class="shortcut-btn" onclick="showCategory('Water Refill Station')"><i class="fas fa-water"></i> Water Refill Station</div>
 </div>
 
 <!-- Bottom Sheet -->
@@ -33,54 +33,100 @@
         <div class="sheet-drag-handle"></div>
     </div>
     <div class="sheet-content">
-        <div class="sheet-title" id="sheetTitle">Sample Location</div>
-        <div class="sheet-address" id="sheetAddress">123 Example St, City Name</div>
-        <div class="sheet-actions">
-            <button onclick="alert('Directions feature coming soon!')">Get Directions</button>
-        </div>
+        <div class="sheet-title" id="sheetTitle">Category Name</div>
+        <div class="sheet-address" id="sheetAddress">Showing nearby locations</div>
+        <div id="sheetList" class="sheet-list"></div>
     </div>
 </div>
 
-<!-- Leaflet Map Script -->
 <script>
     $(function () {
+        // Initialize Map
         const map = L.map('mapview', { zoomControl: false }).setView([51.5, -0.09], 13);
-
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
-
         L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-        // Bottom sheet elements
+        // UI Elements
         const sheet = document.getElementById("bottomSheet");
         const dragHandle = document.getElementById("dragHandle");
         const titleEl = document.getElementById("sheetTitle");
         const addrEl = document.getElementById("sheetAddress");
+        const listEl = document.getElementById("sheetList");
 
-        // Create demo markers
-        const markers = [
-            { coords: [51.5, -0.09], title: "Community Hospital", address: "123 Health St, London" },
-            { coords: [51.495, -0.083], title: "Evacuation Site A", address: "45 Safe Rd, London" },
-            { coords: [51.49, -0.1], title: "Supply Store 1", address: "78 Relief Ave, London" }
-        ];
+        // Store markers
+        let activeMarkers = [];
 
-        markers.forEach(m => {
-            const marker = L.marker(m.coords).addTo(map);
-            marker.on("click", () => {
-                titleEl.textContent = m.title;
-                addrEl.textContent = m.address;
-                sheet.classList.add("show");
-                sheet.classList.remove("expanded", "half");
-                setTimeout(() => sheet.classList.add("half"), 50); // start in half-open state
-            });
-        });
+        // Category data (with coordinates)
+        const locations = {
+            "Hospitals": [
+                { name: "Community Hospital", address: "123 Health St, London", coords: [51.5, -0.09] },
+                { name: "City Medical Center", address: "45 Wellness Ave, London", coords: [51.51, -0.1] },
+                { name: "St. Luke’s Hospital", address: "89 Healing Rd, London", coords: [51.495, -0.085] }
+            ],
+            "Evacuation Site": [
+                { name: "Evacuation Site A", address: "Safe Zone, District 1", coords: [51.495, -0.083] },
+                { name: "Evacuation Site B", address: "Relief Park, City Center", coords: [51.49, -0.1] }
+            ],
+            "Supply Store": [
+                { name: "Relief Supply Depot", address: "45 Relief St, London", coords: [51.49, -0.09] },
+                { name: "Emergency Goods Store", address: "23 Help Rd, London", coords: [51.5, -0.095] }
+            ],
+            "Government Centers": [
+                { name: "City Hall", address: "1 Main St, London", coords: [51.505, -0.09] },
+                { name: "Barangay Center", address: "22 Civic Rd, London", coords: [51.497, -0.087] }
+            ],
+            "Relief Warehouse": [
+                { name: "Main Relief Warehouse", address: "Central Zone, London", coords: [51.493, -0.082] },
+                { name: "District Storage", address: "Block 7, London", coords: [51.488, -0.1] }
+            ],
+            "Water Refill Station": [
+                { name: "Aqua Fresh Refill", address: "78 River Rd, London", coords: [51.492, -0.088] },
+                { name: "PureDrop Station", address: "5 Clearview St, London", coords: [51.499, -0.095] }
+            ]
+        };
+
+        // Show category and markers
+        window.showCategory = function (category) {
+            titleEl.textContent = category;
+            addrEl.textContent = "Showing nearby " + category.toLowerCase();
+            listEl.innerHTML = "";
+
+            // Clear previous markers
+            activeMarkers.forEach(m => map.removeLayer(m));
+            activeMarkers = [];
+
+            // Add new markers
+            if (locations[category]) {
+                locations[category].forEach(loc => {
+                    // Add marker
+                    const marker = L.marker(loc.coords).addTo(map);
+                    marker.bindPopup(`<b>${loc.name}</b><br>${loc.address}`);
+                    activeMarkers.push(marker);
+
+                    // Add to bottom sheet list
+                    const item = document.createElement("div");
+                    item.className = "sheet-item";
+                    item.innerHTML = `<b>${loc.name}</b><br><span>${loc.address}</span>`;
+                    item.onclick = () => {
+                        map.setView(loc.coords, 15);
+                        marker.openPopup();
+                    };
+                    listEl.appendChild(item);
+                });
+            }
+
+            // Open bottom sheet
+            sheet.classList.add("show");
+            sheet.classList.add("half");
+        };
 
         map.on("click", () => {
             sheet.classList.remove("show", "expanded", "half");
         });
 
-        // Dragging logic
+        // --- Bottom Sheet Drag Logic ---
         let startY = 0;
         let startHeight = 0;
         let dragging = false;
@@ -97,7 +143,6 @@
             const currentY = e.touches ? e.touches[0].clientY : e.clientY;
             const delta = startY - currentY;
             const newHeight = startHeight + delta;
-
             const maxHeight = window.innerHeight * 0.8;
             const minHeight = window.innerHeight * 0.25;
             if (newHeight >= minHeight && newHeight <= maxHeight) {
@@ -109,7 +154,6 @@
             if (!dragging) return;
             dragging = false;
             sheet.style.transition = "transform 0.3s ease, height 0.3s ease";
-
             const currentHeight = sheet.offsetHeight;
             const screenHeight = window.innerHeight;
 
@@ -126,14 +170,46 @@
 
         dragHandle.addEventListener("mousedown", startDrag);
         dragHandle.addEventListener("touchstart", startDrag);
-
         window.addEventListener("mousemove", duringDrag);
         window.addEventListener("touchmove", duringDrag);
-
         window.addEventListener("mouseup", stopDrag);
         window.addEventListener("touchend", stopDrag);
     });
 </script>
+
+<style>
+    /* Keep your existing styles */
+    .sheet-list {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .sheet-item {
+        background: #f9fafc;
+        border-radius: 12px;
+        padding: 10px 15px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .sheet-item:hover {
+            background: #f1f1f1;
+        }
+
+        .sheet-item b {
+            font-size: 15px;
+            color: #0a1a3d;
+        }
+
+        .sheet-item span {
+            font-size: 13px;
+            color: #6c7a91;
+        }
+</style>
+
 @code {
 
 }

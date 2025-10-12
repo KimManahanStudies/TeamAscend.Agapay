@@ -1,0 +1,340 @@
+﻿@using TeamAscend.Agapay.App.Components.Layout
+@layout BaseLayout
+@page "/Announcement"
+
+<style>
+    /* Wrapper that handles the layout */
+    .announcement-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* Take full height of screen */
+        overflow: hidden;
+        background-color: #f5f7fb;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .announcement-header {
+        background-color: white;
+        text-align: center;
+        padding: 1rem 0; /* balanced vertical padding */
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* centers vertically */
+        align-items: center; /* centers horizontally */
+        height: 90px; /* optional fixed height for perfect centering */
+    }
+
+        .announcement-header h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #002b5c;
+            margin: 0;
+        }
+
+        .announcement-header .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.25rem 0 0; /* small gap between title and subtitle */
+        }
+
+
+        .announcement-header .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+    /* Section 1 container (sticky area) */
+    .announcement-horizontal {
+        background: #fff;
+        padding: 0.75rem 0;
+        position: sticky;
+        top: 4.2rem; /* stays below header */
+        z-index: 15;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    /* Horizontal scrolling area */
+    .scroll-container {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding: 0 1rem;
+    }
+
+    /* Individual announcement card */
+    .announcement-item {
+        flex-shrink: 0;
+        background: #fff;
+        border-radius: 12px;
+        width: 240px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+
+    .announcement-image {
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    /* Card content */
+    .announcement-info {
+        padding: 0.7rem 0.9rem 0.9rem;
+    }
+
+    .announcement-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.3rem;
+    }
+
+    .announcement-source {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        background-color: #003366;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .source-name {
+        font-weight: 600;
+        color: #002b5c;
+        font-size: 0.9rem;
+    }
+
+    .time-ago {
+        color: #777;
+        font-size: 0.8rem;
+    }
+
+    .announcement-desc {
+        font-size: 0.8rem;
+        color: #444;
+        line-height: 1.2;
+        margin: 0;
+    }
+
+
+    /* Scrollable list section */
+    .announcement-list {
+        flex: 1;
+        overflow-y: auto;
+        /*padding: 1rem;*/
+    }
+
+    .announcement-card {
+        background-color: #fff;
+        border-radius: 12px;
+        padding: 0.75rem; /* reduced from 1rem */
+        margin-bottom: 0.8rem; /* slightly smaller spacing between cards */
+        box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    }
+
+    .announcement-title {
+        font-weight: 700;
+        color: #002b5c;
+        font-size: 0.95rem; /* slightly smaller font */
+        margin: 0 0 0.2rem;
+    }
+
+    .announcement-time {
+        display: block;
+        font-size: 0.7rem; /* smaller time text */
+        color: #888;
+        margin-bottom: 0.4rem;
+    }
+
+    .announcement-card img {
+        width: 100%;
+        border-radius: 10px;
+        height: 140px; /* set a fixed height for uniform smaller cards */
+        object-fit: cover;
+    }
+
+    .back-btn {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: white;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        text-decoration: none;
+        color: #002b5c;
+        font-size: 1.1rem;
+        transition: all 0.2s ease;
+    }
+
+        .back-btn:hover {
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+</style>
+
+<div class="announcement-wrapper">
+    <!-- Sticky Header -->
+    <header class="announcement-header">
+        <a href="/" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1>Announcement</h1>
+        <p class="subtitle">Latest updates and news</p>
+    </header>
+
+    <!-- Sticky Horizontal Scroll Section -->
+    <section class="announcement-horizontal">
+        <div class="scroll-container">
+
+            <div class="announcement-item">
+                <img src="imgs/agapay_img/Flood1.jpg" alt="Pagasa" class="announcement-image" />
+                <div class="announcement-info">
+                    <div class="announcement-meta">
+                        <div class="announcement-source">
+                            <span class="dot"></span>
+                            <span class="source-name">Pagasa</span>
+                        </div>
+                        <span class="time-ago">3d ago</span>
+                    </div>
+                    <p class="announcement-desc">
+                        Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
+                    </p>
+                </div>
+            </div>
+
+            <div class="announcement-item">
+                <img src="imgs/agapay_img/Flood1.jpg" alt="Pagasa" class="announcement-image" />
+                <div class="announcement-info">
+                    <div class="announcement-meta">
+                        <div class="announcement-source">
+                            <span class="dot"></span>
+                            <span class="source-name">Pagasa</span>
+                        </div>
+                        <span class="time-ago">3d ago</span>
+                    </div>
+                    <p class="announcement-desc">
+                        Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
+                    </p>
+                </div>
+            </div>
+
+            <div class="announcement-item">
+                <img src="imgs/agapay_img/Flood1.jpg" alt="Pagasa" class="announcement-image" />
+                <div class="announcement-info">
+                    <div class="announcement-meta">
+                        <div class="announcement-source">
+                            <span class="dot"></span>
+                            <span class="source-name">Pagasa</span>
+                        </div>
+                        <span class="time-ago">3d ago</span>
+                    </div>
+                    <p class="announcement-desc">
+                        Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
+                    </p>
+                </div>
+            </div>
+
+            <div class="announcement-item">
+                <img src="images/ndrrmc.jpg" alt="NDRRMC" class="announcement-image" />
+                <div class="announcement-info">
+                    <div class="announcement-meta">
+                        <div class="announcement-source">
+                            <span class="dot"></span>
+                            <span class="source-name">NDRRMC</span>
+                        </div>
+                        <span class="time-ago">2d ago</span>
+                    </div>
+                    <p class="announcement-desc">
+                        Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
+                    </p>
+                </div>
+            </div>
+
+            <div class="announcement-item">
+                <img src="images/weather.jpg" alt="Weather" class="announcement-image" />
+                <div class="announcement-info">
+                    <div class="announcement-meta">
+                        <div class="announcement-source">
+                            <span class="dot"></span>
+                            <span class="source-name">Weather Update</span>
+                        </div>
+                        <span class="time-ago">1d ago</span>
+                    </div>
+                    <p class="announcement-desc">
+                        Weather forecast and local advisories issued by PAGASA.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Scrollable Vertical Section -->
+    <section class="announcement-list">
+        <div class="announcement-card">
+            <p class="announcement-title">QUEZON CITY EARTHQUAKE DRILL</p>
+            <span class="announcement-time">10s ago</span>
+            <img src="imgs/agapay_img/Flood1.jpg" alt="Earthquake Drill" />
+        </div>
+
+        <div class="announcement-card">
+            <p class="announcement-title">QUEZON CITY EARTHQUAKE DRILL</p>
+            <span class="announcement-time">10s ago</span>
+            <img src="imgs/agapay_img/Flood1.jpg" alt="Earthquake Drill" />
+        </div>
+
+        <div class="announcement-card">
+            <p class="announcement-title">QUEZON CITY EARTHQUAKE DRILL</p>
+            <span class="announcement-time">10s ago</span>
+            <img src="imgs/agapay_img/Flood1.jpg" alt="Earthquake Drill" />
+        </div>
+
+        <div class="announcement-card">
+            <p class="announcement-title">QUEZON CITY EARTHQUAKE DRILL</p>
+            <span class="announcement-time">10s ago</span>
+            <img src="imgs/agapay_img/Flood1.jpg" alt="Earthquake Drill" />
+        </div>
+
+        <div class="announcement-card">
+            <p class="announcement-title">QUEZON CITY EARTHQUAKE DRILL</p>
+            <span class="announcement-time">10s ago</span>
+            <img src="imgs/agapay_img/Flood1.jpg" alt="Earthquake Drill" />
+        </div>
+
+        <div class="announcement-card">
+            <p class="announcement-title">QUEZON CITY RAINFALL ADVISORY #4</p>
+            <span class="announcement-time">1h ago</span>
+            <img src="images/rainfall.jpg" alt="Rainfall Advisory" />
+        </div>
+
+        <div class="announcement-card">
+            <p class="announcement-title">QUEZON CITY THUNDERSTORM ADVISORY #3</p>
+            <span class="announcement-time">3h ago</span>
+            <img src="images/thunderstorm.jpg" alt="Thunderstorm Advisory" />
+        </div>
+    </section>
+</div>
+
+@code {
+
+}
