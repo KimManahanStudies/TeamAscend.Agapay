@@ -103,3 +103,14 @@ CREATE TABLE MapLocation(
 	[ModifiedBy] [nvarchar](255) NULL,
 	[ModifiedDate] [datetime] NULL,
 )
+
+CREATE TABLE AppGlobalSettings(
+	[ID] [int] IDENTITY(1,1)  NOT NULL PRIMARY KEY,
+	[SettingsName] [nvarchar](255) NOT NULL,
+	[SettingsValue] [nvarchar](MAX) NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[CreatedBy] [nvarchar](255) NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [nvarchar](255) NULL,
+	[ModifiedDate] [datetime] NULL,
+)
