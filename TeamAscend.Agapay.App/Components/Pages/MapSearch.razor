@@ -57,8 +57,9 @@
 
         // Store markers
         let activeMarkers = [];
+        let currentCategory = "";
 
-        // Category data (with coordinates)
+        // Category data
         const locations = {
             "Hospitals": [
                 { name: "Community Hospital", address: "123 Health St, London", coords: [51.5, -0.09] },
@@ -92,6 +93,7 @@
             titleEl.textContent = category;
             addrEl.textContent = "Showing nearby " + category.toLowerCase();
             listEl.innerHTML = "";
+            currentCategory = category;
 
             // Clear previous markers
             activeMarkers.forEach(m => map.removeLayer(m));
@@ -100,26 +102,58 @@
             // Add new markers
             if (locations[category]) {
                 locations[category].forEach(loc => {
-                    // Add marker
                     const marker = L.marker(loc.coords).addTo(map);
-                    marker.bindPopup(`<b>${loc.name}</b><br>${loc.address}`);
                     activeMarkers.push(marker);
 
-                    // Add to bottom sheet list
+                    // Marker click behavior
+                    marker.on("click", () => {
+                        showLocationDetails(loc);
+                    });
+
+                    // Add item to bottom sheet list
                     const item = document.createElement("div");
                     item.className = "sheet-item";
                     item.innerHTML = `<b>${loc.name}</b><br><span>${loc.address}</span>`;
                     item.onclick = () => {
                         map.setView(loc.coords, 15);
                         marker.openPopup();
+                        showLocationDetails(loc);
                     };
                     listEl.appendChild(item);
                 });
             }
 
-            // Open bottom sheet
+            // Show bottom sheet
             sheet.classList.add("show");
             sheet.classList.add("half");
+        };
+
+        // Show details for specific location
+        function showLocationDetails(location) {
+              titleEl.textContent = location.name;
+              addrEl.textContent = location.address;
+              listEl.innerHTML = `
+                    <div class="sheet-details">
+                       <p><b>Category:</b> ${currentCategory}</p>
+                       <p><b>Address:</b> ${location.address}</p>
+                    <div class="sheet-actions">
+                       <button id="getDirectionsBtn">
+                          Get Directions
+                       </button>
+                    </div>
+                  </div>
+                 `;
+
+                     sheet.classList.add("show");
+                     sheet.classList.add("half");
+
+        }
+
+
+        // Open Google Maps for directions
+        window.openDirections = function (lat, lng) {
+            const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+            window.open(url, '_blank');
         };
 
         map.on("click", () => {
@@ -178,36 +212,7 @@
 </script>
 
 <style>
-    /* Keep your existing styles */
-    .sheet-list {
-        margin-top: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
 
-    .sheet-item {
-        background: #f9fafc;
-        border-radius: 12px;
-        padding: 10px 15px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-        .sheet-item:hover {
-            background: #f1f1f1;
-        }
-
-        .sheet-item b {
-            font-size: 15px;
-            color: #0a1a3d;
-        }
-
-        .sheet-item span {
-            font-size: 13px;
-            color: #6c7a91;
-        }
 </style>
 
 @code {

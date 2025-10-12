@@ -173,20 +173,34 @@
 </div>
 
 
-    <script>
-        // Toggle active state of Favorites button
-        document.getElementById("favoritesBtn").addEventListener("click", function () {
-            this.classList.toggle("active");
-        });
+<script>
+    const favoritesBtn = document.getElementById("favoritesBtn");
+    const hotlineItems = document.querySelectorAll(".hotline-item");
 
-        // Toggle star icons
-        document.querySelectorAll(".favorite-star").forEach(star => {
-            star.addEventListener("click", function () {
-                this.classList.toggle("active");
-                this.textContent = this.classList.contains("active") ? "★" : "☆";
-            });
+    // Toggle star icons for each hotline
+    document.querySelectorAll(".favorite-star").forEach(star => {
+        star.addEventListener("click", function () {
+            this.classList.toggle("active");
+            this.textContent = this.classList.contains("active") ? "★" : "☆";
         });
-    </script>
+    });
+
+    // Toggle "Favorites" view
+    favoritesBtn.addEventListener("click", function () {
+        this.classList.toggle("active");
+
+        if (this.classList.contains("active")) {
+            // Show only items with active favorite star
+            hotlineItems.forEach(item => {
+                const star = item.querySelector(".favorite-star");
+                item.style.display = star.classList.contains("active") ? "flex" : "none";
+            });
+        } else {
+            // Show all items
+            hotlineItems.forEach(item => item.style.display = "flex");
+        }
+    });
+</script>
 
 
 

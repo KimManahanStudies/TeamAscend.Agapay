@@ -2350,6 +2350,36 @@ body {
     margin-bottom: 20px;
 }
 
+/* Keep your existing styles */
+.sheet-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sheet-item {
+    background: #f9fafc;
+    border-radius: 12px;
+    padding: 10px 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .sheet-item:hover {
+        background: #f1f1f1;
+    }
+
+    .sheet-item b {
+        font-size: 15px;
+        color: #0a1a3d;
+    }
+
+    .sheet-item span {
+        font-size: 13px;
+        color: #6c7a91;
+    }
 /*----------------------------------------------------*/
 /*Announcement page style*/
 
