@@ -138,12 +138,13 @@
 
 
 
-/* --- Bottom Navigation Container --- */ .bottom_navigation {
+/* --- Bottom Navigation Container --- */.bottom_navigation {
                                               position: fixed;
                                               bottom: 0;
                                               left: 0;
                                               right: 0;
-                                              background: #fff; /* white background */ /*box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);*/
+                                              background: #fff; /* white background */
+                                              box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
                                               border-top-left-radius: 0; /*Kung gusto mo lagyan ng curve sa nav*/
                                               border-top-right-radius: 0;
                                               z-index: 100;
@@ -364,7 +365,7 @@
 }
 
 .about-back-btn:hover {
-    background: #f3f3f3;
+    background: #ffa500;
 }
 
 /*--------------------------------------------*/
@@ -803,7 +804,7 @@
 }
 
 .settings-back-btn:hover {
-    background: #f3f3f3;
+    background: #ffa500;
 }
 
 /* Adjust the title so it doesn’t overlap with the back button */
@@ -962,7 +963,7 @@
 }
 
 .privacy-back-btn:hover {
-    background: #f3f3f3;
+    background: #ffa500;
 }
 
 /* Adjust content spacing to avoid overlap */
@@ -2168,7 +2169,7 @@ body {
 }
 
 .back-btn:hover {
-    background: #f3f3f3;
+    background: #ffa500;
 }
 
 /* Adjusted Search Box */
@@ -2351,4 +2352,5 @@ body {
 
 /*----------------------------------------------------*/
 /*Announcement page style*/
+
 

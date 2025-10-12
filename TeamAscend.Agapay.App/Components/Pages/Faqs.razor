@@ -1,0 +1,161 @@
+@page "/Faqs"
+
+<style>
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .faq-title {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .faq-section {
+        margin-bottom: 40px;
+    }
+
+    .faq-section h2 {
+        color: #003366;
+        border-bottom: 2px solid #003366;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .faq-item {
+        margin-bottom: 30px;
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .faq-item h3 {
+        color: #003366;
+        margin-bottom: 15px;
+    }
+
+    .faq-item p {
+        color: #003366;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .faq-item ul, .faq-item ol {
+        margin-left: 20px;
+        color: #003366;
+    }
+
+    .faq-item li {
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+</style>
+
+<div class="faq-container">
+    <a href="/account" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1 class="faq-title">Frequently Asked Questions</h1>
+
+    <section class="faq-section">
+        <h2>General Questions</h2>
+
+        <div class="faq-item">
+            <h3>What is Agapay?</h3>
+            <p>
+                Agapay is a disaster preparedness application designed to strengthen community resilience in the Philippines,
+                starting with Quezon City. The app provides real-time alerts, customizable emergency plans, evacuation routes,
+                and reliable updates from trusted agencies like PAGASA, PHIVOLCS, and NDRRMC.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Is Agapay free to use?</h3>
+            <p>
+                Yes, Agapay is completely free to use. Our mission is to make disaster preparedness accessible to everyone
+                in the community.
+            </p>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <h2>Account & Registration</h2>
+
+        <div class="faq-item">
+            <h3>How do I create an Agapay account?</h3>
+            <p>Creating an account is simple:</p>
+            <ol>
+                <li>Download the Agapay app from App Store or Google Play Store</li>
+                <li>Open the app and tap "Register"</li>
+                <li>Enter your mobile number and verify with OTP</li>
+                <li>Complete your profile with basic information</li>
+                <li>Verify your identity through facial recognition</li>
+            </ol>
+        </div>
+
+        <div class="faq-item">
+            <h3>What information do I need to provide during registration?</h3>
+            <p>During registration, you'll need to provide:</p>
+            <ul>
+                <li>Full Name</li>
+                <li>Contact Number</li>
+                <li>Home Address</li>
+                <li>Emergency Contact Information</li>
+                <li>Optional: Medical Information for emergency purposes</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <h2>Features & Usage</h2>
+
+        <div class="faq-item">
+            <h3>What are the main features of Agapay?</h3>
+            <p>Agapay's main features include:</p>
+            <ul>
+                <li>Real-time disaster alerts and notifications</li>
+                <li>Personal Emergency GoPlan creation</li>
+                <li>Resource Locator for emergency facilities</li>
+                <li>First Aid & Survival Guides</li>
+                <li>Emergency contact management</li>
+                <li>Evacuation route planning</li>
+            </ul>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I create an emergency plan?</h3>
+            <p>To create an emergency plan:</p>
+            <ol>
+                <li>Go to the GoPlan section in the app</li>
+                <li>Tap "Create New Plan"</li>
+                <li>Add household members and emergency contacts</li>
+                <li>Set evacuation routes and meeting points</li>
+                <li>Review and save your plan</li>
+                <li>Share with family members if desired</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <h2>Privacy & Security</h2>
+
+        <div class="faq-item">
+            <h3>How is my personal information protected?</h3>
+            <p>We take your privacy seriously and protect your data through:</p>
+            <ul>
+                <li>Compliance with the Data Privacy Act of 2012 (RA 10173)</li>
+                <li>Secure encryption of personal information</li>
+                <li>Strict access controls and authentication</li>
+                <li>Regular security audits and updates</li>
+                <li>Data sharing only with authorized agencies during emergencies</li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+@code {
+    // Component logic can be added here if needed
+}
