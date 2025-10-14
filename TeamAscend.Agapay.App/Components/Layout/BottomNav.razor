@@ -16,12 +16,11 @@
 
         <!-- Center Button -->
         <li class="center-button">
-            <a href="/plan" onclick="setSelectedNav(this)">
+            <a href="javascript:void(0)" onclick="openBottomSheet(event)">
                 <i class="fa fa-plus"></i>
             </a>      
-                <span>Go Plan</span>      
+            <span>Go Plan</span>      
         </li>
-        
 
         <li class="link_notifications">
             <a href="/notifications" onclick="setSelectedNav(this)">
@@ -40,49 +39,262 @@
     </ul>
 </div>
 
+<!-- Bottom sheet modal -->
+<div id="bottomSheetBackdrop" class="bottom-sheet-backdrop" aria-hidden="true">
+    <div class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="bs-title">
+        <div class="bottom-sheet-content">
+            <i class="fa fa-user-plus bottom-sheet-icon" aria-hidden="true"></i>
 
+            <h2 id="bs-title" class="bottom-sheet-title">
+                <span class="title-orange">Create</span>
+                <span class="title-navy"> an account</span>
+            </h2>
 
-<script>
-    function setSelectedNav(src) {
-        $('.bottom_navigation ul li').removeClass('active');
-        $(src).parent().addClass('active');
-    }
-</script>
+            <p class="bottom-sheet-subtitle">Create an account to enjoy full access to Agapay's features.</p>
 
-@* OLD UI NavButton
-	<div class="bottom_navigation">
-    <ul>
-        <li class="link_home active">
-            <a href="/" onclick="setSelectedNav(this)">
-                <i class="fa fa-home"></i>
-                <span>Home</span>
-            </a>
-        </li>
-        <li class="link_mapsearch">
-            <a href="/mapsearch" onclick="setSelectedNav(this)">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Map</span>
-            </a>
-        </li>
-        <li class="link_notifications">
-            <a href="/notifications" onclick="setSelectedNav(this)">
-                <i class="fa fa-bell"></i>
-                <span>Notification</span>
-                <span class="notif_count">1</span>
-            </a>
-        </li>
-        <li class="link_account">
-            <a href="/account" onclick="setSelectedNav(this)">
-                <i class="far fa-user-circle"></i>
-                <span>Account</span>
-            </a>
-        </li>
-    </ul>
+            <button class="bs-btn-primary" onclick="onCreateAccount()">Create account</button>
+
+            <button class="bs-link-later" onclick="closeBottomSheet()">I'll do it later</button>
+        </div>
+    </div>
 </div>
+
 <script>
+    var _bsPrevFocused = null;
+
     function setSelectedNav(src) {
         $('.bottom_navigation ul li').removeClass('active');
         $(src).parent().addClass('active');
     }
+
+    /* Bottom sheet control */
+    function openBottomSheet(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        var backdrop = document.getElementById('bottomSheetBackdrop');
+        if (!backdrop) return;
+        // remember previous focus so we can restore it on close
+        _bsPrevFocused = document.activeElement;
+
+        backdrop.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('bottom-sheet-open');
+        // force reflow then add visible class for transition
+        void backdrop.offsetWidth;
+        backdrop.classList.add('visible');
+        // trap focus if needed (basic): move focus to first focusable element
+        var primary = backdrop.querySelector('.bs-btn-primary');
+        if (primary) primary.focus();
+
+        // attach esc handler
+        document.addEventListener('keydown', _bsEscHandler);
+    }
+
+    function closeBottomSheet() {
+        var backdrop = document.getElementById('bottomSheetBackdrop');
+        if (!backdrop) return;
+        backdrop.classList.remove('visible');
+        document.body.classList.remove('bottom-sheet-open');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('keydown', _bsEscHandler);
+
+        // restore focus to previously focused element
+        try {
+            if (_bsPrevFocused && typeof _bsPrevFocused.focus === 'function') {
+                _bsPrevFocused.focus();
+            }
+        } catch (err) {
+            // ignore
+        }
+        _bsPrevFocused = null;
+
+        // Navigate to home page
+        window.location.href = '/';
+    }
+
+    function _bsEscHandler(evt) {
+        if (evt.key === 'Escape' || evt.key === 'Esc') {
+            closeBottomSheet();
+        }
+    }
+
+    // close when clicking backdrop but not when clicking the sheet
+    document.addEventListener('click', function (e) {
+        var backdrop = document.getElementById('bottomSheetBackdrop');
+        if (!backdrop || backdrop.getAttribute('aria-hidden') === 'true') return;
+        var sheet = backdrop.querySelector('.bottom-sheet');
+        if (!sheet) return;
+        if (e.target === backdrop) {
+            closeBottomSheet();
+        }
+    });
+
+    // Primary action: navigate to create account page
+    function onCreateAccount() {
+        closeBottomSheet();
+        window.location.href = '/CreateAccount';
+    }
 </script>
-*@
+
+<style>
+    /* prevent background scroll when sheet open */
+    body.bottom-sheet-open {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    /* Bottom sheet backdrop */
+    .bottom-sheet-backdrop {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: flex-end; /* align sheet at bottom */
+        justify-content: center;
+        background: rgba(0,0,0,0.0); /* transparent until visible */
+        pointer-events: none;
+        transition: background 200ms ease;
+        z-index: 1000;
+    }
+
+    .bottom-sheet-backdrop.visible {
+        background: rgba(0,0,0,0.35);
+        pointer-events: auto;
+    }
+
+    .bottom-sheet {
+        width: 100%;
+        max-width: 720px;
+        height: auto;
+        max-height: 80vh; /* limit height to 85% of viewport height */
+        transform: translateY(100%);
+        transition: transform 300ms cubic-bezier(.22,1,.36,1);
+        will-change: transform;
+        padding: 0 16px 16px 16px;
+        box-sizing: border-box;
+        margin-bottom: env(safe-area-inset-bottom, 0px); /* handle notched phones */
+    }
+
+    .bottom-sheet-backdrop.visible .bottom-sheet {
+        transform: translateY(15%); /* show more of the sheet */
+    }
+
+    .bottom-sheet-content {
+        background: #ffffff;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+        padding: 20px 20px 40px 20px; /* increased vertical padding */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; /* increased gap between elements */
+        min-height: 320px; /* ensure minimum height */
+    }
+
+    .bottom-sheet-icon {
+        color: #003366; /* navy */
+        font-size: 40px; /* ~36-48px */
+        line-height: 1;
+    }
+
+    .bottom-sheet-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .title-orange {
+        color: #ffa500;
+    }
+
+    .title-navy {
+        color: #003366;
+    }
+
+    .bottom-sheet-subtitle {
+        margin: 0;
+        color: #666666;
+        font-size: 14px;
+        line-height: 1.45;
+        max-width: 420px;
+    }
+
+    .bs-btn-primary {
+        width: 100%;
+        max-width: 420px;
+        background: #003366;
+        color: #ffffff;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 16px; /* slightly taller button */
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        margin: 16px 0; /* increased vertical margins */
+    }
+
+    .bs-btn-primary:active,
+    .bs-btn-primary:focus {
+        outline: none;
+        transform: translateY(0.5px);
+    }
+
+    .bs-link-later {
+        background: transparent;
+        border: none;
+        color: #777777;
+        font-size: 14px;
+        padding: 12px;
+        margin: 8px 0 16px 0; /* increased margins */
+        cursor: pointer;
+        width: 100%; /* make it full width for larger touch target */
+    }
+
+    /* Restore original bottom nav styles, tweak only as needed */
+    .bottom_navigation {
+        background: #ffffff;
+        border-top: 1px solid #e0e0e0;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+
+    .bottom_navigation ul {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 16px;
+        margin: 0;
+        list-style: none;
+    }
+
+    .bottom_navigation li {
+        position: relative;
+    }
+
+    .bottom_navigation a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #003366;
+        font-size: 12px;
+    }
+
+    .bottom_navigation .active a {
+        color: #ffa500;
+    }
+
+    .bottom_navigation .nav-icon {
+        font-size: 18px;
+        margin-bottom: 4px;
+    }
+
+    @@media (min-width: 720px) {
+        .bottom-sheet {
+            border-radius: 16px 16px 0 0;
+            max-width: 540px;
+        }
+    }
+</style>
