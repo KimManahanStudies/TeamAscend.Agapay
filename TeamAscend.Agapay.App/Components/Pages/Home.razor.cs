@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,33 @@ namespace TeamAscend.Agapay.App.Components.Pages
 {
     public partial class Home:ComponentBase
     {
+        public static Home Instance { get; private set; }
+
+        [Inject]
+        private IJSRuntime jsRT { get; set; }
+        
+        [Inject]
+        private AppShellContext Shell { get; set; }
+
+        [Inject]
+        private DatabaseContext DB { get; set; }
+
         public HomeVM Model { get; set; }
 
         public Home()
         {
-            Model = new HomeVM() { 
-                //FBPosts = new List<FacebookPagePost>()            
-            };
+            Instance = this;
         }
 
         protected override async Task OnInitializedAsync()
         {
             Model = new HomeVM();
-            //Model.FBPosts = await FacebookService.GetPosts();
+            await jsRT.InvokeVoidAsync("IsBusy",true,"Syncing...");
+            await Shell.SyncData(DB);
+
+            Model.Contents = DB.BlogPosts;
+
+            await jsRT.InvokeVoidAsync("IsBusy", false);
             await InvokeAsync(StateHasChanged);
         }
 

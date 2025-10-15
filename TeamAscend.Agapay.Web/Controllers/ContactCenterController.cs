@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using TeamAscend.Agapay.Web.Attributes;
 using TeamAscend.Agapay.Web.Models;
 using TeamAscend.Agapay.Web.Shared;
@@ -48,7 +49,10 @@ namespace TeamAscend.Agapay.Web.Controllers
                 if(contact != null)
                 {
                     contact.IsDeleted = true;
+                    contact.ModifiedBy = "SYSTEM";
+                    contact.ModifiedDate = DateTime.Now;
                     res = db.SaveChanges();
+                    DataHelper.SetLastModfied(db);
                 }
             }
 

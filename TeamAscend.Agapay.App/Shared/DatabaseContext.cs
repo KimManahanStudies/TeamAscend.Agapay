@@ -1,10 +1,11 @@
-﻿using TeamAscend.Agapay.App.Models;
-using SQLite;
+﻿using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TeamAscend.Agapay.App.Model;
+using TeamAscend.Agapay.App.Models;
 
 namespace TeamAscend.Agapay.App.Shared
 {
@@ -14,7 +15,7 @@ namespace TeamAscend.Agapay.App.Shared
     /// </summary>
     public class DatabaseContext
     {
-        SQLiteAsyncConnection database;
+        SQLiteConnection database;
         public static DatabaseContext Instance { set; get; }
         public DatabaseContext()
         {
@@ -26,36 +27,116 @@ namespace TeamAscend.Agapay.App.Shared
         /// Initialize Database Availability
         /// </summary>
         /// <returns></returns>
-        public async Task Init()
+        public void Init()
         {
             if (database is not null)
                 return;
 
-            database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
+            database = new SQLiteConnection(Constants.DatabasePath, Constants.Flags);
             //Create tables
-            await database.CreateTableAsync<User>();
+            database.CreateTable<AppUser>();
+            database.CreateTable<AppBlogPost>();
+            database.CreateTable<AppMapLocation>();
+            database.CreateTable<AppPhonebook>();
         }
 
-        public async Task<List<User>> Users()
+        // AppUser CRUD
+        public List<AppUser> Users
         {
-            await Init();
-            return await database.Table<User>().ToListAsync();
+            get { 
+                Init();
+                return database.Table<AppUser>().ToList();
+            }
         }
 
-        public async Task<int> SaveUser(User incoming)
+        public int SaveUser(AppUser incoming)
         {
-            await Init();
-            if (incoming.ID != 0)
-                return await database.UpdateAsync(incoming);//update existing
-            else
-                return await database.InsertAsync(incoming);//insert new
+            Init();
+            return database.Insert(incoming);//insert new
         }
 
-        public async Task<int> DeleteUser(User incoming)
+        public int UpdateUser(AppUser incoming)
         {
-            await Init();
-            return await database.DeleteAsync(incoming);
+            Init();
+            return database.Update(incoming);//update existing
         }
 
+        public int DeleteUser(AppUser incoming)
+        {
+            Init();
+            return database.Delete(incoming);
+        }
+
+        // AppBlogPost CRUD
+        public List<AppBlogPost> BlogPosts
+        {
+            get
+            {
+                Init();
+                return database.Table<AppBlogPost>().ToList();
+            }
+        }
+
+        public int SaveBlogPost(AppBlogPost incoming)
+        {
+            Init();
+            return database.Insert(incoming);//insert new
+        }
+
+        public int UpdateBlogPost(AppBlogPost incoming)
+        {
+            Init();
+            return database.Update(incoming);//update existing
+        }
+
+        // AppMapLocation CRUD
+        public List<AppMapLocation> MapLocations
+        {
+            get
+            {
+                Init();
+                return database.Table<AppMapLocation>().ToList();
+            }
+        }
+
+        public int SaveMapLocation(AppMapLocation incoming)
+        {
+            Init();
+            return database.Insert(incoming);//insert new
+        }
+
+        public int UpdateMapLocation(AppMapLocation incoming)
+        {
+            Init();
+            return database.Update(incoming);//update existing
+        }
+
+        // AppPhonebook CRUD
+        public  List<AppPhonebook> PhonebookEntries
+        {            
+            get
+            {
+                Init();
+                return database.Table<AppPhonebook>().ToList();
+            }
+        }
+
+        public int SavePhonebookEntry(AppPhonebook incoming)
+        {
+            Init();
+            return database.Insert(incoming);//insert new
+        }
+
+        public int UpdatePhonebookEntry(AppPhonebook incoming)
+        {
+            Init();
+            return database.Update(incoming);//update existing
+        }
+
+        public int DeletePhonebookEntry(AppPhonebook incoming)
+        {
+            Init();
+            return database.Delete(incoming);
+        }
     }
 }

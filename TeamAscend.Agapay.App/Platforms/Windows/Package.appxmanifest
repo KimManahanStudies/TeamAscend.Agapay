@@ -6,7 +6,7 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   IgnorableNamespaces="uap rescap">
 
-  <Identity Name="maui-package-name-placeholder" Publisher="CN=User Name" Version="0.0.0.0" />
+  <Identity Name="com.companyname.teamascend.agapay.app" Publisher="CN=Agapay" Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="B865AA5D-C89E-408C-9FD7-D0670B88267B" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

@@ -11,6 +11,9 @@ namespace TeamAscend.Agapay.App.Shared
     /// </summary>
     public static class Constants
     {
+        public const string AgapayWebAPI_URL = "https://q4m7d5v7-44352.asse.devtunnels.ms/";
+
+
         /// <summary>
         /// Name for the SQLite DB created in the device
         /// </summary>

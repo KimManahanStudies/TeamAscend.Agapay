@@ -15,10 +15,45 @@
     <link rel="stylesheet" href="css/loading_icon.css" />
     <link rel="stylesheet" href="/lib/leafletjs/leaflet.css" />
     <script src="/lib/leafletjs/leaflet.js"></script>
+    <style>
+        #busyBlocker {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: rgba(0,0,0,0.1);
+            display: none
+        }
+
+        #busyBlockerContent {
+            margin: 10% auto;
+            background-color: white;
+            width: 170px;
+            height: 130px;
+            border-radius: 30px;
+            box-shadow: 0px 0px 10px #CCC;
+            overflow: hidden;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-
+    <div id="busyBlocker" style="">
+        <div id="busyBlockerContent" style="">
+            <div class="loadingio-spinner-double-ring-nq4q5u6dq7r">
+                <div class="ldio-x2uulkbinbj">
+                    <div></div>
+                    <div></div>
+                    <div><div></div></div>
+                    <div><div></div></div>
+                </div>
+            </div>
+            <div id="busyBlockerMessage"></div>
+        </div>
+    </div>
     <div class="status-bar-safe-area"></div>
 
     <div id="app">
@@ -31,7 +66,7 @@
                     <div><div></div></div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 
     <div id="blazor-error-ui">
@@ -44,6 +79,17 @@
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/fullcalendar.min.js"></script>
+    <script>
+        window.IsBusy = (show, message) => {
+            if (show) {
+                $('#busyBlocker').show();
+                $('#busyBlockerMessage').html(message);
+            }
+            else {
+                $('#busyBlocker').hide();
+            }
+        }
+    </script>
     <script src="_framework/blazor.webview.js" autostart="false"></script>
 </body>
 </html>
