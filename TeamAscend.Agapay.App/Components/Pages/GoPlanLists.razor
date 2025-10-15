@@ -4,7 +4,7 @@
 <div class="goplan-container">
     <div class="header-goplan">
         <h1 class="title">Go Plan</h1>
-        <button class="add-button">
+        <button class="add-button" onclick="openBottomSheet()">
             <span class="plus-icon-container">
                 <i class="fas fa-plus"></i>
             </span>
@@ -34,7 +34,57 @@
     </div>
 </div>
 
+<!-- Bottom Sheet -->
+<div id="bottomSheet" class="bottom-sheet">
+    <div class="sheet-content">
+        <div class="sheet-handle"></div>
+
+       <div class="sheet-section">
+            <NavLink href="/plan" class="create-btn" onclick="closeBottomSheet()">
+                <i class="fas fa-plus-circle"></i> Create New GoPlan
+            </NavLink>
+       </div>
+
+
+        <div class="sheet-section">
+            <p class="import-label">Import GoPlan</p>
+            <input type="text" class="import-input" placeholder="Paste your link here" />
+        </div>
+    </div>
+</div>
+
+<!-- Overlay -->
+<div id="overlay" class="overlay" onclick="closeBottomSheet()"></div>
+
+<!-- Bottom Sheet for Options -->
+<div id="optionsSheet" class="bottom-sheet">
+    <div class="sheet-content">
+        <div class="sheet-handle"></div>
+
+        <p id="selectedPlanName" class="plan-title">Plan Name</p>
+
+        <div class="sheet-option" onclick="copyPlanLink()">
+            <i class="fas fa-link"></i>
+            <span>Copy Link</span>
+        </div>
+
+        <div class="sheet-option" onclick="window.location.href='/plan'">
+            <i class="fas fa-edit"></i>
+            <span>Edit GoPlan</span>
+        </div>
+        <div class="sheet-option" onclick="window.location.href='/plan'">
+            <i class="fas fa-trash"></i>
+            <span>Delete</span>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay for this sheet -->
+<div id="overlayOptions" class="overlay" onclick="closeOptionsSheet()"></div>
+
+
 <style>
+    /* Main container */
     .goplan-container {
         background-color: white;
         padding: 1.5rem;
@@ -123,8 +173,210 @@
     .options-button:hover {
         background-color: #f5f5f5;
     }
+
+    /* Overlay */
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 999;
+    }
+
+    .overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Bottom Sheet */
+    .bottom-sheet {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        transition: bottom 0.3s ease;
+        z-index: 1000;
+    }
+
+    .bottom-sheet.show {
+        bottom: 0;
+    }
+
+    .sheet-content {
+        padding: 1rem 1.5rem 2rem;
+    }
+
+    .sheet-handle {
+        width: 50px;
+        height: 5px;
+        background: #ccc;
+        border-radius: 5px;
+        margin: 0.5rem auto 1rem;
+    }
+
+    .sheet-section {
+        margin-bottom: 1rem;
+    }
+
+    .create-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: none;
+        border: none;
+        color: #003366;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1rem;
+        text-decoration: none;
+    }
+
+    .create-btn i {
+        color: #003366;
+    }
+
+    .import-label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #003366;
+        margin-bottom: 0.25rem;
+    }
+
+    .import-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        color: #333;
+    }
+
+    .import-input::placeholder {
+        color: #aaa;
+    }
+
+    /* Reuse overlay style */
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 999;
+    }
+
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+    /* Options Bottom Sheet */
+    .bottom-sheet {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        transition: bottom 0.3s ease;
+        z-index: 1000;
+    }
+
+        .bottom-sheet.show {
+            bottom: 0;
+        }
+
+    .sheet-content {
+        padding: 1rem 1.5rem 2rem;
+    }
+
+    .sheet-handle {
+        width: 50px;
+        height: 5px;
+        background: #ccc;
+        border-radius: 5px;
+        margin: 0.5rem auto 1rem;
+    }
+
+    .plan-title {
+        font-weight: 600;
+        color: #003366;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .sheet-option {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 0;
+        color: #003366;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        border-top: 1px solid #eee;
+    }
+
+        .sheet-option:first-of-type {
+            border-top: none;
+        }
+
+        .sheet-option:hover {
+            background-color: #f9f9f9;
+        }
+
+        .sheet-option i {
+            font-size: 1.1rem;
+            color: #003366;
+            width: 22px;
+            text-align: center;
+        }
 </style>
 
-@code {
-    private List<GoPlan> Plans { get; set; } = new();
-}
+<script>
+    function openBottomSheet() {
+        document.getElementById("bottomSheet").classList.add("show");
+        document.getElementById("overlay").classList.add("show");
+    }
+
+    function closeBottomSheet() {
+        document.getElementById("bottomSheet").classList.remove("show");
+        document.getElementById("overlay").classList.remove("show");
+    }
+
+    // Open bottom sheet when clicking 3 dots
+    document.querySelectorAll('.options-button').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            const planName = e.currentTarget.parentElement.querySelector('.plan-name').textContent.trim();
+            document.getElementById('selectedPlanName').textContent = planName;
+            openOptionsSheet();
+        });
+    });
+
+    function openOptionsSheet() {
+        document.getElementById('optionsSheet').classList.add('show');
+        document.getElementById('overlayOptions').classList.add('show');
+    }
+
+    function closeOptionsSheet() {
+        document.getElementById('optionsSheet').classList.remove('show');
+        document.getElementById('overlayOptions').classList.remove('show');
+    }
+
+    function copyPlanLink() {
+        const planTitle = document.getElementById('selectedPlanName').textContent;
+        const fakeLink = `${window.location.origin}/GoPlan/${encodeURIComponent(planTitle)}`;
+        navigator.clipboard.writeText(fakeLink).then(() => {
+            alert(`Link copied:\n${fakeLink}`);
+        });
+    }
+</script>
