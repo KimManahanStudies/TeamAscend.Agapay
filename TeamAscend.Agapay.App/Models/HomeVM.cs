@@ -9,6 +9,6 @@ namespace TeamAscend.Agapay.App.Models
 {
     public class HomeVM:BaseViewModel
     {
-        //public List<FacebookPagePost> FBPosts { get; set; }
+        public List<AppBlogPost> Contents { get; set; }
     }
 }

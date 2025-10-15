@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using TeamAscend.Agapay.App.Shared;
 
 namespace TeamAscend.Agapay.App
 {
@@ -20,6 +21,9 @@ namespace TeamAscend.Agapay.App
     		builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddSingleton<DatabaseContext>();
+            builder.Services.AddSingleton<AppShellContext>();
+
 
             return builder.Build();
         }

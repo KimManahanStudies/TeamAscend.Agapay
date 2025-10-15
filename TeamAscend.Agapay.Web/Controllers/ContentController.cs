@@ -91,8 +91,11 @@ namespace TeamAscend.Agapay.Web.Controllers
                            select row).FirstOrDefault();
                 if(post != null)
                 {
+                    post.ModifiedBy = "SYSTEM";
+                    post.ModifiedDate = DateTime.Now;
                     post.IsDeleted = true;
                     res = db.SaveChanges();
+                    DataHelper.SetLastModfied(db);
                 }
             }
 
@@ -137,6 +140,7 @@ namespace TeamAscend.Agapay.Web.Controllers
                 }
 
                 db.SaveChanges();
+                DataHelper.SetLastModfied(db);
             }
 
 

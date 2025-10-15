@@ -14,6 +14,8 @@ public partial class AgapayTestDBContext : DbContext
     {
     }
 
+    public virtual DbSet<AppGlobalSetting> AppGlobalSettings { get; set; }
+
     public virtual DbSet<BlogPost> BlogPosts { get; set; }
 
     public virtual DbSet<GoBag> GoBags { get; set; }
@@ -28,6 +30,20 @@ public partial class AgapayTestDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<AppGlobalSetting>(entity =>
+        {
+            entity.HasKey(e => e.ID).HasName("PK__AppGloba__3214EC27B20D8387");
+
+            entity.Property(e => e.CreatedBy).HasMaxLength(255);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.ModifiedBy).HasMaxLength(255);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.SettingsName)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.SettingsValue).IsRequired();
+        });
+
         modelBuilder.Entity<BlogPost>(entity =>
         {
             entity.HasKey(e => e.ID).HasName("PK__BlogPost__3214EC27FBE146A0");

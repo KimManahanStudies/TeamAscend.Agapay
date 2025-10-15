@@ -9,7 +9,7 @@
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new MainPage()) { Title = "TeamAscend.Agapay.App" };
+            return new Window(new MainPage()) { Title = "Agapay" };
         }
     }
 }

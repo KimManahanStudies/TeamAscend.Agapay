@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TeamAscend.Agapay.Web.Attributes;
 using TeamAscend.Agapay.Web.Models;
 using TeamAscend.Agapay.Web.Shared;
-using Newtonsoft.Json;
 
 namespace TeamAscend.Agapay.Web.Controllers
 {
@@ -49,7 +50,10 @@ namespace TeamAscend.Agapay.Web.Controllers
                 if(location != null)
                 {
                     location.IsDeleted = true;
+                    location.ModifiedBy =  "SYSTEM";
+                    location.ModifiedDate = DateTime.Now;
                     result = db.SaveChanges();
+                    DataHelper.SetLastModfied(db);
                 }
             }
 
@@ -96,6 +100,7 @@ namespace TeamAscend.Agapay.Web.Controllers
                 }
 
                 db.SaveChanges();
+                DataHelper.SetLastModfied(db);
             }
 
             return Redirect("/Admin/Locations");
