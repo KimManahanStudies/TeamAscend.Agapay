@@ -1,304 +1,237 @@
 ﻿@page "/WTDfirstaid"
-@using TeamAscend.Agapay.App.Components.Layout
-@layout BaseLayout
+@inject NavigationManager NavigationManager
 
-<div class="wtdfa-container">
-    <!-- Header -->
-    <div class="wtdfa-header">
-        <div class="wtdfa-header-row">
-            <a href="/" class="wtdfa-back"><i class="fas fa-chevron-left"></i></a>
-            <div class="wtdfa-title">First Aid Guide</div>
-            <div class="wtdfa-spacer"></div>
+<div class="first-aid-container">
+    <div class="nav-bar">
+        <h1 class="page-title">First Aid Guide</h1>
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="tabs-container">
+        <div class="tab-button @(activeTab == "guide" ? "active" : "")" @onclick='() => SwitchTab("guide")'>
+            <i class="fas fa-notes-medical"></i>
+            <span>First Aid Guide</span>
+        </div>
+        <div class="tab-button @(activeTab == "bookmarks" ? "active" : "")" @onclick='() => SwitchTab("bookmarks")'>
+            <i class="far fa-bookmark"></i>
+            <span>Bookmarks</span>
         </div>
     </div>
 
-    <!-- Segmented Control -->
-    <div class="wtdfa-segmented">
-        <button class="wtdfa-segment-btn active" id="segment-guide">
-            <i class="fas fa-book-medical"></i> First Aid Guide
-        </button>
-        <button class="wtdfa-segment-btn" id="segment-bookmarks">
-            <i class="fas fa-bookmark"></i> Bookmarks
-        </button>
-    </div>
-
-    <!-- FIRST AID GUIDE SECTION -->
-    <div class="wtdfa-content active" id="guide-section">
-        <div class="wtdfa-grid">
-            <a href="/WTDcpr" class="wtdfa-card" data-title="Basic CPR" data-img="imgs/wtd_banners/wtdfa_banners/wtd_cpr.jpeg">
-                <img src="imgs/wtd_banners/wtdfa_banners/wtd_cpr.jpeg" alt="Basic CPR" />
-                <div class="wtdfa-card-info">
-                    <span class="wtdfa-card-title">Basic CPR</span>
-                    <i class="far fa-bookmark bookmark-icon"></i>
+    <!-- Content Grid -->
+    <div class="cards-grid">
+        @foreach (var card in (activeTab == "guide" ? firstAidCards : firstAidCards.Where(c => c.IsBookmarked)))
+        {
+            <div class="first-aid-card">
+                <img src="@card.ImageUrl" alt="@card.Title" @onclick="() => NavigateToDetail(card)"/>
+                <div class="card-content">
+                    <h3>@card.Title</h3>
+                    <i class="@(card.IsBookmarked ? "fas" : "far") fa-bookmark bookmark-icon"
+                       @onclick="() => ToggleBookmark(card)"></i>
                 </div>
-            </a>
-
-            <a href="/WTDburns" class="wtdfa-card" data-title="Healing burns" data-img="imgs/wtd_banners/wtdfa_banners/wtd_burns.jpeg">
-                <img src="imgs/wtd_banners/wtdfa_banners/wtd_burns.jpeg" alt="Healing burns" />
-                <div class="wtdfa-card-info">
-                    <span class="wtdfa-card-title">Healing burns</span>
-                    <i class="far fa-bookmark bookmark-icon"></i>
-                </div>
-            </a>
-
-            <a href="/WTDsplinting" class="wtdfa-card" data-title="Splinting" data-img="imgs/wtd_banners/wtdfa_banners/wtd_splinting.jpeg">
-                <img src="imgs/wtd_banners/wtdfa_banners/wtd_splinting.jpeg" alt="Splinting" />
-                <div class="wtdfa-card-info">
-                    <span class="wtdfa-card-title">Splinting</span>
-                    <i class="far fa-bookmark bookmark-icon"></i>
-                </div>
-            </a>
-
-            <a href="/WTDchoking" class="wtdfa-card" data-title="Choking" data-img="imgs/wtd_banners/wtdfa_banners/wtd_choking.jpeg">
-                <img src="imgs/wtd_banners/wtdfa_banners/wtd_choking.jpeg" alt="Choking" />
-                <div class="wtdfa-card-info">
-                    <span class="wtdfa-card-title">Choking</span>
-                    <i class="far fa-bookmark bookmark-icon"></i>
-                </div>
-            </a>
-
-            <a href="/WTDbleeding" class="wtdfa-card" data-title="Bleeding" data-img="imgs/wtd_banners/wtdfa_banners/wtd_bleeding.jpeg">
-                <img src="imgs/wtd_banners/wtdfa_banners/wtd_bleeding.jpeg" alt="Bleeding" />
-                <div class="wtdfa-card-info">
-                    <span class="wtdfa-card-title">Bleeding</span>
-                    <i class="far fa-bookmark bookmark-icon"></i>
-                </div>
-            </a>
-
-            <a href="/WTDminorcutswounds" class="wtdfa-card" data-title="Minor Cuts and Wounds" data-img="imgs/wtd_banners/wtdfa_banners/wtd_cuts.jpeg">
-                <img src="imgs/wtd_banners/wtdfa_banners/wtd_cuts.jpeg" alt="Minor Cuts and Wounds" />
-                <div class="wtdfa-card-info">
-                    <span class="wtdfa-card-title">Minor Cuts and Wounds</span>
-                    <i class="far fa-bookmark bookmark-icon"></i>
-                </div>
-            </a>
-
-            <a href="/WTDhyperthermia" class="wtdfa-card" data-title="Hyperthermia" data-img="imgs/wtd_banners/wtdfa_banners/wtd_hyperthermia.jpeg">
-                <img src="imgs/wtd_banners/wtdfa_banners/wtd_hyperthermia.jpeg" alt="Hyperthermia" />
-                <div class="wtdfa-card-info">
-                    <span class="wtdfa-card-title">Hyperthermia</span>
-                    <i class="far fa-bookmark bookmark-icon"></i>
-                </div>
-            </a>
-
-            <a href="/WTDstroke" class="wtdfa-card" data-title="Heatstroke" data-img="imgs/wtd_banners/wtdfa_banners/wtd_heatstroke.jpeg">
-                <img src="imgs/wtd_banners/wtdfa_banners/wtd_heatstroke.jpeg" alt="Heatstroke" />
-                <div class="wtdfa-card-info">
-                    <span class="wtdfa-card-title">Heatstroke</span>
-                    <i class="far fa-bookmark bookmark-icon"></i>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <!-- BOOKMARKS SECTION -->
-    <div class="wtdfa-content" id="bookmarks-section">
-        <div class="wtdfa-grid" id="bookmarkGrid">
-            <p class="empty-msg">No bookmarks yet.</p>
-        </div>
+            </div>
+        }
+        @if (activeTab == "bookmarks" && !firstAidCards.Any(c => c.IsBookmarked))
+        {
+            <div class="empty-state">
+                <i class="far fa-bookmark empty-icon"></i>
+                <p>No bookmarked guides yet</p>
+            </div>
+        }
     </div>
 </div>
 
 <style>
-.wtdfa-container {
-    padding: 10px;
-    background: #fff;
-    min-height: 100vh;
-}
-
-/* Header */
-.wtdfa-header-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.wtdfa-title {
-    font-weight: 700;
-    font-size: 20px;
-    text-align: center;
-}
-
-.wtdfa-back {
-    color: #333;
-    font-size: 20px;
-}
-
-/* Segmented Control */
-.wtdfa-segmented {
-    display: flex;
-    justify-content: space-around;
-    background: #f3f3f3;
-    border-radius: 12px;
-    padding: 6px;
-    margin-bottom: 15px;
-}
-
-.wtdfa-segment-btn {
-    flex: 1;
-    background: none;
-    border: none;
-    padding: 8px;
-    border-radius: 10px;
-    font-weight: 600;
-    color: #666;
-    transition: all 0.3s ease;
-}
-
-.wtdfa-segment-btn.active {
-    background: #007aff;
-    color: white;
-}
-
-/* Sections */
-.wtdfa-content {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.wtdfa-content.active {
-    display: block;
-    opacity: 1;
-}
-
-/* Grid */
-.wtdfa-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-/* Cards */
-.wtdfa-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transition: transform 0.2s;
-}
-
-.wtdfa-card:hover {
-    transform: scale(1.02);
-}
-
-.wtdfa-card img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-}
-
-.wtdfa-card-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 10px;
-}
-
-.wtdfa-card-title {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.bookmark-icon {
-    font-size: 18px;
-    color: #ccc;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.bookmark-icon.active,
-.bookmark-icon.fas {
-    color: #007aff;
-}
-
-.bookmark-icon:hover {
-    color: #007aff;
-}
-
-.empty-msg {
-    text-align: center;
-    color: #777;
-    margin-top: 40px;
-}
-
-    a {
-        text-decoration: none;
-        outline: none;
+    .first-aid-container {
+        background: white;
+        min-height: 100vh;
+        padding: 16px;
     }
 
-        a:focus, a:active {
-            outline: none;
-        }
+    .nav-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
 
+    .back-button {
+        font-size: 20px;
+        color: #002147;
+        cursor: pointer;
+    }
+
+    .page-title {
+        font-weight: bold;
+        margin: 0;
+        font-size: 20px;
+        color: #002147;
+    }
+
+    .placeholder {
+        width: 20px;
+    }
+
+    .tabs-container {
+        display: flex;
+        background: #f5f5f5;
+        border-radius: 12px;
+        padding: 4px;
+        margin-bottom: 20px;
+    }
+
+    .tab-button {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #666;
+    }
+
+    .tab-button.active {
+        background: #002147;
+        color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .first-aid-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .first-aid-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .first-aid-card img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .card-content {
+        padding: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-content h3 {
+        margin: 0;
+        font-size: 16px;
+        color: #003366;
+        font-weight: bold;
+    }
+
+    .bookmark-icon {
+        color: #002147;
+        cursor: pointer;
+        font-size: 18px;
+        transition: transform 0.2s ease;
+    }
+
+    .bookmark-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 40px;
+        color: #666;
+    }
+
+    .empty-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
 </style>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const guideBtn = document.getElementById("segment-guide");
-    const bookmarksBtn = document.getElementById("segment-bookmarks");
-    const guideSection = document.getElementById("guide-section");
-    const bookmarksSection = document.getElementById("bookmarks-section");
-    const bookmarkGrid = document.getElementById("bookmarkGrid");
-    let bookmarks = [];
+@code {
+    private string activeTab = "guide";
 
-    // Smooth tab switch
-    guideBtn.addEventListener("click", () => switchSection(guideBtn, bookmarksBtn, guideSection, bookmarksSection));
-    bookmarksBtn.addEventListener("click", () => switchSection(bookmarksBtn, guideBtn, bookmarksSection, guideSection));
-
-    function switchSection(activeBtn, inactiveBtn, showEl, hideEl) {
-        activeBtn.classList.add("active");
-        inactiveBtn.classList.remove("active");
-
-        hideEl.classList.remove("active");
-        setTimeout(() => showEl.classList.add("active"), 150);
+    private class FirstAidCard
+    {
+        public string Title { get; set; }
+        public string ImageUrl { get; set; }
+        public bool IsBookmarked { get; set; }
     }
 
-    // Handle bookmark toggle
-    document.querySelectorAll(".bookmark-icon").forEach(icon => {
-        icon.addEventListener("click", () => {
-            const card = icon.closest(".wtdfa-card");
-            const title = card.getAttribute("data-title");
-            const img = card.getAttribute("data-img");
+    private List<FirstAidCard> firstAidCards = new()
+    {
+        new FirstAidCard { Title = "Basic CPR", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_cpr.jpeg", IsBookmarked = false },
+        new FirstAidCard { Title = "Healing Burns", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_burns.jpeg", IsBookmarked = false },
+        new FirstAidCard { Title = "Splinting", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_splinting.jpeg", IsBookmarked = false },
+        new FirstAidCard { Title = "Choking", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_choking.jpeg", IsBookmarked = false },
+        new FirstAidCard { Title = "Bleeding", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_bleeding.jpeg", IsBookmarked = false },
+        new FirstAidCard { Title = "Minor Cuts", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_cuts.jpeg", IsBookmarked = false },
+        new FirstAidCard { Title = "Hyperthermia", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_hyperthermia.jpeg", IsBookmarked = false },
+        new FirstAidCard { Title = "Heatstroke", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_heatstroke.jpeg", IsBookmarked = false }
+    };
 
-            icon.classList.toggle("fas");
-            icon.classList.toggle("far");
-            icon.classList.toggle("active");
+    private void SwitchTab(string tab)
+    {
+        activeTab = tab;
+        StateHasChanged();
+    }
 
-            if (icon.classList.contains("fas")) {
-                // Add to bookmarks
-                bookmarks.push({ title, img });
-            } else {
-                // Remove from bookmarks
-                bookmarks = bookmarks.filter(b => b.title !== title);
-            }
-            renderBookmarks();
-        });
-    });
+    private void ToggleBookmark(FirstAidCard card)
+    {
+        card.IsBookmarked = !card.IsBookmarked;
+        StateHasChanged();
+    }
 
-    // Render bookmarks grid
-    function renderBookmarks() {
-        bookmarkGrid.innerHTML = "";
-        if (bookmarks.length === 0) {
-            bookmarkGrid.innerHTML = '<p class="empty-msg">No bookmarks yet.</p>';
-            return;
+    private void NavigateBack()
+    {
+        // Navigation logic here
+    }
+
+    private void NavigateToDetail(FirstAidCard card)
+    {
+        switch (card.Title)
+        {
+            case "Basic CPR":
+                NavigationManager.NavigateTo("/WTDcpr");
+                break;
+            case "Healing Burns":
+                NavigationManager.NavigateTo("/WTDburns");
+                break;
+            case "Splinting":
+                NavigationManager.NavigateTo("/WTDsplinting");
+                break;
+            case "Choking":
+                NavigationManager.NavigateTo("/WTDchoking");
+                break;
+            case "Bleeding":
+                NavigationManager.NavigateTo("/WTDbleeding");
+                break;
+            case "Minor Cuts":
+                NavigationManager.NavigateTo("/WTDminorcutswounds");
+                break;
+            case "Hyperthermia":
+                NavigationManager.NavigateTo("/WTDhyperthermia");
+                break;
+            case "Heatstroke":
+                NavigationManager.NavigateTo("/WTDstroke");
+                break;
+            // Add other cases as you create more detail pages
         }
-
-        bookmarks.forEach(item => {
-            const card = document.createElement("div");
-            card.classList.add("wtdfa-card");
-            card.innerHTML = `
-                <img src="${item.img}" alt="${item.title}" />
-                <div class="wtdfa-card-info">
-                    <span class="wtdfa-card-title">${item.title}</span>
-                    <i class="fas fa-bookmark bookmark-icon active"></i>
-                </div>
-            `;
-            bookmarkGrid.appendChild(card);
-        });
     }
-});
-</script>
-
-
+}
