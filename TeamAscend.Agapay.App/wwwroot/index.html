@@ -30,10 +30,10 @@
         #busyBlockerContent {
             margin: 10% auto;
             background-color: white;
-            width: 170px;
-            height: 130px;
-            border-radius: 30px;
-            box-shadow: 0px 0px 10px #CCC;
+            width: 200px;
+            height: 200px;
+            /* border-radius: 30px; */
+            /* box-shadow: 0px 0px 10px #CCC; */
             overflow: hidden;
             text-align: center;
         }
@@ -90,6 +90,70 @@
             }
         }
     </script>
+
+    <!-- Leaflet Map Script -->
+    <script>
+        let map;
+        let markers = [];
+
+        window.initMap = (locationsStr) => {
+            map = undefined;
+
+            if (!map) {
+                map = L.map('mapview', { zoomControl: false }).setView([14.5995, 120.9842], 13); // Default to Manila
+
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+
+                L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+                // Try to get user's location
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        map.setView([position.coords.latitude, position.coords.longitude], 13);
+                    });
+                }
+            }
+
+            // Clear existing markers
+            markers.forEach(m => map.removeLayer(m));
+            markers = [];
+
+            // Add new markers
+            let locations = JSON.parse(locationsStr);
+            locations.forEach(loc => {
+                if (loc.MapCoordinates) {
+                    const [lat, lng] = loc.MapCoordinates.split(',');
+                    if (lat && lng) {
+                        const marker = L.marker([parseFloat(lat), parseFloat(lng)]);
+
+                        marker.on('click', () => {
+                            const sheet = document.getElementById("bottomSheet");
+                            document.getElementById("sheetTitle").textContent = loc.Name;
+                            document.getElementById("sheetAddress").textContent = loc.Address;
+                            document.getElementById("sheetDescription").textContent = loc.Description || 'No description available';
+
+                            sheet.classList.add("show");
+                            sheet.classList.remove("expanded", "half");
+                            setTimeout(() => sheet.classList.add("half"), 50);
+                        });
+
+                        marker.addTo(map);
+                        markers.push(marker);
+                    }
+                }
+            });
+
+            // Fit bounds if there are markers
+            if (markers.length > 0) {
+                const group = new L.featureGroup(markers);
+                map.fitBounds(group.getBounds().pad(0.1));
+            }
+        };
+    </script>
+
+
     <script src="_framework/blazor.webview.js" autostart="false"></script>
 </body>
 </html>

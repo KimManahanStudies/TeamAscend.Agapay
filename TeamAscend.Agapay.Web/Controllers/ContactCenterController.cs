@@ -87,6 +87,7 @@ namespace TeamAscend.Agapay.Web.Controllers
                 }
 
                 db.SaveChanges();
+                DataHelper.SetLastModfied(db);
             }
 
             return Redirect("/Admin/Phonebook");

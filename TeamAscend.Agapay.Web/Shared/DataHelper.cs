@@ -87,7 +87,7 @@ namespace TeamAscend.Agapay.Web.Shared
 
         public static void SetLastModfied(AgapayTestDBContext db)
         {
-            DataHelper.SetAppGlobalSetting(db, "LastModifiedDate", DateTime.Now.ToString());
+            DataHelper.SetAppGlobalSetting(db, "LastModifiedDate", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
         }
     }
 }

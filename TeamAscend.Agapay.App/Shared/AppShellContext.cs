@@ -183,7 +183,32 @@ namespace TeamAscend.Agapay.App.Shared
                     }
                     else
                     {
+                        //For Quicker Checking, Compare Dates
                         var LSDStr = File.ReadAllText(DTFile);
+                        var SyncDate_URL = $"{Constants.AgapayWebAPI_URL}api/AppCenter/AppGlobalSettings";
+                        var rawRespDate = await httpClient.GetStringAsync(SyncDate_URL);
+                        if (!string.IsNullOrWhiteSpace(rawRespDate))
+                        {
+                            var setData = JsonConvert.DeserializeObject<Dictionary<string, string>>(rawRespDate);
+                            if (setData!=null)
+                            {
+                                if (setData.Keys.Contains("LastModifiedDate"))
+                                {
+                                    if (!string.IsNullOrWhiteSpace(setData["LastModifiedDate"]))
+                                    {
+                                        var date1 = DateTime.Parse(LSDStr);
+                                        var date2 = DateTime.Parse(setData["LastModifiedDate"]);
+                                        if(date1 > date2)
+                                        {
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                            
+
+
                         var SyncAPI_URL = $"{Constants.AgapayWebAPI_URL}api/AppCenter/LatestData?LastSyncDate={LSDStr}";
                         var rawResp = await httpClient.GetStringAsync(SyncAPI_URL);
                         if (!string.IsNullOrWhiteSpace(rawResp))
@@ -289,6 +314,9 @@ namespace TeamAscend.Agapay.App.Shared
                                     }
                                 }
 
+
+                                LSDStr = await httpClient.GetStringAsync($"{Constants.AgapayWebAPI_URL}api/AppCenter/GetServerDate");
+                                File.WriteAllText(DTFile, LSDStr);
                             }
                         }
                     }

@@ -12,7 +12,7 @@ namespace TeamAscend.Agapay.Web.Controllers
         [Route("api/AppCenter/GetServerDate")]
         public string GetServerDate(string LasySyncDate)
         {
-            var resp = DateTime.Now.ToString();
+            var resp = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
             return resp;
         }
 
