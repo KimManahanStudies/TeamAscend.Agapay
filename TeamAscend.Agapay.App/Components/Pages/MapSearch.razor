@@ -1,6 +1,29 @@
 ﻿@using TeamAscend.Agapay.App.Components.Layout
 @layout BaseLayout
 @page "/mapsearch"
+<style>
+   /* Keep existing styles */
+   .shortcut-btn {
+    cursor: pointer;
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border-radius: 20px;
+    margin: 0 8px;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+}
+
+.shortcut-btn.active {
+    background: #007bff;
+    color: white;
+}
+
+.sheet-description {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #666;
+}
+</style>
 
 <!-- Map -->
 <div id="mapview"></div>
@@ -11,20 +34,36 @@
         <i class="fas fa-arrow-left"></i>
     </a>
 
+    <!-- Floating Search Bar -->
     <div class="map-search-container">
         <i class="fas fa-search icon"></i>
-        <input type="text" placeholder="Search here" />
+        <input type="text" @bind="searchText" @bind:event="OnSearchInput" placeholder="Search here" />
     </div>
 </div>
 
 <!-- Scrollable Shortcut Buttons -->
 <div class="shortcut-scroll">
-    <div class="shortcut-btn" onclick="showCategory('Hospitals')"><i class="fas fa-hospital"></i> Hospitals</div>
-    <div class="shortcut-btn" onclick="showCategory('Evacuation Site')"><i class="fas fa-house-damage"></i> Evacuation Site</div>
-    <div class="shortcut-btn" onclick="showCategory('Supply Store')"><i class="fas fa-store"></i> Supply Store</div>
-    <div class="shortcut-btn" onclick="showCategory('Government Centers')"><i class="fas fa-building"></i> Government Centers</div>
-    <div class="shortcut-btn" onclick="showCategory('Relief Warehouse')"><i class="fas fa-warehouse"></i> Relief Warehouse</div>
-    <div class="shortcut-btn" onclick="showCategory('Water Refill Station')"><i class="fas fa-water"></i> Water Refill Station</div>
+    <div class="shortcut-btn @(currentFilter == locationTypes[0] ? "active" : "")" @onclick="() => FilterLocations(0)">
+        <i class="fas fa-globe"></i> All
+    </div>
+    <div class="shortcut-btn @(currentFilter == locationTypes[1] ? "active" : "")" @onclick="() => FilterLocations(1)">
+        <i class="fas fa-hospital"></i> Hospitals
+    </div>
+    <div class="shortcut-btn @(currentFilter == locationTypes[2] ? "active" : "")" @onclick="() => FilterLocations(2)">
+        <i class="fas fa-house-damage"></i> Evacuation Site
+    </div>
+    <div class="shortcut-btn @(currentFilter == locationTypes[3] ? "active" : "")" @onclick="() => FilterLocations(3)">
+        <i class="fas fa-store"></i> Supply Store
+    </div>
+    <div class="shortcut-btn @(currentFilter == locationTypes[4] ? "active" : "")" @onclick="() => FilterLocations(4)">
+        <i class="fas fa-building"></i> Government Centers
+    </div>
+    <div class="shortcut-btn @(currentFilter == locationTypes[5] ? "active" : "")" @onclick="() => FilterLocations(5)">
+        <i class="fas fa-warehouse"></i> Relief Warehouse
+    </div>
+    <div class="shortcut-btn @(currentFilter == locationTypes[6] ? "active" : "")" @onclick="() => FilterLocations(6)">
+        <i class="fas fa-water"></i> Water Refill Station
+    </div>
 </div>
 
 <!-- Bottom Sheet -->
@@ -33,188 +72,12 @@
         <div class="sheet-drag-handle"></div>
     </div>
     <div class="sheet-content">
-        <div class="sheet-title" id="sheetTitle">Category Name</div>
-        <div class="sheet-address" id="sheetAddress">Showing nearby locations</div>
-        <div id="sheetList" class="sheet-list"></div>
+        <div class="sheet-title" id="sheetTitle">Sample Location</div>
+        <div class="sheet-address" id="sheetAddress">123 Example St, City Name</div>
+        <div class="sheet-description" id="sheetDescription"></div>
+        <div class="sheet-actions">
+            <button onclick="alert('Directions feature coming soon!')">Get Directions</button>
+        </div>
     </div>
 </div>
 
-<script>
-    $(function () {
-        // Initialize Map
-        const map = L.map('mapview', { zoomControl: false }).setView([51.5, -0.09], 13);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-        L.control.zoom({ position: 'bottomright' }).addTo(map);
-
-        // UI Elements
-        const sheet = document.getElementById("bottomSheet");
-        const dragHandle = document.getElementById("dragHandle");
-        const titleEl = document.getElementById("sheetTitle");
-        const addrEl = document.getElementById("sheetAddress");
-        const listEl = document.getElementById("sheetList");
-
-        // Store markers
-        let activeMarkers = [];
-        let currentCategory = "";
-
-        // Category data
-        const locations = {
-            "Hospitals": [
-                { name: "Community Hospital", address: "123 Health St, London", coords: [51.5, -0.09] },
-                { name: "City Medical Center", address: "45 Wellness Ave, London", coords: [51.51, -0.1] },
-                { name: "St. Luke’s Hospital", address: "89 Healing Rd, London", coords: [51.495, -0.085] }
-            ],
-            "Evacuation Site": [
-                { name: "Evacuation Site A", address: "Safe Zone, District 1", coords: [51.495, -0.083] },
-                { name: "Evacuation Site B", address: "Relief Park, City Center", coords: [51.49, -0.1] }
-            ],
-            "Supply Store": [
-                { name: "Relief Supply Depot", address: "45 Relief St, London", coords: [51.49, -0.09] },
-                { name: "Emergency Goods Store", address: "23 Help Rd, London", coords: [51.5, -0.095] }
-            ],
-            "Government Centers": [
-                { name: "City Hall", address: "1 Main St, London", coords: [51.505, -0.09] },
-                { name: "Barangay Center", address: "22 Civic Rd, London", coords: [51.497, -0.087] }
-            ],
-            "Relief Warehouse": [
-                { name: "Main Relief Warehouse", address: "Central Zone, London", coords: [51.493, -0.082] },
-                { name: "District Storage", address: "Block 7, London", coords: [51.488, -0.1] }
-            ],
-            "Water Refill Station": [
-                { name: "Aqua Fresh Refill", address: "78 River Rd, London", coords: [51.492, -0.088] },
-                { name: "PureDrop Station", address: "5 Clearview St, London", coords: [51.499, -0.095] }
-            ]
-        };
-
-        // Show category and markers
-        window.showCategory = function (category) {
-            titleEl.textContent = category;
-            addrEl.textContent = "Showing nearby " + category.toLowerCase();
-            listEl.innerHTML = "";
-            currentCategory = category;
-
-            // Clear previous markers
-            activeMarkers.forEach(m => map.removeLayer(m));
-            activeMarkers = [];
-
-            // Add new markers
-            if (locations[category]) {
-                locations[category].forEach(loc => {
-                    const marker = L.marker(loc.coords).addTo(map);
-                    activeMarkers.push(marker);
-
-                    // Marker click behavior
-                    marker.on("click", () => {
-                        showLocationDetails(loc);
-                    });
-
-                    // Add item to bottom sheet list
-                    const item = document.createElement("div");
-                    item.className = "sheet-item";
-                    item.innerHTML = `<b>${loc.name}</b><br><span>${loc.address}</span>`;
-                    item.onclick = () => {
-                        map.setView(loc.coords, 15);
-                        marker.openPopup();
-                        showLocationDetails(loc);
-                    };
-                    listEl.appendChild(item);
-                });
-            }
-
-            // Show bottom sheet
-            sheet.classList.add("show");
-            sheet.classList.add("half");
-        };
-
-        // Show details for specific location
-        function showLocationDetails(location) {
-              titleEl.textContent = location.name;
-              addrEl.textContent = location.address;
-              listEl.innerHTML = `
-                    <div class="sheet-details">
-                       <p><b>Category:</b> ${currentCategory}</p>
-                       <p><b>Address:</b> ${location.address}</p>
-                    <div class="sheet-actions">
-                       <button id="getDirectionsBtn">
-                          Get Directions
-                       </button>
-                    </div>
-                  </div>
-                 `;
-
-                     sheet.classList.add("show");
-                     sheet.classList.add("half");
-
-        }
-
-
-        // Open Google Maps for directions
-        window.openDirections = function (lat, lng) {
-            const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-            window.open(url, '_blank');
-        };
-
-        map.on("click", () => {
-            sheet.classList.remove("show", "expanded", "half");
-        });
-
-        // --- Bottom Sheet Drag Logic ---
-        let startY = 0;
-        let startHeight = 0;
-        let dragging = false;
-
-        const startDrag = (e) => {
-            dragging = true;
-            startY = e.touches ? e.touches[0].clientY : e.clientY;
-            startHeight = sheet.offsetHeight;
-            sheet.style.transition = "none";
-        };
-
-        const duringDrag = (e) => {
-            if (!dragging) return;
-            const currentY = e.touches ? e.touches[0].clientY : e.clientY;
-            const delta = startY - currentY;
-            const newHeight = startHeight + delta;
-            const maxHeight = window.innerHeight * 0.8;
-            const minHeight = window.innerHeight * 0.25;
-            if (newHeight >= minHeight && newHeight <= maxHeight) {
-                sheet.style.height = newHeight + "px";
-            }
-        };
-
-        const stopDrag = () => {
-            if (!dragging) return;
-            dragging = false;
-            sheet.style.transition = "transform 0.3s ease, height 0.3s ease";
-            const currentHeight = sheet.offsetHeight;
-            const screenHeight = window.innerHeight;
-
-            if (currentHeight > screenHeight * 0.55) {
-                sheet.classList.add("expanded");
-                sheet.classList.remove("half");
-            } else if (currentHeight > screenHeight * 0.3) {
-                sheet.classList.add("half");
-                sheet.classList.remove("expanded");
-            } else {
-                sheet.classList.remove("show", "expanded", "half");
-            }
-        };
-
-        dragHandle.addEventListener("mousedown", startDrag);
-        dragHandle.addEventListener("touchstart", startDrag);
-        window.addEventListener("mousemove", duringDrag);
-        window.addEventListener("touchmove", duringDrag);
-        window.addEventListener("mouseup", stopDrag);
-        window.addEventListener("touchend", stopDrag);
-    });
-</script>
-
-<style>
-
-</style>
-
-@code {
-
-}
