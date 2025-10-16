@@ -1,5 +1,4 @@
 ﻿@page "/WTDfirstaid"
-@inject NavigationManager NavigationManager
 
 <div class="first-aid-container">
     <div class="nav-bar">
@@ -20,6 +19,25 @@
 
     <!-- Content Grid -->
     <div class="cards-grid">
+        @foreach (var post in Model.Contents)
+        {
+            <div class="first-aid-card">
+                <img src="@post.CoverPhoto" alt="@post.Title" @onclick="() => NavigateToGuide(post.ID)" />
+                <div class="card-content">
+                    <h3>@post.Title</h3>
+                    <i class="far fa-bookmark bookmark-icon"></i>
+                </div>
+            </div>
+        }
+        @if (activeTab == "bookmarks" && !firstAidCards.Any(c => c.IsBookmarked))
+        {
+            <div class="empty-state">
+                <i class="far fa-bookmark empty-icon"></i>
+                <p>No bookmarked guides yet</p>
+            </div>
+        }
+
+        <h5>Samples</h5>
         @foreach (var card in (activeTab == "guide" ? firstAidCards : firstAidCards.Where(c => c.IsBookmarked)))
         {
             <div class="first-aid-card">
@@ -164,74 +182,3 @@
     }
 </style>
 
-@code {
-    private string activeTab = "guide";
-
-    private class FirstAidCard
-    {
-        public string Title { get; set; }
-        public string ImageUrl { get; set; }
-        public bool IsBookmarked { get; set; }
-    }
-
-    private List<FirstAidCard> firstAidCards = new()
-    {
-        new FirstAidCard { Title = "Basic CPR", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_cpr.jpeg", IsBookmarked = false },
-        new FirstAidCard { Title = "Healing Burns", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_burns.jpeg", IsBookmarked = false },
-        new FirstAidCard { Title = "Splinting", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_splinting.jpeg", IsBookmarked = false },
-        new FirstAidCard { Title = "Choking", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_choking.jpeg", IsBookmarked = false },
-        new FirstAidCard { Title = "Bleeding", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_bleeding.jpeg", IsBookmarked = false },
-        new FirstAidCard { Title = "Minor Cuts", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_cuts.jpeg", IsBookmarked = false },
-        new FirstAidCard { Title = "Hyperthermia", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_hyperthermia.jpeg", IsBookmarked = false },
-        new FirstAidCard { Title = "Heatstroke", ImageUrl = "imgs/wtd_banners/wtdfa_banners/wtd_heatstroke.jpeg", IsBookmarked = false }
-    };
-
-    private void SwitchTab(string tab)
-    {
-        activeTab = tab;
-        StateHasChanged();
-    }
-
-    private void ToggleBookmark(FirstAidCard card)
-    {
-        card.IsBookmarked = !card.IsBookmarked;
-        StateHasChanged();
-    }
-
-    private void NavigateBack()
-    {
-        // Navigation logic here
-    }
-
-    private void NavigateToDetail(FirstAidCard card)
-    {
-        switch (card.Title)
-        {
-            case "Basic CPR":
-                NavigationManager.NavigateTo("/WTDcpr");
-                break;
-            case "Healing Burns":
-                NavigationManager.NavigateTo("/WTDburns");
-                break;
-            case "Splinting":
-                NavigationManager.NavigateTo("/WTDsplinting");
-                break;
-            case "Choking":
-                NavigationManager.NavigateTo("/WTDchoking");
-                break;
-            case "Bleeding":
-                NavigationManager.NavigateTo("/WTDbleeding");
-                break;
-            case "Minor Cuts":
-                NavigationManager.NavigateTo("/WTDminorcutswounds");
-                break;
-            case "Hyperthermia":
-                NavigationManager.NavigateTo("/WTDhyperthermia");
-                break;
-            case "Heatstroke":
-                NavigationManager.NavigateTo("/WTDstroke");
-                break;
-            // Add other cases as you create more detail pages
-        }
-    }
-}

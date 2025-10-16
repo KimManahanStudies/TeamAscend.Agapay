@@ -1,6 +1,6 @@
 ﻿@using TeamAscend.Agapay.App.Components.Layout
 @layout BaseLayout
-@page "/CreateAccount"
+@page "/createaccount"
 @using Newtonsoft.Json
 @using TeamAscend.Agapay.Web.Models
 
@@ -174,25 +174,3 @@
         }
     }
 </script>
-
-
-
-@code {
-    public UserAccount Model { get; set; }
-
-    protected override void OnInitialized()
-    {
-        Model = new UserAccount();
-    }
-
-    public async void Register()
-    {
-        //var userInfo = JsonConvert.SerializeObject(Model);
-        var RegistrationURL = "https://localhost:44352/api/AppCenter/Register";
-        using (var httpClient = new HttpClient())
-        {
-            var rawResp1 = await httpClient.PostAsync(RegistrationURL, JsonContent.Create(Model));
-            Console.WriteLine(rawResp1);
-        }
-    }
-}

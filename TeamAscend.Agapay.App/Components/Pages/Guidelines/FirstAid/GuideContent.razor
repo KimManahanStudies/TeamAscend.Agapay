@@ -1,0 +1,54 @@
+@using TeamAscend.Agapay.App.Components.Layout
+@using TeamAscend.Agapay.App.Models
+@using TeamAscend.Agapay.App.Shared
+@inject NavigationManager NavigationManager
+@inject DatabaseContext DatabaseContext
+@layout BaseLayout
+@page "/guidecontent/{ID:int?}"
+
+<div class="first-aid-guide-page">
+    <header class="headerwtdfa">
+        <a asp-action="Index" href="/WTDfirstaid" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+    </header>
+
+    @if (Model != null)
+    {
+        <main class="content">
+            <h2 class="section-title">@Model.Title</h2>
+
+            <div class="image-container">
+                <img src="@Model.CoverPhoto" alt="@Model.Title" class="cpr-image" />
+            </div>
+
+            <div>
+                @((MarkupString)Model.Content)
+            </div>
+        </main>
+    }
+    else
+    {
+        <main class="content">
+            <h2>Content not found</h2>
+        </main>
+    }
+</div>
+
+@code {
+    public AppBlogPost Model { get; set; }
+    [Parameter]
+    public int? ID { get; set; }
+
+    protected override void OnInitialized()
+    {
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        
+        if (ID.HasValue)
+        {
+            // Initialize database and get the blog post by ID
+            DatabaseContext.Init();
+            Model = DatabaseContext.BlogPosts.FirstOrDefault(post => post.ID == ID && !post.IsDeleted);
+        }
+    }
+}

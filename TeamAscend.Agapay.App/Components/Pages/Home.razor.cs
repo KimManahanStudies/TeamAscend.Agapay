@@ -23,7 +23,7 @@ namespace TeamAscend.Agapay.App.Components.Pages
         [Inject]
         private DatabaseContext DB { get; set; }
 
-        public HomeVM Model { get; set; }
+        public HomeViewModel Model { get; set; }
 
         public Home()
         {
@@ -32,7 +32,7 @@ namespace TeamAscend.Agapay.App.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            Model = new HomeVM();
+            Model = new HomeViewModel();
             await jsRT.InvokeVoidAsync("IsBusy",true,"Syncing...");
             await Shell.SyncData(DB);
 
