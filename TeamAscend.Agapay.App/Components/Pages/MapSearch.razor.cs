@@ -42,6 +42,7 @@ namespace TeamAscend.Agapay.App.Components.Pages
         protected override async Task OnInitializedAsync()
         {
             await Task.Delay(1000);
+            await jsRT.InvokeVoidAsync("clearMap");
             await LoadLocations();
         }
 

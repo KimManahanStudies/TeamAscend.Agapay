@@ -97,7 +97,7 @@
         let markers = [];
 
         window.initMap = (locationsStr) => {
-            map = undefined;
+            //map = undefined;
 
             if (!map) {
                 map = L.map('mapview', { zoomControl: false }).setView([14.5995, 120.9842], 13); // Default to Manila
@@ -150,6 +150,11 @@
                 const group = new L.featureGroup(markers);
                 map.fitBounds(group.getBounds().pad(0.1));
             }
+        };
+
+        window.clearMap = () => {
+            map = undefined;
+            $('#mapview').html('');
         };
     </script>
 
