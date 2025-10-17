@@ -2,7 +2,7 @@
 @model LoginVM
 @{
     Layout = "_BaseLayout";
-    ViewData["Title"] = "Users";
+    ViewData["Title"] = "User Admin Log In";
 }
 <div class="container h-100">
     <!-- Outer Row -->
@@ -12,7 +12,9 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6 d-flex justify-content-center align-items-center p-5">
+                            <img src="/imgs/agapay_white.png" alt="Agapay Logo" style="max-width: 100%; height: auto;" />
+                        </div>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
@@ -67,8 +69,33 @@
                 </div>
             </div>
         </div>
+        <!-- Powered By Section -->
+        <section class="powered-by pt-2">
+            <div class="container">
+                <p class="fw-bold text-primary mb-1" style="text-align: center;">Powered By</p>
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-md-2 col-sm-4 col-6 mb-1 text-center">
+                        <img src="~/imgs/poweredby_logo/pagasa.png" alt="PAGASA Logo" class="img-fluid partner-logo" style="max-height: 30px;" />
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6 mb-1 text-center">
+                        <img src="~/imgs/poweredby_logo/phivolcs.png" alt="PHIVOLCS Logo" class="img-fluid partner-logo" style="max-height: 30px;" />
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6 mb-1 text-center">
+                        <img src="~/imgs/poweredby_logo/ndrrmc.png" alt="NDRRMC Logo" class="img-fluid partner-logo" style="max-height: 100px;" />
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6 mb-1 text-center">
+                        <img src="~/imgs/poweredby_logo/ocd.png" alt="OCD Logo" class="img-fluid partner-logo" style="max-height: 30px;" />
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6 mb-1 text-center">
+                        <img src="~/imgs/poweredby_logo/qcdrrmo.png" alt="QCDRRMO Logo" class="img-fluid partner-logo" style="max-height: 30px;" />
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
+
+
 
 @section Scripts {
     @* <script src="/lib/jquery-validation/dist/jquery.validate.js"></script> *@
