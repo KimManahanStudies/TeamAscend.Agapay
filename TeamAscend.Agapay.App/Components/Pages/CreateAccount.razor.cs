@@ -45,8 +45,8 @@ namespace TeamAscend.Agapay.App.Components.Pages
                 //Save to Local for Offline use
                 var appUser = new AppUser
                 {
-                    Username = Model.Username,
-                    Role = Model.Role,
+                    Username = Model.EmailAddress,
+                    Role = "USER",
                     Password = Model.Password,
                     FirstName = Model.FirstName,
                     LastName = Model.LastName,

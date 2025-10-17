@@ -15,7 +15,7 @@
     <p class="ca-section">Personal Information</p>
 
     <div class="ca-field">
-        <input class="ca-input" type="email" placeholder="@@gmail.com" @bind="Model.EmailAddress" />
+        <input class="ca-input" type="email" placeholder="Email Address" @bind="Model.EmailAddress" />
     </div>
 
     <div class="ca-row">
@@ -56,16 +56,16 @@
     </div>
 
     <div class="ca-field">
-        <input class="ca-input" type="text" placeholder="Home Address Line 2" @bind="Model.AddressLine1" />
+        <input class="ca-input" type="text" placeholder="Home Address Line 2" @bind="Model.AddressLine2" />
     </div>
 
     <!-- Contact Number 1 and 2 -->
     <div class="ca-field">
-        <input class="ca-input" type="tel" placeholder="Contact Number 1" />
+        <input class="ca-input" type="tel" placeholder="Contact Number 1" @bind="Model.ContactNo1" />
     </div>
 
     <div class="ca-field">
-        <input class="ca-input" type="tel" placeholder="Contact Number 2" />
+        <input class="ca-input" type="tel" placeholder="Contact Number 2" @bind="Model.ContactNo2" />
     </div>
 
     <!-- Gender -->
@@ -92,21 +92,21 @@
 
 	<!-- Barangay and City -->
     <div class="ca-field">
-        <input class="ca-input" type="text" placeholder="Barangay" />
+        <input class="ca-input" type="text" placeholder="Barangay" @bind="Model.Barangay" />
     </div>
 
      <div class="ca-field">
-        <input class="ca-input" type="text" placeholder="City" />
+        <input class="ca-input" type="text" placeholder="City" @bind="Model.City" />
     </div>
 
     <!-- Region and Zip Code -->
     <div class="ca-row">
         <div class="ca-col">
-            <input class="ca-input" type="text" placeholder="Region" />
+            <input class="ca-input" type="text" placeholder="Region" @bind="Model.Region" />
         </div>
 
         <div class="ca-col ca-col-suffix">
-            <input class="ca-input" type="text" placeholder="Zip Code" />
+            <input class="ca-input" type="text" placeholder="Zip Code" @bind="Model.ZipPostCode" />
         </div>
     </div>
 

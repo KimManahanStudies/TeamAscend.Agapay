@@ -1,10 +1,10 @@
-@page "/GoPlanLists"
+@page "/goplanlists"
 @using TeamAscend.Agapay.Web.Models
 
 <div class="goplan-container">
     <div class="header-goplan">
         <h1 class="title">Go Plan</h1>
-        <button class="add-button" onclick="openBottomSheet()">
+        <button class="add-button" @onclick="CreatePlan">
             <span class="plus-icon-container">
                 <i class="fas fa-plus"></i>
             </span>
@@ -13,24 +13,15 @@
     </div>
 
     <div class="plan-list">
-        <div class="plan-item">
-            <span class="plan-name">Emergency Meeting Point: Home</span>
-            <button class="options-button">
-                <i class="fas fa-ellipsis-v"></i>
-            </button>
-        </div>
-        <div class="plan-item">
-            <span class="plan-name">Work Evacuation Plan</span>
-            <button class="options-button">
-                <i class="fas fa-ellipsis-v"></i>
-            </button>
-        </div>
-        <div class="plan-item">
-            <span class="plan-name">School Emergency Plan</span>
-            <button class="options-button">
-                <i class="fas fa-ellipsis-v"></i>
-            </button>
-        </div>
+        @foreach (var plan in userPlans)
+        {
+            <div class="plan-item">
+                <span class="plan-name">@plan.Name</span>
+                <button class="options-button" @onclick="() => OpenOptionsSheet(plan)">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+            </div>
+        }
     </div>
 </div>
 
@@ -38,14 +29,11 @@
 <div id="bottomSheet" class="bottom-sheet">
     <div class="sheet-content">
         <div class="sheet-handle"></div>
-
-       <div class="sheet-section">
-            <NavLink href="/plan" class="create-btn" onclick="closeBottomSheet()">
+        <div class="sheet-section">
+            <NavLink href="/plan" class="create-btn" @onclick="() => CloseBottomSheet()">
                 <i class="fas fa-plus-circle"></i> Create New GoPlan
             </NavLink>
-       </div>
-
-
+        </div>
         <div class="sheet-section">
             <p class="import-label">Import GoPlan</p>
             <input type="text" class="import-input" placeholder="Paste your link here" />
@@ -53,330 +41,26 @@
     </div>
 </div>
 
-<!-- Overlay -->
-<div id="overlay" class="overlay" onclick="closeBottomSheet()"></div>
-
-<!-- Bottom Sheet for Options -->
+<!-- Options Bottom Sheet -->
 <div id="optionsSheet" class="bottom-sheet">
     <div class="sheet-content">
         <div class="sheet-handle"></div>
-
-        <p id="selectedPlanName" class="plan-title">Plan Name</p>
-
-        <div class="sheet-option" onclick="copyPlanLink()">
+        <p id="selectedPlanName" class="plan-title">@(selectedPlan?.Name ?? "")</p>
+        <div class="sheet-option" @onclick="() => CopyShareCode(selectedPlan?.ShareCode)">
             <i class="fas fa-link"></i>
-            <span>Copy Link</span>
+            <span>Copy Share Code</span>
         </div>
-
-        <div class="sheet-option" onclick="window.location.href='/plan'">
+        <div class="sheet-option" @onclick="() => NavigateToEdit(selectedPlan?.ID ?? 0)">
             <i class="fas fa-edit"></i>
             <span>Edit GoPlan</span>
         </div>
-        <div class="sheet-option" onclick="window.location.href='/plan'">
+        <div class="sheet-option" @onclick="() => DeletePlan(selectedPlan?.ID ?? 0)">
             <i class="fas fa-trash"></i>
             <span>Delete</span>
         </div>
     </div>
 </div>
 
-<!-- Overlay for this sheet -->
-<div id="overlayOptions" class="overlay" onclick="closeOptionsSheet()"></div>
+<!-- Overlay -->
+<div id="overlay" class="overlay" @onclick="CloseAllSheets"></div>
 
-
-<style>
-    /* Main container */
-    .goplan-container {
-        background-color: white;
-        padding: 1.5rem;
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-
-    .header-goplan {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-    }
-
-    .title {
-        font-size: 1.75rem;
-        font-weight: bold;
-        color: #003366;
-        margin: 0;
-    }
-
-    .add-button {
-        background-color: #003366;
-        color: white;
-        border: none;
-        border-radius: 25px;
-        padding: 0.5rem 1.25rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-weight: 500;
-        cursor: pointer;
-    }
-
-    .plus-icon-container {
-        background-color: #ffa500;
-        color: white;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.8rem;
-    }
-
-    .plan-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .plan-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem;
-        border-bottom: 1px solid #eee;
-        transition: background-color 0.2s ease;
-    }
-
-    .plan-item:hover {
-        background-color: #f9f9f9;
-    }
-
-    .plan-name {
-        font-weight: bold;
-        color: #003366;
-    }
-
-    .options-button {
-        background: none;
-        border: none;
-        color: #003366;
-        font-size: 1rem;
-        cursor: pointer;
-        padding: 0.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        transition: background-color 0.2s ease;
-    }
-
-    .options-button:hover {
-        background-color: #f5f5f5;
-    }
-
-    /* Overlay */
-    .overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.3);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease;
-        z-index: 999;
-    }
-
-    .overlay.show {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    /* Bottom Sheet */
-    .bottom-sheet {
-        position: fixed;
-        bottom: -100%;
-        left: 0;
-        width: 100%;
-        background: #fff;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-        transition: bottom 0.3s ease;
-        z-index: 1000;
-    }
-
-    .bottom-sheet.show {
-        bottom: 0;
-    }
-
-    .sheet-content {
-        padding: 1rem 1.5rem 2rem;
-    }
-
-    .sheet-handle {
-        width: 50px;
-        height: 5px;
-        background: #ccc;
-        border-radius: 5px;
-        margin: 0.5rem auto 1rem;
-    }
-
-    .sheet-section {
-        margin-bottom: 1rem;
-    }
-
-    .create-btn {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: none;
-        border: none;
-        color: #003366;
-        font-weight: 600;
-        cursor: pointer;
-        font-size: 1rem;
-        text-decoration: none;
-    }
-
-    .create-btn i {
-        color: #003366;
-    }
-
-    .import-label {
-        font-weight: 600;
-        font-size: 0.9rem;
-        color: #003366;
-        margin-bottom: 0.25rem;
-    }
-
-    .import-input {
-        width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        font-size: 0.95rem;
-        color: #333;
-    }
-
-    .import-input::placeholder {
-        color: #aaa;
-    }
-
-    /* Reuse overlay style */
-    .overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.3);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease;
-        z-index: 999;
-    }
-
-        .overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-    /* Options Bottom Sheet */
-    .bottom-sheet {
-        position: fixed;
-        bottom: -100%;
-        left: 0;
-        width: 100%;
-        background: #fff;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-        transition: bottom 0.3s ease;
-        z-index: 1000;
-    }
-
-        .bottom-sheet.show {
-            bottom: 0;
-        }
-
-    .sheet-content {
-        padding: 1rem 1.5rem 2rem;
-    }
-
-    .sheet-handle {
-        width: 50px;
-        height: 5px;
-        background: #ccc;
-        border-radius: 5px;
-        margin: 0.5rem auto 1rem;
-    }
-
-    .plan-title {
-        font-weight: 600;
-        color: #003366;
-        font-size: 1rem;
-        margin-bottom: 0.75rem;
-    }
-
-    .sheet-option {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.75rem 0;
-        color: #003366;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.2s ease;
-        border-top: 1px solid #eee;
-    }
-
-        .sheet-option:first-of-type {
-            border-top: none;
-        }
-
-        .sheet-option:hover {
-            background-color: #f9f9f9;
-        }
-
-        .sheet-option i {
-            font-size: 1.1rem;
-            color: #003366;
-            width: 22px;
-            text-align: center;
-        }
-</style>
-
-<script>
-    function openBottomSheet() {
-        document.getElementById("bottomSheet").classList.add("show");
-        document.getElementById("overlay").classList.add("show");
-    }
-
-    function closeBottomSheet() {
-        document.getElementById("bottomSheet").classList.remove("show");
-        document.getElementById("overlay").classList.remove("show");
-    }
-
-    // Open bottom sheet when clicking 3 dots
-    document.querySelectorAll('.options-button').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            const planName = e.currentTarget.parentElement.querySelector('.plan-name').textContent.trim();
-            document.getElementById('selectedPlanName').textContent = planName;
-            openOptionsSheet();
-        });
-    });
-
-    function openOptionsSheet() {
-        document.getElementById('optionsSheet').classList.add('show');
-        document.getElementById('overlayOptions').classList.add('show');
-    }
-
-    function closeOptionsSheet() {
-        document.getElementById('optionsSheet').classList.remove('show');
-        document.getElementById('overlayOptions').classList.remove('show');
-    }
-
-    function copyPlanLink() {
-        const planTitle = document.getElementById('selectedPlanName').textContent;
-        const fakeLink = `${window.location.origin}/GoPlan/${encodeURIComponent(planTitle)}`;
-        navigator.clipboard.writeText(fakeLink).then(() => {
-            alert(`Link copied:\n${fakeLink}`);
-        });
-    }
-</script>

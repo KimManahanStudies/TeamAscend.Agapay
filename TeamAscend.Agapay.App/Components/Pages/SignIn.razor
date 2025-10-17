@@ -133,6 +133,29 @@
     .forgot-password:hover {
         text-decoration: underline;
     }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 8px;
+        text-align: center;
+    }
+
+    .spinner {
+        border: 2px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 2px solid #003366;
+        width: 16px;
+        height: 16px;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+        margin-right: 8px;
+    }
+
+    @@keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 </style>
 
 <div class="signin-page">
@@ -148,23 +171,38 @@
     <div class="login-form">
         <h1 class="login-title">Login</h1>
 
-        <form id="loginForm" onsubmit="return validateLogin()">
+        <EditForm Model="@this" OnValidSubmit="@HandleValidSubmit">
             <div class="login-field">
-                <input id="loginEmail" class="login-input" type="email" placeholder="Email" required/>
+                <input @bind="email" @bind:event="oninput" class="login-input" type="email" placeholder="Email" required/>
             </div>
 
             <div class="login-field login-password">
-                <input id="password" class="login-input" type="password" placeholder="Password" required/>
-                <button type="button" class="toggle-password" onclick="togglePassword()">
+                <input @bind="password" @bind:event="oninput" class="login-input" type="password" placeholder="Password" required/>
+                <button type="button" class="toggle-password" @onclick="@(() => JSRuntime.InvokeVoidAsync("togglePassword"))">
                     <i class="fas fa-eye"></i>
                 </button>
             </div>
             <a href="/ForgotPassword" class="forgot-password">Forgot your password?</a>
 
-            <button type="submit" class="login-btn">Login</button>
-        </form>
+            <button type="submit" class="login-btn" disabled="@isLoading">
+                @if (isLoading)
+                {
+                    <span class="spinner"></span>
+                }
+                Login
+            </button>
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="error-message">@errorMessage</div>
+            }
+        </EditForm>
     </div>
 </div>
+
+@code {
+    private bool showPassword = false;
+}
 
 <script>
     function togglePassword() {
@@ -179,16 +217,9 @@
         }
     }
 
-    function validateLogin() {
-        const email = document.getElementById("loginEmail").value.trim();
-        const password = document.getElementById("password").value.trim();
-
-        if (email === "" || password === "") {
-            alert("Please fill out both Email and Password to continue.");
-            return false;
+    function showError(message) {
+        if (message) {
+            //alert(message);
         }
-
-        location.href = "/";
-        return false;
     }
 </script>

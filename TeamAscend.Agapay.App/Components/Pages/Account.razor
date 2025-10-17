@@ -4,23 +4,42 @@
 
 <div class="account-page">
     <!-- User Info (Clickable) -->
-    <NavLink href="/CreateAccount" class="user-info d-flex align-items-center clickable">
-        <img src="imgs/undraw_profile_3.svg" alt="Profile" class="profile-img" />
-        <div class="user-details">
-            <h5>Hi, LIAM YESHA</h5>
-            <p class="text-muted">+639111111111</p>
-            <p class="text-muted">ADMIN@AGAPAY.COM.PH</p>
+    
+    @if (Shell.IsUserLoggedIn)
+    {
+        if (Model != null)
+        {
+            <div class="user-info d-flex align-items-center clickable">
+                <img src="imgs/undraw_profile_3.svg" alt="Profile" class="profile-img" />
+                <div class="user-details">
+                    <h5>Hi, @GetFullName()</h5>
+                    <p class="text-muted">@Model.ContactNo1</p>
+                    <p class="text-muted">@Model.EmailAddress</p>
+                </div>
+            </div>
+        }        
+    }
+    else
+    {
+        <div class="user-info d-flex align-items-center clickable">
+            <img src="imgs/undraw_profile_3.svg" alt="Profile" class="profile-img" />
+            <div class="user-details">
+                <a href="/CreateAccount">Create Account</a>
+                <a href="/SignIn">Sign In</a>
+            </div>
         </div>
-    </NavLink>
-
+    }
     <!-- Menu List -->
     <div class="menu-list">
-        <NavLink href="/GoPlanLists" class="menu-item">
-            <i class="fas fa-plus icon"></i>
-            <span class="label">View Go Plan</span>
-            <span class="arrow">›</span>
-        </NavLink>
-        
+        @if (Shell.IsUserLoggedIn)
+        {
+            <NavLink href="/goplanlists" class="menu-item">
+                <i class="fas fa-plus icon"></i>
+                <span class="label">View Go Plan</span>
+                <span class="arrow">›</span>
+            </NavLink>
+        }
+
         <NavLink href="/Faqs" class="menu-item">
             <i class="fas fa-question-circle icon"></i>
             <span class="label">FAQs</span>
@@ -50,19 +69,77 @@
             <span class="label">Settings</span>
             <span class="arrow">›</span>
         </NavLink>
-
-        <NavLink href="/logout" class="menu-item">
-            <i class="fas fa-sign-out-alt icon"></i>
-            <span class="label">Log out</span>
-            <span class="arrow">›</span>
-        </NavLink>
+        @if (Shell.IsUserLoggedIn)
+        {
+            <div @onclick="HandleLogout" class="menu-item" style="cursor: pointer;">
+                <i class="fas fa-sign-out-alt icon"></i>
+                <span class="label">Log out</span>
+                <span class="arrow">›</span>
+            </div>
+        }
     </div>
 </div>
 
-
-<script>
-    function setSelectedNav(src) {
-        $('.bottom_navigation ul li').removeClass('active');
-        $(src).parent().addClass('active');
+<style>
+    /*.account-page {
+        background-color: white;
+        min-height: 100vh;
+        padding: 2rem;
     }
-</script>
+
+    .user-info {
+        padding: 1rem;
+        margin-bottom: 2rem;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .profile-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+
+    .user-details h5 {
+        margin: 0;
+        color: #003366;
+    }
+
+    .user-details p {
+        margin: 0.2rem 0;
+        font-size: 0.9rem;
+    }
+
+    .menu-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        text-decoration: none;
+        color: inherit;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .menu-item:hover {
+        background-color: #e9ecef;
+    }
+
+    .icon {
+        width: 24px;
+        margin-right: 1rem;
+        color: #003366;
+    }
+
+    .arrow {
+        margin-left: auto;
+        color: #6c757d;
+    }
+    */
+</style>

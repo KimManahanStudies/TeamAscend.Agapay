@@ -33,11 +33,12 @@ namespace TeamAscend.Agapay.App.Shared
                 return;
 
             database = new SQLiteConnection(Constants.DatabasePath, Constants.Flags);
-            //Create tables
             database.CreateTable<AppUser>();
             database.CreateTable<AppBlogPost>();
             database.CreateTable<AppMapLocation>();
             database.CreateTable<AppPhonebook>();
+            database.CreateTable<AppGoPlan>();  // Add this
+            database.CreateTable<AppGoBag>();   // Add this
         }
 
         // AppUser CRUD
@@ -134,6 +135,62 @@ namespace TeamAscend.Agapay.App.Shared
         }
 
         public int DeletePhonebookEntry(AppPhonebook incoming)
+        {
+            Init();
+            return database.Delete(incoming);
+        }
+
+        // Add AppGoPlan CRUD operations
+        public List<AppGoPlan> AppGoPlans
+        {
+            get
+            {
+                Init();
+                return database.Table<AppGoPlan>().ToList();
+            }
+        }
+
+        public int SaveAppGoPlan(AppGoPlan incoming)
+        {
+            Init();
+            return database.Insert(incoming);
+        }
+
+        public int UpdateAppGoPlan(AppGoPlan incoming)
+        {
+            Init();
+            return database.Update(incoming);
+        }
+
+        public int DeleteAppGoPlan(AppGoPlan incoming)
+        {
+            Init();
+            return database.Delete(incoming);
+        }
+
+        // Add AppGoBag CRUD operations
+        public List<AppGoBag> AppGoBags
+        {
+            get
+            {
+                Init();
+                return database.Table<AppGoBag>().ToList();
+            }
+        }
+
+        public int SaveAppGoBag(AppGoBag incoming)
+        {
+            Init();
+            return database.Insert(incoming);
+        }
+
+        public int UpdateAppGoBag(AppGoBag incoming)
+        {
+            Init();
+            return database.Update(incoming);
+        }
+
+        public int DeleteAppGoBag(AppGoBag incoming)
         {
             Init();
             return database.Delete(incoming);

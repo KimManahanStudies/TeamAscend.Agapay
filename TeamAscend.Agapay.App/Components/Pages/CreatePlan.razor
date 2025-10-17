@@ -1,8 +1,8 @@
-﻿@page "/plan"
+﻿@page "/createplan"
 
 <!-- Section 1: Header Background -->
 <section class="header-section">
-        <img src="imgs/goplanheader.png" alt="Family Planning" class="header-image" />
+    <img src="imgs/goplanheader.png" alt="Family Planning" class="header-image" />
 </section>
 
 <!-- Section 2: Card Content -->
@@ -11,7 +11,7 @@
         <!-- Editable Go Plan Title -->
         <div class="section">
             <div class="GoPlan-title">
-                <input type="text" placeholder="Jimenez Emergency Plan" class="input-field"/>
+                <input type="text" placeholder=" Emergency Plan" class="input-field" @bind="Model.Name" />
             </div>
         </div>
         <hr class="divider"/>
@@ -21,7 +21,7 @@
             <div class="flex items-center">
                 <div class="GoPlan-title">
                     <p class="label">Meeting Point</p>
-                    <input type="text" placeholder="Enter meeting point" class="input-field"/>
+                    <input type="text" placeholder="Enter meeting point" class="input-field" @bind="Model.MeetingPointAddresss" />
                 </div>
             </div>
         </div>
@@ -37,6 +37,7 @@
                            maxlength="10" 
                            placeholder="Enter 10-digit number" 
                            class="input-field" 
+                           @bind="Model.PhoneNumber" 
                            oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
                 </div>
             </div>
@@ -50,7 +51,7 @@
 
                 <!-- Dropdown -->
                 <div class="dropdown-wrapper">
-                    <select id="familyRole" class="dropdown" onchange="toggleSpecifyField(this)">
+                    <select id="familyRole" class="dropdown" @bind="Model.FamilyMemberRole">
                         <option value="father">Father</option>
                         <option value="mother">Mother</option>
                         <option value="son">Son</option>
@@ -58,11 +59,6 @@
                         <option value="others">Others</option>
                     </select>
                     <span class="arrow">&#9662;</span>
-                </div>
-
-                <!-- Hidden input for "Others" -->
-                <div id="specifyField" class="hidden">
-                    <input type="text" placeholder="Please specify" class="input-field"/>
                 </div>
             </div>
         </div>
@@ -132,10 +128,10 @@
     </div>
     <!-- Action Buttons -->
     <div class="button-group">
-        <button class="btn submit-btn">Submit</button>
+        <button class="btn submit-btn" @onclick="SavePlan">Submit</button>
     </div>
     <div class="button-group">
-        <button class="btn cancel-btn">Cancel</button>
+        <button class="btn cancel-btn" @onclick="GotoList">Cancel</button>
     </div>
 </section>
 

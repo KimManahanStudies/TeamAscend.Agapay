@@ -155,5 +155,25 @@ namespace TeamAscend.Agapay.Web.Controllers
             }
             return resp;
         }
+
+        [HttpPost]
+        [Route("api/AppCenter/AppAuthenticate")]
+        public UserAccount AppAuthenticate([FromBody] LoginVM request)
+        {
+            UserAccount? resp = null; 
+            using (AgapayTestDBContext db = new AgapayTestDBContext())
+            {
+                if (request != null)
+                {
+                    resp = (from row in db.UserAccounts
+                                       where row.Username == request.Username
+                                       && row.Password == request.Password
+                                       select row).FirstOrDefault();
+                }
+
+            }
+
+            return resp;
+        }
     }
 }
