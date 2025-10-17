@@ -117,7 +117,7 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<MapLocation>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__MapLocat__3214EC27860422AE");
+            entity.HasKey(e => e.ID).HasName("PK__MapLocat__3214EC277B42B93C");
 
             entity.ToTable("MapLocation");
 
@@ -126,8 +126,7 @@ public partial class AgapayTestDBContext : DbContext
                 .HasMaxLength(255);
             entity.Property(e => e.CreatedBy).HasMaxLength(255);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.Description).IsRequired();
-            entity.Property(e => e.ExtraDetails).IsRequired();
+            entity.Property(e => e.District).HasMaxLength(255);
             entity.Property(e => e.LocationType)
                 .IsRequired()
                 .HasMaxLength(255);
@@ -143,21 +142,27 @@ public partial class AgapayTestDBContext : DbContext
 
         modelBuilder.Entity<Phonebook>(entity =>
         {
-            entity.HasKey(e => e.ID).HasName("PK__Phoneboo__3214EC27866C2EDE");
+            entity.HasKey(e => e.ID).HasName("PK__Phoneboo__3214EC279E97A6BA");
 
             entity.ToTable("Phonebook");
 
-            entity.Property(e => e.BarangayName)
+            entity.Property(e => e.Agency).HasMaxLength(255);
+            entity.Property(e => e.Barangay)
                 .IsRequired()
                 .HasMaxLength(255);
+            entity.Property(e => e.BarangayCaptain).HasMaxLength(255);
             entity.Property(e => e.ContactName)
                 .IsRequired()
                 .HasMaxLength(255);
-            entity.Property(e => e.ContactNo)
+            entity.Property(e => e.ContactNumber)
                 .IsRequired()
                 .HasMaxLength(255);
             entity.Property(e => e.CreatedBy).HasMaxLength(255);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.District)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.EmergencyHotline).HasMaxLength(255);
             entity.Property(e => e.Location)
                 .IsRequired()
                 .HasMaxLength(255);

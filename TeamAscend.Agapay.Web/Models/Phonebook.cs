@@ -11,11 +11,19 @@ public partial class Phonebook
 
     public string ContactName { get; set; }
 
-    public string ContactNo { get; set; }
+    public string ContactNumber { get; set; }
 
     public string Location { get; set; }
 
-    public string BarangayName { get; set; }
+    public string Agency { get; set; }
+
+    public string District { get; set; }
+
+    public string Barangay { get; set; }
+
+    public string BarangayCaptain { get; set; }
+
+    public string EmergencyHotline { get; set; }
 
     public bool IsDeleted { get; set; }
 

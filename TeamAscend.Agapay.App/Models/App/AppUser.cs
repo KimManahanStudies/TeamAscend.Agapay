@@ -9,7 +9,6 @@ namespace TeamAscend.Agapay.App.Model
 {
     public class AppUser
     {
-
         [PrimaryKey]
         [AutoIncrement]
         public int ID { get; set; }

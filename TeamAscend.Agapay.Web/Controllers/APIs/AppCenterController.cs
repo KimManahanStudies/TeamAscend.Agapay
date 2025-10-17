@@ -133,16 +133,15 @@ namespace TeamAscend.Agapay.Web.Controllers
                 else
                 {
                     request.Username = request.EmailAddress;
-                    request.Role = "USER";
-                    request.ContactNo1 = "TEST";
-                    request.ContactNo2 = "TEST";
-                    request.AddressLine2 = "TEST";
-                    request.City = "TEST";
-                    request.Region = "TEST";
-                    request.Barangay = "TEST";
-                    request.ZipPostCode = "TEST";
+                    request.Role = request.Role ?? "";
+                    request.ContactNo1 = request.ContactNo1 ?? "";
+                    request.ContactNo2 = request.ContactNo2 ?? "";
+                    request.AddressLine2 = request.AddressLine2 ?? "";
+                    request.City = request.City ?? "";
+                    request.Region = request.Region ?? "";
+                    request.Barangay = request.Barangay ?? "";
+                    request.ZipPostCode = request.ZipPostCode ?? "";
                     request.IsDeleted = false;
-
                     request.CreatedBy = request.CreatedBy ?? "SYSTEM";
                     request.ModifiedBy = request.ModifiedBy ?? "SYSTEM";
                     request.CreatedDate = DateTime.Now;

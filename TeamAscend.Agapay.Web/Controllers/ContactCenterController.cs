@@ -9,17 +9,42 @@ namespace TeamAscend.Agapay.Web.Controllers
     [PortalAuthorized]
     public class ContactCenterController : Controller
     {
+
+
         [Route("~/Admin/Phonebook")]
         public IActionResult Phonebook()
         {
-            var resp = new List<Phonebook>();
-
+            var resp = new PhonebookPageVM();
+            resp.Contacts = new List<PhonebookVM>();
             using (AgapayTestDBContext db = new AgapayTestDBContext())
             {
                 var contacts = (from row in db.Phonebooks where !row.IsDeleted select row).ToList();
                 if (contacts != null)
-                {
-                    resp = contacts;
+                {                    
+                    foreach(var row in contacts)
+                    {
+                        var vm = new PhonebookVM
+                        {
+                            // Base properties inherited automatically
+                            ID = row.ID,
+                            ContactName = row.ContactName,
+                            ContactNumber = row.ContactNumber,
+                            Location = row.Location,
+                            Agency = row.Agency,
+                            District = row.District,
+                            Barangay = row.Barangay,
+                            BarangayCaptain = row.BarangayCaptain,
+                            EmergencyHotline = row.EmergencyHotline,
+
+                            // Additional display properties with fallback logic
+                            DisplayName = (!string.IsNullOrWhiteSpace(row.Agency)) ? row.Agency :
+                            (!string.IsNullOrWhiteSpace(row.BarangayCaptain)) ? row.BarangayCaptain :
+                            row.ContactName,
+                            DisplayNumber = (!string.IsNullOrWhiteSpace(row.EmergencyHotline)) ?
+                            row.EmergencyHotline : row.ContactNumber
+                        };
+                        resp.Contacts.Add(vm);
+                    }
                 }
             }
             return View(resp);
@@ -69,9 +94,9 @@ namespace TeamAscend.Agapay.Web.Controllers
                 if (existingContact != null)
                 {
                     existingContact.ContactName = request.ContactName;
-                    existingContact.ContactNo = request.ContactNo;
+                    existingContact.ContactNumber = request.ContactNumber;
                     existingContact.Location = request.Location;
-                    existingContact.BarangayName = request.BarangayName;
+                    existingContact.Barangay = request.Barangay;
                     existingContact.ModifiedBy = request.ModifiedBy ?? "SYSTEM";
                     existingContact.ModifiedDate = DateTime.Now;
                 }

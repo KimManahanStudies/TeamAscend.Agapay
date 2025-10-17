@@ -1,4 +1,5 @@
-﻿@model List<TeamAscend.Agapay.Web.Models.Phonebook>
+﻿@using TeamAscend.Agapay.Web.Models
+@model PhonebookPageVM
 @{
     Layout = "_BackEndLayout";
     ViewData["Title"] = "Phonebook";
@@ -28,22 +29,20 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Contact Name</th>
+                        <th style="width:25vw">Contact Name</th>
                         <th>Contact Number</th>
-                        <th>Location</th>
                         <th>Barangay</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var contact in Model)                
+                    @foreach (var contact in Model.Contacts)                
                     {
                         <tr>
                             <td>@contact.ID</td>
-                            <td>@contact.ContactName</td>
-                            <td>@contact.ContactNo</td>
-                            <td>@contact.Location</td>
-                            <td>@contact.BarangayName</td>
+                            <td>@contact.DisplayName</td>
+                            <td>@contact.DisplayNumber</td>
+                            <td>@contact.Barangay</td>
                             <td>
                                 <a href="#" class="text-success" title="Edit" onclick="EditContact(@contact.ID)">
                                     <i class="fa fa-edit"></i>
@@ -81,8 +80,20 @@
                     </div>
                     <div class="row gx-3 mb-3">
                         <div class="col-md-12">
-                            <label class="small mb-1" for="ContactNo">Contact Number</label>
-                            <input class="form-control" id="ContactNo" name="ContactNo" type="tel" placeholder="Enter contact number" required/>
+                            <label class="small mb-1" for="ContactNumber">Contact Number</label>
+                            <input class="form-control" id="ContactNumber" name="ContactNumber" type="tel" placeholder="Enter contact number" required/>
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="EmergencyHotline">Emergency Hotline</label>
+                            <input class="form-control" id="EmergencyHotline" name="EmergencyHotline" type="tel" placeholder="Enter emergency hotline"/>
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-12">
+                            <label class="small mb-1" for="Agency">Agency</label>
+                            <input class="form-control" id="Agency" name="Agency" type="text" placeholder="Enter agency name"/>
                         </div>
                     </div>
                     <div class="row gx-3 mb-3">
@@ -92,9 +103,19 @@
                         </div>
                     </div>
                     <div class="row gx-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="District">District</label>
+                            <input class="form-control" id="District" name="District" type="text" placeholder="Enter district"/>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="Barangay">Barangay</label>
+                            <input class="form-control" id="Barangay" name="Barangay" type="text" placeholder="Enter barangay"/>
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
                         <div class="col-md-12">
-                            <label class="small mb-1" for="BarangayName">Barangay</label>
-                            <input class="form-control" id="BarangayName" name="BarangayName" type="text" placeholder="Enter barangay"/>
+                            <label class="small mb-1" for="BarangayCaptain">Barangay Captain</label>
+                            <input class="form-control" id="BarangayCaptain" name="BarangayCaptain" type="text" placeholder="Enter barangay captain name"/>
                         </div>
                     </div>
                 </div>
