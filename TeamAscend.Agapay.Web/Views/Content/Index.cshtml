@@ -150,7 +150,7 @@
                     console.log('GetBlogPost > res: ', res);
                     for (let key of Object.keys(res)) {
                         if (key === 'CoverPhoto' && res[key]) {
-                            $('#ExistingCoverPhoto').val(res[key]);
+                            $('#CoverPhoto').val(res[key]);
                             $('#coverPhotoPreview').attr('src', res[key]).show();
                         } else {
                             $('#' + key).val(res[key]);

@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="css/animate.min.css" />
     <link rel="stylesheet" href="css/loading_icon.css" />
     <link rel="stylesheet" href="/lib/leafletjs/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="/lib/slick/slick-theme.css">
     <script src="/lib/leafletjs/leaflet.js"></script>
     <style>
         #busyBlocker {
@@ -73,6 +75,7 @@
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/fullcalendar.min.js"></script>
+    <script src="/lib/slick/slick.js"></script>
     <script>
         window.IsBusy = (show, message) => {
             if (show) {
@@ -150,8 +153,14 @@
             map = undefined;
             $('#mapview').html('');
         };
-    </script>
 
+        window.loadAnnouncementSlider = () =>  {
+            $('#announcementPanel .cycle-slideshow').slick({
+                autoplay: true,
+                autoplaySpeed: 4000,
+            });
+        }
+    </script>
 
     <script src="_framework/blazor.webview.js" autostart="false"></script>
 </body>

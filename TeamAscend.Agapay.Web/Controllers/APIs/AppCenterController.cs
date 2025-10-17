@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using TeamAscend.Agapay.Web.Attributes;
 using TeamAscend.Agapay.Web.Models;
+using TeamAscend.Agapay.Web.Services;
 using TeamAscend.Agapay.Web.Shared;
 
 namespace TeamAscend.Agapay.Web.Controllers
@@ -12,7 +13,7 @@ namespace TeamAscend.Agapay.Web.Controllers
         [Route("api/AppCenter/GetServerDate")]
         public string GetServerDate(string LasySyncDate)
         {
-            var resp = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            var resp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             return resp;
         }
 
@@ -174,6 +175,13 @@ namespace TeamAscend.Agapay.Web.Controllers
             }
 
             return resp;
+        }
+
+
+        [HttpGet]
+        public async Task<List<FacebookPagePost>> GetFacebookPost()
+        {
+            return await FacebookService.GetPosts();
         }
     }
 }

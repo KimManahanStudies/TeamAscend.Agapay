@@ -1,210 +1,73 @@
 ﻿@page "/EmergencyHotlines"
 
-
 <div class="hotline-container">
-
     <!-- Header -->
     <header class="hotline-header">
         <h2>Emergency Hotlines</h2>
 
         <div class="segmented-control">
             <!-- Dropdown -->
-            <select class="segment-dropdown">
-                <option>All</option>
-                <option>Service / Agency</option>
-                <option>District 1</option>
-                <option>District 2</option>
-                <option>District 3</option>
-                <option>District 4</option>
-                <option>District 5</option>
-                <option>District 6</option>
+            <select class="segment-dropdown" @onchange="@(e => ApplyFilterContacts(e.Value.ToString()))">
+                <option value="All">All</option>
+                <option value="Service / Agency">Service / Agency</option>
+                <option value="District I">District I</option>
+                <option value="District II">District II</option>
+                <option value="District III">District III</option>
+                <option value="District IV">District IV</option>
+                <option value="District V">District V</option>
+                <option value="District VI">District VI</option>
             </select>
 
             <!-- Favorites -->
-            <button id="favoritesBtn" class="segment-favorites">★ Favorites</button>
+            <button class="segment-favorites @(selectedFilter == "Favorites" ? "active" : "")" 
+                    @onclick="@(() => ApplyFilterContacts("Favorites"))">
+                ★ Favorites
+            </button>
         </div>
     </header>
 
-    <!-- Hotline List (Sample Only) -->
+    <!-- Hotline List -->
     <div class="hotline-list">
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>Quezon City Unified Emergency (QC 122)</h4>
-                <p>122</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qc-logo.png" alt="QC Emergency" />
+        @foreach (var contact in filteredContacts)
+        {
+            <div class="hotline-item">
+                <div class="hotline-info">
+                    <h4>@contact.ContactName</h4>
+                    <p class="contact-number">@contact.ContactNumber</p>
+                    @if (!string.IsNullOrEmpty(contact.EmergencyHotline))
+                    {
+                        <p class="emergency-number">Emergency: @contact.EmergencyHotline</p>
+                    }
+                    @if (!string.IsNullOrEmpty(contact.Agency))
+                    {
+                        <p class="agency">@contact.Agency</p>
+                    }
+                    @if (!string.IsNullOrEmpty(contact.Location))
+                    {
+                        <p class="location">@contact.Location</p>
+                    }
+                    @if (!string.IsNullOrEmpty(contact.Barangay))
+                    {
+                        <div class="barangay-info">
+                            <p>Barangay: @contact.Barangay</p>
+                            @if (!string.IsNullOrEmpty(contact.BarangayCaptain))
+                            {
+                                <p>Captain: @contact.BarangayCaptain</p>
+                            }
+                        </div>
+                    }
                 </div>
-                <span class="favorite-star">☆</span>
-            </div>
-        </div>
-
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>QCDRRMO (Disaster Response)</h4>
-                <p>8927-5914 / 8928-4396 / 0977-031-2892</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qcddrmo.png" alt="QCDRRMO" />
+                <div class="hotline-actions">
+                    <div class="hotline-logo">
+                        <img src="/images/qc-logo.png" alt="@contact.ContactName" />
+                    </div>
+                    <span class="favorite-star @(IsFavorite(contact.ID.ToString()) ? "active" : "")" 
+                          @onclick="@(() => ToggleFavorite(contact.ID.ToString()))">
+                        @(IsFavorite(contact.ID.ToString()) ? "★" : "☆")
+                    </span>
                 </div>
-                <span class="favorite-star">☆</span>
             </div>
-        </div>
-
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>QCDRRMO (Disaster Response)</h4>
-                <p>8927-5914 / 8928-4396 / 0977-031-2892</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qcddrmo.png" alt="QCDRRMO" />
-                </div>
-                <span class="favorite-star">☆</span>
-            </div>
-        </div>
-
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>QCDRRMO (Disaster Response)</h4>
-                <p>8927-5914 / 8928-4396 / 0977-031-2892</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qcddrmo.png" alt="QCDRRMO" />
-                </div>
-                <span class="favorite-star">☆</span>
-            </div>
-        </div>
-
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>QCDRRMO (Disaster Response)</h4>
-                <p>8927-5914 / 8928-4396 / 0977-031-2892</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qcddrmo.png" alt="QCDRRMO" />
-                </div>
-                <span class="favorite-star">☆</span>
-            </div>
-        </div>
-
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>QCDRRMO (Disaster Response)</h4>
-                <p>8927-5914 / 8928-4396 / 0977-031-2892</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qcddrmo.png" alt="QCDRRMO" />
-                </div>
-                <span class="favorite-star">☆</span>
-            </div>
-        </div>
-
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>QCDRRMO (Disaster Response)</h4>
-                <p>8927-5914 / 8928-4396 / 0977-031-2892</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qcddrmo.png" alt="QCDRRMO" />
-                </div>
-                <span class="favorite-star">☆</span>
-            </div>
-        </div>
-
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>QCDRRMO (Disaster Response)</h4>
-                <p>8927-5914 / 8928-4396 / 0977-031-2892</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qcddrmo.png" alt="QCDRRMO" />
-                </div>
-                <span class="favorite-star">☆</span>
-            </div>
-        </div>
-
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>QCDRRMO (Disaster Response)</h4>
-                <p>8927-5914 / 8928-4396 / 0977-031-2892</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qcddrmo.png" alt="QCDRRMO" />
-                </div>
-                <span class="favorite-star">☆</span>
-            </div>
-        </div>
-
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>QCDRRMO (Disaster Response)</h4>
-                <p>8927-5914 / 8928-4396 / 0977-031-2892</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qcddrmo.png" alt="QCDRRMO" />
-                </div>
-                <span class="favorite-star">☆</span>
-            </div>
-        </div>
-
-        <div class="hotline-item">
-            <div class="hotline-info">
-                <h4>QCDRRMO (Disaster Response)</h4>
-                <p>8927-5914 / 8928-4396 / 0977-031-2892</p>
-            </div>
-            <div class="hotline-actions">
-                <div class="hotline-logo">
-                    <img src="/images/qcddrmo.png" alt="QCDRRMO" />
-                </div>
-                <span class="favorite-star">☆</span>
-            </div>
-        </div>
-
+        }
     </div>
 </div>
 
-
-<script>
-    const favoritesBtn = document.getElementById("favoritesBtn");
-    const hotlineItems = document.querySelectorAll(".hotline-item");
-
-    // Toggle star icons for each hotline
-    document.querySelectorAll(".favorite-star").forEach(star => {
-        star.addEventListener("click", function () {
-            this.classList.toggle("active");
-            this.textContent = this.classList.contains("active") ? "★" : "☆";
-        });
-    });
-
-    // Toggle "Favorites" view
-    favoritesBtn.addEventListener("click", function () {
-        this.classList.toggle("active");
-
-        if (this.classList.contains("active")) {
-            // Show only items with active favorite star
-            hotlineItems.forEach(item => {
-                const star = item.querySelector(".favorite-star");
-                item.style.display = star.classList.contains("active") ? "flex" : "none";
-            });
-        } else {
-            // Show all items
-            hotlineItems.forEach(item => item.style.display = "flex");
-        }
-    });
-</script>
-
-
-
-@code {
-
-}

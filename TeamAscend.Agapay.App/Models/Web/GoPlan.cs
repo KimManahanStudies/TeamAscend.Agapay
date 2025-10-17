@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TeamAscend.Agapay.Web.Models;
 
-public partial class GoPlanPage
+public partial class GoPlan
 {
     public int ID { get; set; }
 

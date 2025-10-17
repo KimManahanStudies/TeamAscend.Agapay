@@ -27,31 +27,24 @@
     </div>
 
     <div id="announcementPanel" class="section-highlight" style="/*background-color:pink;*/">
-        <div class="cycle-slideshow"
-             data-cycle-fx="scrollHorz"
-             data-cycle-pause-on-hover="true"
-             data-cycle-timeout="5000"
-             data-cycle-slides="> div"
-             data-cycle-swipe="true"
-             data-cycle-swipe-fx="scrollHorz"
-             data-cycle-pager=".sliderannouncement-pager">
+        <div class="cycle-slideshow">
 
             @if (Model != null)
             {
-                @* if (Model.FBPosts != null)
+                if (Model.Announcements != null)
                 {
-                    foreach (var itm in Model.FBPosts)
+                    foreach (var itm in Model.Announcements)
                     {
-                        <div id="@itm.id" data-time="@itm.created_time" class="slide-banner" style="background-image: url('imgs/banners/rain1.jpg')">
-                            <h4>Cubao</h4>
-                            <h2>@itm.message</h2>
-                            <h3>Advisory</h3>
+                        <div id="@itm.ID" data-time="@itm.CreatedDate" class="slide-banner" style="background-image: url('@itm.CoverPhoto')">
+                            <h4>Location Here</h4>
+                            <h2>@itm.Title</h2>
+                            <h3></h3>
                         </div>
                     }
-                } *@
+                }
             }
 
-            <div class="slide-banner" style="background-image: url('imgs/banners/rain1.jpg')">
+            @* <div class="slide-banner" style="background-image: url('imgs/banners/rain1.jpg')">
                 <h4>Cubao</h4>
                 <h2>Heavy Rain</h2>
                 <h3>Advisory</h3>
@@ -65,9 +58,9 @@
                 <h4>Batasan</h4>
                 <h2>Flood</h2>
                 <h3>Advisory</h3>
-            </div>
+            </div> *@
         </div>
-        <div class="sliderannouncement-pager"></div>
+        @* <div class="sliderannouncement-pager"></div> *@
     </div>
 </section>
 
@@ -204,25 +197,3 @@
     <br style="margin-bottom:100px;"/>
 </section>
 *@
-
-
-<!--For reference go here: https://jquery.malsup.com/cycle2/demo -->
-@* <script src="js/jquery.cycle2.js"></script> *@
-<script>
-    $(function(){
-        //loadSlider();
-    });
-
-    function loadSlider(){
-        $('#announcementPanel').html('');
-        $('#announcementPanel').html($('#sliderSource').html());
-
-        $('#announcementPanel .cycle-slideshow').attr('data-cycle-fx','scrollHorz');
-        $('#announcementPanel .cycle-slideshow').attr('data-cycle-pause-on-hover','true');
-        $('#announcementPanel .cycle-slideshow').attr('data-cycle-timeout','5000');
-        $('#announcementPanel .cycle-slideshow').attr('data-cycle-slides','> div');
-        $('#announcementPanel .cycle-slideshow').attr('data-cycle-swipe','true');
-        $('#announcementPanel .cycle-slideshow').attr('data-cycle-swipe-fx','scrollHorz');
-        $('#announcementPanel .cycle-slideshow').attr('data-cycle-pager','.sliderannouncement-pager');
-    }
-</script>

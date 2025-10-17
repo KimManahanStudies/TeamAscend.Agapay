@@ -9,6 +9,7 @@ namespace TeamAscend.Agapay.App.Models
 {
     public class HomeViewModel:BaseViewModel
     {
-        public List<AppBlogPost> Contents { get; set; }
+        public List<AppBlogPost> Announcements { get; set; }
+        public List<AppBlogPost> InfoGraphs { get; set; }
     }
 }

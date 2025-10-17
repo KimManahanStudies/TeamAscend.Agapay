@@ -35,11 +35,11 @@ namespace TeamAscend.Agapay.App.Components.Pages
             Model = new HomeViewModel();
             await jsRT.InvokeVoidAsync("IsBusy",true,"Syncing...");
             await Shell.SyncData(DB);
-
-            Model.Contents = DB.BlogPosts;
-
+            Model.Announcements = DB.BlogPosts.Where(r=>r.BlogType == "ANNOUNCEMENT").ToList();
+            Model.InfoGraphs = DB.BlogPosts.Where(r=>r.BlogType == "INFOGRAPH").ToList();
             await jsRT.InvokeVoidAsync("IsBusy", false);
             await InvokeAsync(StateHasChanged);
+            await jsRT.InvokeVoidAsync("loadAnnouncementSlider");
         }
 
     }
