@@ -80,6 +80,8 @@
                 <a class="dropdown-item filter-type" href="#" data-type="Police">Police Stations</a>
                 <a class="dropdown-item filter-type" href="#" data-type="Fire">Fire Stations</a>
                 <a class="dropdown-item filter-type" href="#" data-type="Shelter">Shelters</a>
+
+                <a class="dropdown-item filter-type" href="#" data-type="Others">Danger</a>
             </div>
         </div>
     </div>
@@ -94,6 +96,7 @@
     <script>
         let map;
         let markers = [];
+        let circles = [];
         let allLocations = [];
         
         // Color mapping for different location types
@@ -180,6 +183,10 @@
             markers.forEach(marker => map.removeLayer(marker));
             markers = [];
 
+            // Clear existing circles
+            circles.forEach(circle => map.removeLayer(circle));
+            circles = [];
+
             // Filter locations if needed
             const locationsToShow = filterType === 'all' 
                 ? allLocations 
@@ -189,23 +196,30 @@
             locationsToShow.forEach(location => {
                 if (location.MapCoordinates) {
                     const [lat, lng] = location.MapCoordinates.split(',');
-                    
-                    // Get color for location type or default to gray
                     const markerColor = locationColors[location.LocationType] || '#808080';
-                    
                     const marker = L.marker([parseFloat(lat), parseFloat(lng)], {
                         icon: createColoredIcon(markerColor)
                     }).bindPopup(createCustomPopup(location));
-                    
                     marker.addTo(map);
                     markers.push(marker);
+
+                    // Add radius for Danger pins
+                    if (location.LocationType === "Others") {
+                        const dangerRadius = 300; // meters, adjust as needed
+                        const circle = L.circle([parseFloat(lat), parseFloat(lng)], {
+                            color: '#ff0000',
+                            fillColor: '#f03',
+                            fillOpacity: 0.2,
+                            radius: dangerRadius
+                        }).addTo(map);
+                        circles.push(circle);
+                    }
                 }
             });
 
-
             // Adjust map view to show all markers if there are any
             if (markers.length > 0) {
-                const group = new L.featureGroup(markers);
+                const group = new L.featureGroup(markers.concat(circles));
                 map.fitBounds(group.getBounds().pad(0.1));
             }
         }

@@ -34,7 +34,7 @@ namespace TeamAscend.Agapay.App.Components.Pages
             "Police",
             "Fire",
             "Shelter",
-            "Other"
+            "Others"
         };
 
         private List<AppMapLocation> allLocations = new();
