@@ -1,7 +1,12 @@
-﻿@page "/guidesgrid"
+﻿@using TeamAscend.Agapay.App.Components.Layout
+@layout BaseLayout
+@page "/guidesgrid"
 
 <div class="first-aid-container">
     <div class="nav-bar">
+        <a href="javascript:history.back()" class="WTDfirsaid-back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
         <h1 class="page-title">First Aid Guide</h1>
     </div>
 
@@ -70,24 +75,46 @@
     }
 
     .nav-bar {
+        position: relative;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         margin-bottom: 20px;
     }
 
-    .back-button {
-        font-size: 20px;
+    /* Circular back button */
+    .WTDfirsaid-back-button {
+        position: absolute;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background-color: #f0f4f8;
+        border-radius: 50%;
+        font-size: 18px;
         color: #002147;
         cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
+        .WTDfirsaid-back-button:hover {
+            background-color: #e1e8f0;
+            transform: scale(1.05);
+        }
+
+    /* Centered title */
     .page-title {
         font-weight: bold;
         margin: 0;
         font-size: 20px;
         color: #002147;
+        text-align: center;
     }
+
 
     .placeholder {
         width: 20px;
