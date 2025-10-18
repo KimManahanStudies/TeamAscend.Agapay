@@ -22,6 +22,8 @@ public partial class AgapayTestDBContext : DbContext
 
     public virtual DbSet<GoPlan> GoPlans { get; set; }
 
+    public virtual DbSet<GoPlanMember> GoPlanMembers { get; set; }
+
     public virtual DbSet<MapLocation> MapLocations { get; set; }
 
     public virtual DbSet<Phonebook> Phonebooks { get; set; }
@@ -113,6 +115,20 @@ public partial class AgapayTestDBContext : DbContext
             entity.Property(e => e.ShareCode)
                 .IsRequired()
                 .HasMaxLength(255);
+        });
+
+        modelBuilder.Entity<GoPlanMember>(entity =>
+        {
+            entity.HasKey(e => e.ID).HasName("PK__GoPlanMe__3214EC275DC5AE06");
+
+            entity.ToTable("GoPlanMember");
+
+            entity.Property(e => e.CreatedBy).HasMaxLength(255);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.FamilyMemberRole).HasMaxLength(100);
+            entity.Property(e => e.ModifiedBy).HasMaxLength(255);
+            entity.Property(e => e.ModifiedDate).HasColumnType("datetime");
+            entity.Property(e => e.PhoneNumber).HasMaxLength(50);
         });
 
         modelBuilder.Entity<MapLocation>(entity =>

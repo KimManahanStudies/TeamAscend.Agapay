@@ -1,4 +1,5 @@
 ﻿@page "/createplan"
+@page "/createplan/{PlanId}"
 
 <!-- Section 1: Header Background -->
 <section class="header-section">
@@ -68,61 +69,19 @@
         <div class="section">
             <p class="checklist-header">72-Hour Go Bag Checklist</p>
 
-            <!-- Food -->
-            <h4 class="checklist-header">Food</h4>
-            <div class="checklist">
-                <label class="checklist-item"><input type="checkbox" /> <span>Non-perishable food (biscuits, crackers, cookies, cereals, canned goods, cup noodles)</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>1.5L of drinking water, instant coffee, and tea</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Eating utensils (spoon, fork, plate)</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Plastic bag</span></label>
-            </div>
-
-            <!-- Toiletries -->
-            <h4 class="checklist-header">Toiletries</h4>
-            <div class="checklist">
-                <label class="checklist-item"><input type="checkbox" /> <span>Toothbrush, toothpaste, mouthwash</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Sanitary napkin</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Soap, shampoo, conditioner</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Hand sanitizer or alcohol</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Insect repellant</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Sunblock</span></label>
-            </div>
-
-            <!-- First Aid Kit -->
-            <h4 class="checklist-header">First Aid Kit</h4>
-            <div class="checklist">
-                <label class="checklist-item"><input type="checkbox" /> <span>Band-aid and sterile gauze</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Micropore tape</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Povidone-iodine and alcohol</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Ointment for wounds</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Mefenamic acid and paracetamol</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Maintenance medication</span></label>
-            </div>
-
-            <!-- Survival Kit -->
-            <h4 class="checklist-header">Survival Kit</h4>
-            <div class="checklist">
-                <label class="checklist-item"><input type="checkbox" /> <span>Pocket knife with can opener</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Flashlight with extra batteries, matches, or lighter (kept in a zip lock bag)</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Rope, fishing hook, fishing line</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Whistle or anything that makes noise to signal for help</span></label>
-            </div>
-
-            <!-- PPEs and Technical Equipment -->
-            <h4 class="checklist-header">PPEs and Technical Equipment</h4>
-            <div class="checklist">
-                <label class="checklist-item"><input type="checkbox" /> <span>Safety goggles, dust mask, N95 mask, surgical gloves, raincoat, or poncho</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Small radio, batteries, powerbank, charger, extension cord</span></label>
-            </div>
-
-            <!-- Clothes and Bedding -->
-            <h4 class="checklist-header">Clothes and Bedding</h4>
-            <div class="checklist">
-                <label class="checklist-item"><input type="checkbox" /> <span>Lightweight shoes or slippers</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Jacket and warm clothes</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Blanket or sleeping bag</span></label>
-                <label class="checklist-item"><input type="checkbox" /> <span>Clothes good for at least three days</span></label>
-            </div>
+            @foreach (var category in ChecklistCategories)
+            {
+                <h4 class="checklist-header">@category.Key</h4>
+                <div class="checklist">
+                    @foreach (var item in category.Value)
+                    {
+                        <label class="checklist-item">
+                            <input type="checkbox" @bind="item.IsChecked" />
+                            <span>@item.Description</span>
+                        </label>
+                    }
+                </div>
+            }
         </div>
         <hr class="divider"/>
     </div>
@@ -134,14 +93,3 @@
         <button class="btn cancel-btn" @onclick="GotoList">Cancel</button>
     </div>
 </section>
-
-<script>
-function toggleSpecifyField(select) {
-    const specifyField = document.getElementById("specifyField");
-    if (select.value === "others") {
-        specifyField.classList.remove("hidden");
-    } else {
-        specifyField.classList.add("hidden");
-    }
-}
-</script>

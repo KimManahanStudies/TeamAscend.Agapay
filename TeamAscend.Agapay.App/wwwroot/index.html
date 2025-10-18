@@ -154,10 +154,39 @@
             $('#mapview').html('');
         };
 
-        window.loadAnnouncementSlider = () =>  {
+        window.loadAnnouncementSlider = () => {
             $('#announcementPanel .cycle-slideshow').slick({
                 autoplay: true,
                 autoplaySpeed: 4000,
+            });
+        }
+    </script>
+    <script>
+        window.openBottomSheet = () => {
+            document.getElementById("bottomSheet").classList.add("show");
+            document.getElementById("overlay").classList.add("show");
+        }
+
+        window.closeBottomSheet = () => {
+            document.getElementById("bottomSheet").classList.remove("show");
+            document.getElementById("overlay").classList.remove("show");
+        }
+
+        window.openOptionsSheet = () => {
+            document.getElementById('optionsSheet').classList.add('show');
+            document.getElementById('overlayOptions').classList.add('show');
+        }
+
+        window.closeOptionsSheet = () => {
+            document.getElementById('optionsSheet').classList.remove('show');
+            document.getElementById('overlayOptions').classList.remove('show');
+        }
+
+        window.copyPlanLink = () => {
+            const planTitle = document.getElementById('selectedPlanName').textContent;
+            const fakeLink = `${window.location.origin}/GoPlan/${encodeURIComponent(planTitle)}`;
+            navigator.clipboard.writeText(fakeLink).then(() => {
+                alert(`Link copied:\n${fakeLink}`);
             });
         }
     </script>

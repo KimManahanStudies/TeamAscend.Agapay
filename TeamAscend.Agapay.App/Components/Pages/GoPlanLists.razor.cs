@@ -27,6 +27,8 @@ namespace TeamAscend.Agapay.App.Components.Pages
 
         private AppGoPlan selectedPlan;
 
+        private AppGoPlan eCardModel;
+
         protected override void OnInitialized()
         {
             // Check if user is logged in
@@ -41,6 +43,7 @@ namespace TeamAscend.Agapay.App.Components.Pages
 
         private void LoadUserPlans()
         {
+            eCardModel = new AppGoPlan();
             // Get plans for current user
             userPlans = DB.AppGoPlans?.Where(p => p.UserID == Shell.CurrentUser.ID && !p.IsDeleted).ToList() ?? new List<AppGoPlan>();
 
@@ -50,18 +53,22 @@ namespace TeamAscend.Agapay.App.Components.Pages
                 Nav.NavigateTo("/createplan");
                 return;
             }
-
-            // Load associated bags for each plan
-            foreach (var plan in userPlans)
+            else
             {
-                var bags = DB.AppGoBags?.Where(b => b.GoPlanID == plan.ID && !b.IsDeleted).ToList() ?? new List<AppGoBag>();
-                userBags.AddRange(bags);
+                // Load associated bags for each plan
+                foreach (var plan in userPlans)
+                {
+                    var bags = DB.AppGoBags?.Where(b => b.GoPlanID == plan.ID && !b.IsDeleted).ToList() ?? new List<AppGoBag>();
+                    userBags.AddRange(bags);
+                }
+                eCardModel = userPlans.FirstOrDefault();
+                StateHasChanged();
             }
         }
 
         private void NavigateToEdit(int planId)
         {
-            Nav.NavigateTo($"/plan/{planId}");
+            Nav.NavigateTo($"/createplan/{planId}");
         }
 
         private async Task DeletePlan(int planId)
@@ -101,7 +108,7 @@ namespace TeamAscend.Agapay.App.Components.Pages
 
         private void CreatePlan()
         {
-            Nav.NavigateTo("/plan");
+            Nav.NavigateTo("/createplan");
         }
 
         private void OpenOptionsSheet(AppGoPlan plan)

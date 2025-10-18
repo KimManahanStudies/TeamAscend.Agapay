@@ -119,3 +119,17 @@ CREATE TABLE AppGlobalSettings(
 	[ModifiedBy] [nvarchar](255) NULL,
 	[ModifiedDate] [datetime] NULL,
 )
+
+CREATE TABLE [dbo].[GoPlanMember](
+	[ID] [int] IDENTITY(1,1)  NOT NULL PRIMARY KEY,
+	[GoPlanID] [int]  NOT NULL,
+	[PlanOwnerID] [int] NOT NULL,
+	[MemberID] [int] NOT NULL,
+	[PhoneNumber] [nvarchar](50) NULL,
+	[FamilyMemberRole] [nvarchar](100) NULL,
+	[IsDeleted] [bit] NOT NULL,
+	[CreatedBy] [nvarchar](255) NULL,
+	[CreatedDate] [datetime] NULL,
+	[ModifiedBy] [nvarchar](255) NULL,
+	[ModifiedDate] [datetime] NULL
+)

@@ -1,6 +1,54 @@
 @page "/goplanlists"
 @using TeamAscend.Agapay.Web.Models
+<style>
+    .ecard-holder{
+        width: 96vw;
+        position: relative;
+        height: 32vh;
+        margin-left: -40px;
+        box-shadow: 0px 0px 5px #CCC;
+    }
 
+        .ecard-holder .ecard-number {
+            color: #0a2d5a;
+            font-size: 25px;
+            position: absolute;
+            z-index: 1;
+            bottom: 110px;
+            left: 25px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .ecard-holder .ecard-name {
+            color: #0a2d5a;
+            font-size: 30px;
+            position: absolute;
+            z-index: 1;
+            bottom: 80px;
+            left: 25px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .ecard-holder .ecard-address {
+            color: #f9a825;
+            font-size: 16px;
+            position: absolute;
+            z-index: 1;
+            bottom: 15px;
+            left: 25px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .ecard-holder .ecard-bg {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+        }
+</style>
 <div class="goplan-container">
     <div class="header-goplan">
         <h1 class="title">Go Plan</h1>
@@ -10,6 +58,17 @@
             </span>
             Add
         </button>
+    </div>
+
+    <div class="ecard-holder" >
+        <div class="ecard-number" >@eCardModel.ShareCode</div>
+        <div class="ecard-name" >@(Shell.CurrentUser.LastName + ", " + Shell.CurrentUser.FirstName) </div>
+        <div class="ecard-address" >
+            @Shell.CurrentUser.AddressLine1 <br />
+            @Shell.CurrentUser.AddressLine2 <br />
+            @Shell.CurrentUser.ContactNo1 <br />
+        </div>
+        <img class="ecard-bg" src="/imgs/e-card.png"  />
     </div>
 
     <div class="plan-list">
@@ -35,7 +94,7 @@
             </NavLink>
         </div>
         <div class="sheet-section">
-            <p class="import-label">Import GoPlan</p>
+            <p class="import-label">Join a Family's GoPlan</p>
             <input type="text" class="import-input" placeholder="Paste your link here" />
         </div>
     </div>
@@ -63,4 +122,262 @@
 
 <!-- Overlay -->
 <div id="overlay" class="overlay" @onclick="CloseAllSheets"></div>
+<style>
+    /* Main container */
+    .goplan-container {
+        background-color: white;
+        padding: 1.5rem;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    .header-goplan {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    .title {
+        font-size: 1.75rem;
+        font-weight: bold;
+        color: #003366;
+        margin: 0;
+    }
+
+    .add-button {
+        background-color: #003366;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.5rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .plus-icon-container {
+        background-color: #ffa500;
+        color: white;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+    }
+
+    .plan-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .plan-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+        transition: background-color 0.2s ease;
+    }
+
+        .plan-item:hover {
+            background-color: #f9f9f9;
+        }
+
+    .plan-name {
+        font-weight: bold;
+        color: #003366;
+    }
+
+    .options-button {
+        background: none;
+        border: none;
+        color: #003366;
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        transition: background-color 0.2s ease;
+    }
+
+        .options-button:hover {
+            background-color: #f5f5f5;
+        }
+
+    /* Overlay */
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 999;
+    }
+
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+    /* Bottom Sheet */
+    .bottom-sheet {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        transition: bottom 0.3s ease;
+        z-index: 1000;
+    }
+
+        .bottom-sheet.show {
+            bottom: 0;
+        }
+
+    .sheet-content {
+        padding: 1rem 1.5rem 2rem;
+    }
+
+    .sheet-handle {
+        width: 50px;
+        height: 5px;
+        background: #ccc;
+        border-radius: 5px;
+        margin: 0.5rem auto 1rem;
+    }
+
+    .sheet-section {
+        margin-bottom: 1rem;
+    }
+
+    .create-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: none;
+        border: none;
+        color: #003366;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1rem;
+        text-decoration: none;
+    }
+
+        .create-btn i {
+            color: #003366;
+        }
+
+    .import-label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #003366;
+        margin-bottom: 0.25rem;
+    }
+
+    .import-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        color: #333;
+    }
+
+        .import-input::placeholder {
+            color: #aaa;
+        }
+
+    /* Reuse overlay style */
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 999;
+    }
+
+        .overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+    /* Options Bottom Sheet */
+    .bottom-sheet {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        transition: bottom 0.3s ease;
+        z-index: 1000;
+    }
+
+        .bottom-sheet.show {
+            bottom: 0;
+        }
+
+    .sheet-content {
+        padding: 1rem 1.5rem 2rem;
+    }
+
+    .sheet-handle {
+        width: 50px;
+        height: 5px;
+        background: #ccc;
+        border-radius: 5px;
+        margin: 0.5rem auto 1rem;
+    }
+
+    .plan-title {
+        font-weight: 600;
+        color: #003366;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .sheet-option {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 0;
+        color: #003366;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        border-top: 1px solid #eee;
+    }
+
+        .sheet-option:first-of-type {
+            border-top: none;
+        }
+
+        .sheet-option:hover {
+            background-color: #f9f9f9;
+        }
+
+        .sheet-option i {
+            font-size: 1.1rem;
+            color: #003366;
+            width: 22px;
+            text-align: center;
+        }
+</style>
 
