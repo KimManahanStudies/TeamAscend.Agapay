@@ -31,6 +31,8 @@ namespace TeamAscend.Agapay.App.Components.Pages
                 Model.UserID = currentUser.ID;
                 Model.CreatedBy = currentUser.Username;
                 Model.CreatedDate = DateTime.Now;
+                Model.ModifiedBy = currentUser.Username;
+                Model.ModifiedDate = DateTime.Now;
                 Model.IsDeleted = false;
             }
 
