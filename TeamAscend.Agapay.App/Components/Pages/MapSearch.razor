@@ -1,6 +1,7 @@
 ﻿@using TeamAscend.Agapay.App.Components.Layout
 @layout BaseLayout
 @page "/mapsearch"
+
 <style>
    /* Keep existing styles */
    .shortcut-btn {
@@ -61,8 +62,20 @@
     <div class="shortcut-btn @(currentFilter == locationTypes[5] ? "active" : "")" @onclick="() => FilterLocations(5)">
         <i class="fas fa-warehouse"></i> Relief Warehouse
     </div>
-    <div class="shortcut-btn @(currentFilter == locationTypes[6] ? "active" : "")" @onclick="() => FilterLocations(6)">
+     <div class="shortcut-btn @(currentFilter == locationTypes[6] ? "active" : "")" @onclick="() => FilterLocations(6)">
         <i class="fas fa-water"></i> Water Refill Station
+    </div>
+     <div class="shortcut-btn @(currentFilter == locationTypes[7] ? "active" : "")" @onclick="() => FilterLocations(7)">
+        <i class="fas fa-water"></i> Police Station
+    </div>
+     <div class="shortcut-btn @(currentFilter == locationTypes[8] ? "active" : "")" @onclick="() => FilterLocations(8)">
+        <i class="fas fa-water"></i> Fire Station
+    </div>
+     <div class="shortcut-btn @(currentFilter == locationTypes[9] ? "active" : "")" @onclick="() => FilterLocations(9)">
+        <i class="fas fa-water"></i> Shelter
+    </div>
+    <div class="shortcut-btn @(currentFilter == locationTypes[10] ? "active" : "")" @onclick="() => FilterLocations(10)">
+        <i class="fas fa-water"></i> Other
     </div>
 </div>
 
@@ -81,3 +94,88 @@
     </div>
 </div>
 
+
+<script>
+    let bottomSheet = document.getElementById('bottomSheet');
+    let dragHandle = document.getElementById('dragHandle');
+    let startY = 0;
+    let currentY = 0;
+    let isDragging = false;
+    let sheetHeight = 25; // starting height (%)
+    let maxHeight = 70; // expanded
+    let minHeight = 0; // hidden
+
+    // ✅ Show the sheet programmatically
+    function showBottomSheet() {
+        if (!bottomSheet) bottomSheet = document.getElementById('bottomSheet');
+        bottomSheet.style.transition = 'none';
+        bottomSheet.style.height = '40%'; // reset default height
+        bottomSheet.style.transform = 'translateY(0%)'; // reset any hidden transform
+        bottomSheet.classList.add('show');
+        bottomSheet.classList.remove('expanded');
+
+        // Force reflow (important to make transition restart cleanly)
+        void bottomSheet.offsetWidth;
+        bottomSheet.style.transition = 'transform 0.3s ease, height 0.3s ease';
+    }
+
+    // ✅ Hide the sheet cleanly
+    function hideBottomSheet() {
+        if (!bottomSheet) bottomSheet = document.getElementById('bottomSheet');
+        bottomSheet.style.transition = 'transform 0.3s ease, height 0.3s ease';
+        bottomSheet.style.transform = 'translateY(100%)'; // slide down
+        bottomSheet.addEventListener('transitionend', () => {
+            bottomSheet.classList.remove('show');
+            bottomSheet.style.height = ''; // clear inline height
+            bottomSheet.style.transform = ''; // reset transform
+        }, { once: true });
+    }
+
+    // --- Drag Logic ---
+    dragHandle.addEventListener('touchstart', startDrag);
+    dragHandle.addEventListener('mousedown', startDrag);
+
+    function startDrag(e) {
+        isDragging = true;
+        startY = e.touches ? e.touches[0].clientY : e.clientY;
+        bottomSheet.style.transition = 'none';
+        document.addEventListener('touchmove', onDrag);
+        document.addEventListener('mousemove', onDrag);
+        document.addEventListener('touchend', endDrag);
+        document.addEventListener('mouseup', endDrag);
+    }
+
+    function onDrag(e) {
+        if (!isDragging) return;
+        currentY = e.touches ? e.touches[0].clientY : e.clientY;
+        let deltaY = currentY - startY;
+        let sheet = bottomSheet.getBoundingClientRect();
+        let newHeight = ((window.innerHeight - sheet.top - deltaY) / window.innerHeight) * 100;
+
+        // Clamp height
+        newHeight = Math.max(minHeight, Math.min(maxHeight, newHeight));
+
+        bottomSheet.style.height = `${newHeight}%`;
+    }
+
+    function endDrag() {
+        isDragging = false;
+        bottomSheet.style.transition = 'transform 0.3s ease, height 0.3s ease';
+
+        const currentHeight = parseFloat(bottomSheet.style.height);
+        if (currentHeight < 15) {
+            hideBottomSheet(); // ✅ This now resets everything properly
+        } else if (currentHeight > 55) {
+            bottomSheet.classList.add('expanded');
+        } else {
+            bottomSheet.classList.remove('expanded');
+            bottomSheet.classList.add('show');
+            bottomSheet.style.height = '40%';
+        }
+
+        document.removeEventListener('touchmove', onDrag);
+        document.removeEventListener('mousemove', onDrag);
+        document.removeEventListener('touchend', endDrag);
+        document.removeEventListener('mouseup', endDrag);
+    }
+</script>

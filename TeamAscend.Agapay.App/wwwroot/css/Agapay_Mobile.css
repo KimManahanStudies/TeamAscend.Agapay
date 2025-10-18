@@ -136,19 +136,18 @@
 
 /* End of style for Guidelines section in Home page */
 
-
-
-/* --- Bottom Navigation Container --- */.bottom_navigation {
-                                              position: fixed;
-                                              bottom: 0;
-                                              left: 0;
-                                              right: 0;
-                                              background: #fff; /* white background */
-                                              box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
-                                              border-top-left-radius: 0; /*Kung gusto mo lagyan ng curve sa nav*/
-                                              border-top-right-radius: 0;
-                                              z-index: 100;
-                                          }
+/* --- Bottom Navigation Container --- */
+.bottom_navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff; /* white background */
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+    border-top-left-radius: 0; /*Kung gusto mo lagyan ng curve sa nav*/
+    border-top-right-radius: 0;
+    z-index: 100;
+}
 
 .bottom_navigation ul {
     display: flex;

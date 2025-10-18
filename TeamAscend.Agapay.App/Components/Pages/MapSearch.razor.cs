@@ -30,7 +30,11 @@ namespace TeamAscend.Agapay.App.Components.Pages
             "Supply Store",
             "Government Centers",
             "Relief Warehouse",
-            "Water Refill Station"
+            "Water Refill Station",
+            "Police",
+            "Fire",
+            "Shelter",
+            "Other"
         };
 
         private List<AppMapLocation> allLocations = new();
