@@ -96,6 +96,28 @@
         let markers = [];
         let allLocations = [];
         
+        // Color mapping for different location types
+        const locationColors = {
+            'Hospital': '#ff0000',           // Red
+            'Supply Store': '#ffa500',       // Orange
+            'Evacuation Site': '#008000',    // Green
+            'Government Centers': '#0000ff',  // Blue
+            'Relief Warehouse': '#800080',    // Purple
+            'Water Refill Station': '#00ffff', // Cyan
+            'Police': '#000080',             // Navy
+            'Fire': '#ff4500',              // OrangeRed
+            'Shelter': '#006400'             // DarkGreen
+        };
+
+        function createColoredIcon(color) {
+            return L.divIcon({
+                className: 'custom-div-icon',
+                html: `<div style="background-color: ${color}; width: 15px; height: 15px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 3px rgba(0,0,0,0.4);"></div>`,
+                iconSize: [12, 12],
+                iconAnchor: [6, 6]
+            });
+        }
+        
         function createCustomPopup(location) {
             return `
                 <div class="location-popup">
@@ -163,27 +185,23 @@
                 ? allLocations 
                 : allLocations.filter(l => l.LocationType === filterType);
 
-            // Add debug logging
-            console.log('Locations to show:', locationsToShow);
-
             // Add markers for each location
             locationsToShow.forEach(location => {
                 if (location.MapCoordinates) {
                     const [lat, lng] = location.MapCoordinates.split(',');
                     
-                    // Add debug logging
-                    console.log('Creating marker at:', lat, lng);
+                    // Get color for location type or default to gray
+                    const markerColor = locationColors[location.LocationType] || '#808080';
                     
-                    const marker = L.marker([parseFloat(lat), parseFloat(lng)])
-                        .bindPopup(createCustomPopup(location));
+                    const marker = L.marker([parseFloat(lat), parseFloat(lng)], {
+                        icon: createColoredIcon(markerColor)
+                    }).bindPopup(createCustomPopup(location));
                     
                     marker.addTo(map);
                     markers.push(marker);
                 }
             });
 
-            // Debug logging for marker count
-            console.log('Total markers created:', markers.length);
 
             // Adjust map view to show all markers if there are any
             if (markers.length > 0) {
