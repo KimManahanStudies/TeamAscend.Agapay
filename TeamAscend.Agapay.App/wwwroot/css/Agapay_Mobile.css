@@ -1585,12 +1585,12 @@ body {
     text-align: center;
 }
 
-.hotline-header h2 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: bold;
-    color: #003366;
-}
+    .hotline-header h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: bold;
+        color: #003366;
+    }
 
 .segmented-control {
     display: flex;
@@ -1623,9 +1623,9 @@ body {
     transition: color 0.2s;
 }
 
-.segment-favorites.active {
-    color: #003366;
-}
+    .segment-favorites.active {
+        color: #003366;
+    }
 
 .hotline-list {
     flex: 1;
@@ -1673,9 +1673,38 @@ body {
     transition: color 0.2s;
 }
 
-.favorite-star.active {
-    color: gold;
+    .favorite-star.active {
+        color: gold;
+    }
+
+.Emer-back-button {
+    position: fixed; /* stay on top of the page */
+    top: 6px; /* move slightly down from top edge */
+    left: 12px; /* move slightly right from left edge */
+    width: 38px;
+    height: 38px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #003366;
+    font-size: 1.3rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease-in-out;
+    z-index: 9999 !important; /* ensure it appears above sticky header */
 }
+
+    .Emer-back-button:hover {
+        background-color: #f1f4f8;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .Emer-back-button i {
+        font-weight: bold;
+    }
+
 
 /*-----------------------------------------------------------*/
 /* First Aid Guidelines Style (basic cpr, burns, etc..) */
