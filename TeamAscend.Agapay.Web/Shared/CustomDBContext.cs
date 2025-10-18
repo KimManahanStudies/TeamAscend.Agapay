@@ -25,7 +25,7 @@ namespace TeamAscend.Agapay.Web.Shared
                    .AddJsonFile("appsettings.json")
                    .Build();
                 var connectionString = configuration.GetConnectionString("AgapayTestDBCon");
-                optionsBuilder.UseSqlServer(connectionString);
+                optionsBuilder.UseSqlServer(connectionString,sqlServerOptions => sqlServerOptions.CommandTimeout(500));
             }
         }
     }

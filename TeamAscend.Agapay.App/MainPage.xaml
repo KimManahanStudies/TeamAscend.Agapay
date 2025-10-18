@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:TeamAscend.Agapay.App"
              xmlns:ext="clr-namespace:TeamAscend.Agapay.App.Extensions"
              x:Class="TeamAscend.Agapay.App.MainPage"
-             BackgroundColor="White">
+             BackgroundColor="White"
+             Loaded="ContentPage_Loaded">
 
     <!--<BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html">
         <BlazorWebView.RootComponents>

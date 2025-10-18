@@ -202,7 +202,7 @@ namespace TeamAscend.Agapay.App.Shared
                                     {
                                         var date1 = DateTime.Parse(LSDStr);
                                         var date2 = DateTime.Parse(setData["LastModifiedDate"]);
-                                        if(date1 > date2)
+                                        if(date2 < date1)
                                         {
                                             return;
                                         }

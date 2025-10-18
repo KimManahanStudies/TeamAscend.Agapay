@@ -7,10 +7,13 @@
         @*<span class="weather-date"></span>*@
     </div>
     <div class="address-details">
-        <span style="margin-top: 10px;display: inline-block;">
-            Cubao, Quezon City
-            &nbsp;
-            <i class="fa fa-caret-down"></i>
+        <span style="margin-top: 0x;display: inline-block;">
+    @if (Shell.IsUserLoggedIn)
+    {
+        <span style="color: #f9a825;">Hi</span>
+        <span style="color: #0a2d5a;">@Shell.CurrentUser.FirstName</span><br />
+                <span style="color: #0a2d5a;"><i class="fa fa-pin"></i>Current Location</span>
+    }
         </span>
     </div>
 </section>
