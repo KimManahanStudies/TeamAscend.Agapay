@@ -86,6 +86,25 @@
                 $('#busyBlocker').hide();
             }
         }
+
+        window.WeatherToday = (apiURL) => {
+
+            //Pull DataTransfer via AJAX Approach
+            $.ajax({
+                url: apiURL + 'api/AppCenter/WeatherToday',
+                method: 'GET',
+                success: function (res) {
+                    console.log('WeatherToday > res: ', res);
+                    $('.weather-details img').attr('src', 'http://openweathermap.org/img/wn/' + res.Weather[0].Icon + '@2x.png');
+                    $('.weather-details .weather-title').text(res.Weather[0].Main);
+                    $('.weather-details .weather-temp-value').text(res.Main.Temp);
+                    console.log('WeatherToday > UI Applied');
+                },
+                err: function (err) {
+                    alert('Error Getting Weather!');
+                },
+            });
+        }
     </script>
 
     <!-- Leaflet Map Script -->
@@ -161,6 +180,8 @@
             });
         }
     </script>
+
+    <!--Native Scripts-->
     <script>
         window.openBottomSheet = () => {
             document.getElementById("bottomSheet").classList.add("show");

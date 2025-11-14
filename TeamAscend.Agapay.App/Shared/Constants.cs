@@ -11,6 +11,7 @@ namespace TeamAscend.Agapay.App.Shared
     /// </summary>
     public static class Constants
     {
+        //public const string AgapayWebAPI_URL = "https://localhost:44352/";
         public const string AgapayWebAPI_URL = "https://q4m7d5v7-44352.asse.devtunnels.ms/";
 
 

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using TeamAscend.Agapay.Web.Attributes;
 using TeamAscend.Agapay.Web.Models;
+using TeamAscend.Agapay.Web.Models.OpenWeatherMap;
 using TeamAscend.Agapay.Web.Services;
 using TeamAscend.Agapay.Web.Shared;
 
@@ -9,6 +11,14 @@ namespace TeamAscend.Agapay.Web.Controllers
 {
     public class AppCenterController : ControllerBase
     {
+        private readonly IMemoryCache _cache;
+        private const string WEATHER_CACHE_KEY = "WeatherToday";
+
+        public AppCenterController(IMemoryCache cache)
+        {
+            _cache = cache;
+        }
+
         [HttpGet]
         [Route("api/AppCenter/GetServerDate")]
         public string GetServerDate(string LasySyncDate)
@@ -177,6 +187,33 @@ namespace TeamAscend.Agapay.Web.Controllers
             return resp;
         }
 
+
+        [HttpGet]
+        [Route("api/AppCenter/WeatherToday")]
+        public async Task<WeatherResponse> GetWeatherToday()
+        {
+            // Try to get weather data from cache
+            if (_cache.TryGetValue(WEATHER_CACHE_KEY, out WeatherResponse cachedWeather))
+            {
+                return cachedWeather;
+            }
+
+            // If not in cache, fetch from weather service
+            if (WeatherService.Instance == null)
+            {
+                WeatherService _ws = new WeatherService();
+            }
+
+            var currentWeather = await WeatherService.Instance.GetTodays();
+
+            // Store in cache for 10 minutes
+            var cacheOptions = new MemoryCacheEntryOptions()
+                .SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
+
+            _cache.Set(WEATHER_CACHE_KEY, currentWeather, cacheOptions);
+
+            return currentWeather;
+        }
 
         [HttpGet]
         public async Task<List<FacebookPagePost>> GetFacebookPost()

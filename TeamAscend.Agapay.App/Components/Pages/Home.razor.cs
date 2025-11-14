@@ -69,6 +69,8 @@ namespace TeamAscend.Agapay.App.Components.Pages
             await jsRT.InvokeVoidAsync("IsBusy", false);
             await InvokeAsync(StateHasChanged);
             await jsRT.InvokeVoidAsync("loadAnnouncementSlider");
+
+            await jsRT.InvokeVoidAsync("WeatherToday",Constants.AgapayWebAPI_URL);
         }
 
     }

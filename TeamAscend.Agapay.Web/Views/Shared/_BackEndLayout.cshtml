@@ -230,10 +230,10 @@
                         </li>
 
                         <li>
-                            <div class="weather-details">
+                            <div class="weather-details" style="margin-top:10px">
                                 <img src="/imgs/weather_icons/sunny_cloudy.png" style="height:50px" />
                                 <span class="weather-title">Sunny</span>
-                                <span class="weather-temp"><i class="fas fa-temperature-low"></i>&nbsp;35<sup>0</sup></span>
+                                <span class="weather-temp"><i class="fas fa-temperature-low"></i>&nbsp;<span class="weather-temp-value">35</span><sup>0</sup></span>
                             </div>
                         </li>
 
@@ -410,11 +410,31 @@
     </script>
     @RenderSection("Scripts", required: false)
     <script>
+         function WeatherToday(){
+             
+
+            //Pull DataTransfer via AJAX Approach
+            $.ajax({
+                url: '/api/AppCenter/WeatherToday',
+                method: 'GET',
+                success: function (res) {
+                    console.log('WeatherToday > res: ',res);
+                    $('.weather-details img').attr('src','http://openweathermap.org/img/wn/' + res.Weather[0].Icon + '@@2x.png');
+                    $('.weather-details .weather-title').text(res.Weather[0].Main);
+                    $('.weather-details .weather-temp-value').text(res.Main.Temp);
+                    console.log('WeatherToday > UI Applied');
+                },
+                err: function (err) {
+                    alert('Error Getting Weather!');
+                },
+            });
+        }
+
         $(function(){
             let curPage = document.location.pathname;
             let curParam = document.location.search;
             $('a[href="' + curPage + curParam + '"]').parent().addClass('active');
-                
+            WeatherToday();
         });
     </script>
 </body>

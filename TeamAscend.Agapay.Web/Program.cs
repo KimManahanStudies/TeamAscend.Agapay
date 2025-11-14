@@ -11,6 +11,19 @@ builder.Services.AddControllersWithViews()
                 options.JsonSerializerOptions.PropertyNamingPolicy = null; // Disables camelCase
             });
 
+// Add Memory Cache
+builder.Services.AddMemoryCache();
+
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -19,6 +32,10 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+// Enable CORS
+app.UseCors("AllowAll");
+
 app.UseRouting();
 
 app.UseAuthorization();
