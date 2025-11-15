@@ -178,4 +178,79 @@
         document.removeEventListener('touchend', endDrag);
         document.removeEventListener('mouseup', endDrag);
     }
+
+    window.clearMap = function() {
+        if (window.map) {
+            window.map.remove();
+            window.map = null;
+        }
+    };
+
+    window.initMap = function(locationsJson) {
+        const locations = JSON.parse(locationsJson);
+        const locationColors = {
+            'Hospital': '#ff0000',
+            'Supply Store': '#ffa500',
+            'Evacuation Site': '#008000',
+            'Government Centers': '#0000ff',
+            'Relief Warehouse': '#800080',
+            'Water Refill Station': '#00ffff',
+            'Police': '#000080',
+            'Fire': '#ff4500',
+            'Shelter': '#006400',
+            'Others': '#808080'
+        };
+
+        // Remove previous map if exists
+        if (window.map) {
+            window.map.remove();
+        }
+
+        // Default to Manila
+        const defaultPosition = [14.5995, 120.9842];
+        window.map = L.map('mapview').setView(defaultPosition, 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(window.map);
+
+        const markers = [];
+        const circles = [];
+
+        locations.forEach(location => {
+            if (location.MapCoordinates) {
+                const [lat, lng] = location.MapCoordinates.split(',');
+                const color = locationColors[location.LocationType] || '#808080';
+                const marker = L.marker([parseFloat(lat), parseFloat(lng)], {
+                    icon: L.divIcon({
+                        className: 'custom-div-icon',
+                        html: `<div style="background-color: ${color}; width: 15px; height: 15px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 3px rgba(0,0,0,0.4);"></div>`,
+                        iconSize: [12, 12],
+                        iconAnchor: [6, 6]
+                    })
+                }).addTo(window.map);
+                marker.bindPopup(`<b>${location.Name}</b><br>${location.Address}`);
+                markers.push(marker);
+
+                // Add radius for Danger pins
+                if (location.LocationType === "Others") {
+                    const dangerRadius = 300; // meters, adjust as needed
+                    const circle = L.circle([parseFloat(lat), parseFloat(lng)], {
+                        color: '#ff0000',
+                        fillColor: '#f03',
+                        fillOpacity: 0.2,
+                        radius: dangerRadius
+                    }).addTo(window.map);
+                    circles.push(circle);
+                }
+            }
+        });
+
+        // Adjust map view to show all markers/circles if there are any
+        if (markers.length > 0) {
+            const group = new L.featureGroup(markers.concat(circles));
+            window.map.fitBounds(group.getBounds().pad(0.1));
+        }
+    };
 </script>

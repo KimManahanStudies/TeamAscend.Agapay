@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using TeamAscend.Agapay.App.Shared;
-using TeamAscend.Agapay.Web.Services;
+
 
 namespace TeamAscend.Agapay.App
 {
@@ -24,7 +24,7 @@ namespace TeamAscend.Agapay.App
 #endif
             builder.Services.AddSingleton<DatabaseContext>();
             builder.Services.AddSingleton<AppShellContext>();
-            builder.Services.AddSingleton<FacebookService>();
+            
 
             return builder.Build();
         }
