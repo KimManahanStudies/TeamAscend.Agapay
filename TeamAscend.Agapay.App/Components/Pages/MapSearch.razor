@@ -106,8 +106,14 @@
     let minHeight = 0; // hidden
 
     // ✅ Show the sheet programmatically
-    function showBottomSheet() {
+    function showBottomSheet(title, address, description) {
         if (!bottomSheet) bottomSheet = document.getElementById('bottomSheet');
+        
+        // Update content
+        document.getElementById('sheetTitle').textContent = title || 'Location';
+        document.getElementById('sheetAddress').textContent = address || '';
+        document.getElementById('sheetDescription').textContent = description || '';
+        
         bottomSheet.style.transition = 'none';
         bottomSheet.style.height = '40%'; // reset default height
         bottomSheet.style.transform = 'translateY(0%)'; // reset any hidden transform
@@ -171,7 +177,7 @@
             bottomSheet.classList.remove('expanded');
             bottomSheet.classList.add('show');
             bottomSheet.style.height = '40%';
-        }
+        }   
 
         document.removeEventListener('touchmove', onDrag);
         document.removeEventListener('mousemove', onDrag);
@@ -230,6 +236,12 @@
                         iconAnchor: [6, 6]
                     })
                 }).addTo(window.map);
+                
+                // ✅ Add click event listener to marker
+                marker.on('click', function() {
+                    showBottomSheet(location.Name, location.Address, location.Description || '');
+                });
+                
                 marker.bindPopup(`<b>${location.Name}</b><br>${location.Address}`);
                 markers.push(marker);
 
