@@ -1,5 +1,6 @@
 ﻿@page "/createplan"
 @page "/createplan/{PlanId}"
+@page "/createplan/{PlanId}/{ViewMode}"
 
 <!-- Section 1: Header Background -->
 <section class="header-section">
@@ -12,7 +13,14 @@
         <!-- Editable Go Plan Title -->
         <div class="section">
             <div class="GoPlan-title">
-                <input type="text" placeholder=" Emergency Plan" class="input-field" @bind="Model.Name" />
+                @if (IsViewOnly)
+                {
+                    <p class="view-only-text">@Model?.Name</p>
+                }
+                else
+                {
+                    <input type="text" placeholder=" Emergency Plan" class="input-field" @bind="Model.Name" />
+                }
             </div>
         </div>
         <hr class="divider"/>
@@ -22,7 +30,14 @@
             <div class="flex items-center">
                 <div class="GoPlan-title">
                     <p class="label">Meeting Point</p>
-                    <input type="text" placeholder="Enter meeting point" class="input-field" @bind="Model.MeetingPointAddresss" />
+                    @if (IsViewOnly)
+                    {
+                        <p class="view-only-text">@Model?.MeetingPointAddresss</p>
+                    }
+                    else
+                    {
+                        <input type="text" placeholder="Enter meeting point" class="input-field" @bind="Model.MeetingPointAddresss" />
+                    }
                 </div>
             </div>
         </div>
@@ -32,15 +47,22 @@
         <div class="section">
             <div class="GoPlan-title">
                 <p class="label">Phone Number</p>
-                <div class="phone-input">
-                    <span class="prefix">+63</span>
-                    <input type="text" 
-                           maxlength="10" 
-                           placeholder="Enter 10-digit number" 
-                           class="input-field" 
-                           @bind="Model.PhoneNumber" 
-                           oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
-                </div>
+                @if (IsViewOnly)
+                {
+                    <p class="view-only-text">+63 @Model?.PhoneNumber</p>
+                }
+                else
+                {
+                    <div class="phone-input">
+                        <span class="prefix">+63</span>
+                        <input type="text" 
+                               maxlength="10" 
+                               placeholder="Enter 10-digit number" 
+                               class="input-field" 
+                               @bind="Model.PhoneNumber" 
+                               oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+                    </div>
+                }
             </div>
         </div>
         <hr class="divider"/>
@@ -50,17 +72,24 @@
             <div class="GoPlan-title">
                 <p class="label">Family Role</p>
 
-                <!-- Dropdown -->
-                <div class="dropdown-wrapper">
-                    <select id="familyRole" class="dropdown" @bind="Model.FamilyMemberRole">
-                        <option value="father">Father</option>
-                        <option value="mother">Mother</option>
-                        <option value="son">Son</option>
-                        <option value="daughter">Daughter</option>
-                        <option value="others">Others</option>
-                    </select>
-                    <span class="arrow">&#9662;</span>
-                </div>
+                @if (IsViewOnly)
+                {
+                    <p class="view-only-text">@Model?.FamilyMemberRole</p>
+                }
+                else
+                {
+                    <!-- Dropdown -->
+                    <div class="dropdown-wrapper">
+                        <select id="familyRole" class="dropdown" @bind="Model.FamilyMemberRole">
+                            <option value="father">Father</option>
+                            <option value="mother">Mother</option>
+                            <option value="son">Son</option>
+                            <option value="daughter">Daughter</option>
+                            <option value="others">Others</option>
+                        </select>
+                        <span class="arrow">&#9662;</span>
+                    </div>
+                }
             </div>
         </div>
         <hr class="divider"/>
@@ -76,7 +105,14 @@
                     @foreach (var item in category.Value)
                     {
                         <label class="checklist-item">
-                            <input type="checkbox" @bind="item.IsChecked" />
+                            @if (IsViewOnly)
+                            {
+                                <input type="checkbox" @bind="item.IsChecked" disabled />
+                            }
+                            else
+                            {
+                                <input type="checkbox" @bind="item.IsChecked" />
+                            }
                             <span>@item.Description</span>
                         </label>
                     }
@@ -86,10 +122,26 @@
         <hr class="divider"/>
     </div>
     <!-- Action Buttons -->
-    <div class="button-group">
-        <button class="btn submit-btn" @onclick="SavePlan">Submit</button>
-    </div>
+    @if (!IsViewOnly)
+    {
+        <div class="button-group">
+            <button class="btn submit-btn" @onclick="SavePlan">Submit</button>
+        </div>
+    }
     <div class="button-group">
         <button class="btn cancel-btn" @onclick="GotoList">Cancel</button>
     </div>
 </section>
+
+<style>
+    .view-only-text {
+        font-size: 1rem;
+        color: #333;
+        padding: 0.75rem;
+        background-color: #f5f5f5;
+        border-radius: 6px;
+        margin: 0;
+    }
+    
+
+</style>

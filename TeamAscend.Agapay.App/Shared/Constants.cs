@@ -13,7 +13,7 @@ namespace TeamAscend.Agapay.App.Shared
     {
         //public const string AgapayWebAPI_URL = "https://localhost:44352/";
         //public const string AgapayWebAPI_URL = "https://q4m7d5v7-44352.asse.devtunnels.ms/";
-        public const string AgapayWebAPI_URL = "https://agapay.tarsier-coders.net/";
+        public const string AgapayWebAPI_URL = "https://agapay.ph/";
 
 
         /// <summary>

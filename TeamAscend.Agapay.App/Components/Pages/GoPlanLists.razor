@@ -61,7 +61,7 @@
     </div>
 
     <div class="ecard-holder" >
-        <div class="ecard-number" >@eCardModel.ShareCode</div>
+        <div class="ecard-number" >@eCardModel?.ShareCode</div>
         <div class="ecard-name" >@(Shell.CurrentUser.LastName + ", " + Shell.CurrentUser.FirstName) </div>
         <div class="ecard-address" >
             @Shell.CurrentUser.AddressLine1 <br />
@@ -76,26 +76,55 @@
         {
             <div class="plan-item">
                 <span class="plan-name">@plan.Name</span>
-                <button class="options-button" @onclick="() => OpenOptionsSheet(plan)">
+                <button class="options-button" @onclick="() => OpenOptionsSheet(plan, false)">
                     <i class="fas fa-ellipsis-v"></i>
                 </button>
             </div>
         }
     </div>
+
+    <!-- Shared Plans Section -->
+    @if (sharedPlans != null && sharedPlans.Any())
+    {
+        <div class="shared-plans-section">
+            <h2 class="shared-plans-title">Shared With You</h2>
+            @foreach (var membership in sharedPlans)
+            {
+                var sharedPlan = DB.AppGoPlans?.FirstOrDefault(p => p.ID == membership.GoPlanID && !p.IsDeleted);
+                @if (sharedPlan != null)
+                {
+                    <div class="plan-item shared-plan-item">
+                        <div>
+                            <span class="plan-name">@sharedPlan.Name</span>
+                            <span class="plan-owner">by @(DB.Users?.FirstOrDefault(u => u.ID == sharedPlan.UserID)?.FirstName ?? "Unknown")</span>
+                        </div>
+                        <button class="options-button" @onclick="() => OpenOptionsSheet(sharedPlan, true)">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                }
+            }
+        </div>
+    }
 </div>
 
-<!-- Bottom Sheet -->
-<div id="bottomSheet" class="bottom-sheet">
+<!-- Add Bottom Sheet -->
+<div id="addSheet" class="bottom-sheet">
     <div class="sheet-content">
         <div class="sheet-handle"></div>
         <div class="sheet-section">
-            <NavLink href="/plan" class="create-btn" @onclick="() => CloseBottomSheet()">
-                <i class="fas fa-plus-circle"></i> Create New GoPlan
+            <NavLink href="/createplan" class="create-btn" @onclick="() => CloseAddSheet()">
+                <i class="fas fa-plus-circle"></i> Create Another GoPlan
             </NavLink>
         </div>
         <div class="sheet-section">
             <p class="import-label">Join a Family's GoPlan</p>
-            <input type="text" class="import-input" placeholder="Paste your link here" />
+            <div class="import-input-wrapper">
+                <input type="text" class="import-input" placeholder="Paste your shareable code here" @bind="shareCodeInput" @bind:event="oninput" />
+                <button class="join-button" @onclick="JoinSharedPlan">
+                    <i class="fas fa-check"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -109,16 +138,59 @@
             <i class="fas fa-link"></i>
             <span>Copy Share Code</span>
         </div>
-        <div class="sheet-option" @onclick="() => NavigateToEdit(selectedPlan?.ID ?? 0)">
-            <i class="fas fa-edit"></i>
-            <span>Edit GoPlan</span>
-        </div>
-        <div class="sheet-option" @onclick="() => DeletePlan(selectedPlan?.ID ?? 0)">
-            <i class="fas fa-trash"></i>
-            <span>Delete</span>
-        </div>
+        @if (!isSharedPlan)
+        {
+            <div class="sheet-option" @onclick="() => NavigateToEdit(selectedPlan?.ID ?? 0)">
+                <i class="fas fa-edit"></i>
+                <span>Edit GoPlan</span>
+            </div>
+        }
+        else
+        {
+            <div class="sheet-option" @onclick="() => NavigateToView(selectedPlan?.ID ?? 0)">
+                <i class="fas fa-eye"></i>
+                <span>View GoPlan</span>
+            </div>
+        }
+        @if (!isSharedPlan)
+        {
+            <div class="sheet-option" @onclick="() => DeletePlan(selectedPlan?.ID ?? 0)">
+                <i class="fas fa-trash"></i>
+                <span>Delete</span>
+            </div>
+        }
     </div>
 </div>
+
+<script>
+    function openAddSheet() {
+        const sheet = document.getElementById('addSheet');
+        const overlay = document.getElementById('overlay');
+        sheet.classList.add('show');
+        overlay.classList.add('show');
+    }
+
+    function closeAddSheet() {
+        const sheet = document.getElementById('addSheet');
+        const overlay = document.getElementById('overlay');
+        sheet.classList.remove('show');
+        overlay.classList.remove('show');
+    }
+
+    function openOptionsSheet() {
+        const sheet = document.getElementById('optionsSheet');
+        const overlay = document.getElementById('overlay');
+        sheet.classList.add('show');
+        overlay.classList.add('show');
+    }
+
+    function closeOptionsSheet() {
+        const sheet = document.getElementById('optionsSheet');
+        const overlay = document.getElementById('overlay');
+        sheet.classList.remove('show');
+        overlay.classList.remove('show');
+    }
+</script>
 
 <!-- Overlay -->
 <div id="overlay" class="overlay" @onclick="CloseAllSheets"></div>
@@ -188,9 +260,37 @@
             background-color: #f9f9f9;
         }
 
+    .shared-plan-item {
+        background-color: #f0f5ff;
+    }
+
+        .shared-plan-item:hover {
+            background-color: #e8eef8;
+        }
+
     .plan-name {
         font-weight: bold;
         color: #003366;
+    }
+
+    .plan-owner {
+        display: block;
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 0.25rem;
+    }
+
+    .shared-plans-section {
+        margin-top: 2rem;
+        border-top: 2px solid #eee;
+        padding-top: 1rem;
+    }
+
+    .shared-plans-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #003366;
+        margin-bottom: 1rem;
     }
 
     .options-button {
@@ -287,8 +387,14 @@
         margin-bottom: 0.25rem;
     }
 
+    .import-input-wrapper {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
     .import-input {
-        width: 100%;
+        flex: 1;
         padding: 0.75rem;
         border: 1px solid #ddd;
         border-radius: 6px;
@@ -300,52 +406,25 @@
             color: #aaa;
         }
 
-    /* Reuse overlay style */
-    .overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.3);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease;
-        z-index: 999;
+    .join-button {
+        background-color: #003366;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-        .overlay.show {
-            opacity: 1;
-            visibility: visible;
+        .join-button:hover {
+            background-color: #002147;
         }
 
-    /* Options Bottom Sheet */
-    .bottom-sheet {
-        position: fixed;
-        bottom: -100%;
-        left: 0;
-        width: 100%;
-        background: #fff;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-        transition: bottom 0.3s ease;
-        z-index: 1000;
-    }
-
-        .bottom-sheet.show {
-            bottom: 0;
-        }
-
-    .sheet-content {
-        padding: 1rem 1.5rem 2rem;
-    }
-
-    .sheet-handle {
-        width: 50px;
-        height: 5px;
-        background: #ccc;
-        border-radius: 5px;
-        margin: 0.5rem auto 1rem;
-    }
-
+    /* Plan Title in Options Sheet */
     .plan-title {
         font-weight: 600;
         color: #003366;

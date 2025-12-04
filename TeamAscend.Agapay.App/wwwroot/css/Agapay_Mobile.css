@@ -575,33 +575,35 @@
     cursor: pointer;
 }
 
-.checklist-item input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ccc;
-    border-radius: 6px;
-    margin-right: 10px;
-    position: relative;
-    cursor: pointer;
-    outline: none;
-    transition: 0.2s ease;
-}
+    .checklist-item input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ccc;
+        border-radius: 6px;
+        margin-right: 10px;
+        position: relative;
+        cursor: pointer;
+        outline: none;
+        transition: 0.2s ease;
+        flex-shrink: 0; /* ADD THIS LINE */
+        vertical-align: middle; /* ADD THIS LINE */
+    }
 
-.checklist-item input[type="checkbox"]:checked {
-    border-color: #2563eb;
-    background-color: #2563eb;
-}
+        .checklist-item input[type="checkbox"]:checked {
+            border-color: #2563eb;
+            background-color: #2563eb;
+        }
 
-.checklist-item input[type="checkbox"]:checked::after {
-    content: "✔";
-    color: white;
-    font-size: 0.8rem;
-    position: absolute;
-    left: 3px;
-    top: -1px;
-}
+            .checklist-item input[type="checkbox"]:checked::after {
+                content: "✔";
+                color: white;
+                font-size: 0.8rem;
+                position: absolute;
+                left: 3px;
+                top: -1px;
+            }
 /* Button group container */
 .button-group {
     display: flex;
@@ -616,6 +618,7 @@
     padding: 20px;
     font-size: 1.3rem;
     font-weight: bold;
+    color: white; im
     border: none;
     border-radius: 70px; /* fully rounded */
     cursor: pointer;
@@ -624,8 +627,8 @@
 
 /* Submit button (green) */
 .submit-btn {
-    background: #22c55e !important; /* green */
-    color: #fff;
+    background: #003366 !important; /* green */
+    color: white !important;
 }
 .submit-btn:hover {
     background: #16a34a;
@@ -633,8 +636,8 @@
 
 /* Cancel button (red) */
 .cancel-btn {
-    background: #ef4444 !important; /* red */
-    color: #fff;
+    background: #f9a825 !important; /* red */
+    color: white !important;
 }
 .cancel-btn:hover {
     background: #dc2626;

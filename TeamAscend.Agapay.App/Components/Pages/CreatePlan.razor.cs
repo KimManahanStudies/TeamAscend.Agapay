@@ -10,6 +10,9 @@ namespace TeamAscend.Agapay.App.Components.Pages
         [Parameter]
         public string PlanId { get; set; }
 
+        [Parameter]
+        public string ViewMode { get; set; }
+
         [Inject]
         private NavigationManager Nav { get; set; }
 
@@ -21,7 +24,8 @@ namespace TeamAscend.Agapay.App.Components.Pages
 
         private AppGoPlan Model { get; set; }
         private Dictionary<string, List<ChecklistItem>> ChecklistCategories { get; set; }
-        private bool IsEditMode => !string.IsNullOrEmpty(PlanId);
+        private bool IsEditMode => !string.IsNullOrEmpty(PlanId) && ViewMode != "view";
+        private bool IsViewOnly => ViewMode == "view";
 
         [Inject]
         private ILogger<CreatePlan> Logger { get; set; }
@@ -34,7 +38,7 @@ namespace TeamAscend.Agapay.App.Components.Pages
 
         private void LoadPlan()
         {
-            if (IsEditMode && int.TryParse(PlanId, out int planId))
+            if (!string.IsNullOrEmpty(PlanId) && int.TryParse(PlanId, out int planId))
             {
                 Logger.LogInformation($"Loading plan with ID: {planId}");
                 
@@ -203,15 +207,15 @@ namespace TeamAscend.Agapay.App.Components.Pages
             // Save checked items as GoBag records
             foreach (var category in ChecklistCategories)
             {
-                var categoryName = category.Key; // Use the exact category name
+                var categoryName = category.Key;
                 foreach (var item in category.Value.Where(x => x.IsChecked))
                 {
                     var goBag = new AppGoBag
                     {
                         GoPlanID = planId,
                         UserID = currentUser?.ID ?? 0,
-                        Category = categoryName, // Use the exact category name
-                        Description = item.Description.Trim(), // Trim the description
+                        Category = categoryName,
+                        Description = item.Description.Trim(),
                         IsDeleted = false,
                         CreatedBy = currentUser?.Username,
                         CreatedDate = DateTime.Now,

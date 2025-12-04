@@ -37,8 +37,9 @@ namespace TeamAscend.Agapay.App.Shared
             database.CreateTable<AppBlogPost>();
             database.CreateTable<AppMapLocation>();
             database.CreateTable<AppPhonebook>();
-            database.CreateTable<AppGoPlan>();  // Add this
-            database.CreateTable<AppGoBag>();   // Add this
+            database.CreateTable<AppGoPlan>();
+            database.CreateTable<AppGoBag>();
+            database.CreateTable<AppGoPlanMember>();
         }
 
         // AppUser CRUD
@@ -140,7 +141,7 @@ namespace TeamAscend.Agapay.App.Shared
             return database.Delete(incoming);
         }
 
-        // Add AppGoPlan CRUD operations
+        // AppGoPlan CRUD operations
         public List<AppGoPlan> AppGoPlans
         {
             get
@@ -168,7 +169,7 @@ namespace TeamAscend.Agapay.App.Shared
             return database.Delete(incoming);
         }
 
-        // Add AppGoBag CRUD operations
+        // AppGoBag CRUD operations
         public List<AppGoBag> AppGoBags
         {
             get
@@ -191,6 +192,34 @@ namespace TeamAscend.Agapay.App.Shared
         }
 
         public int DeleteAppGoBag(AppGoBag incoming)
+        {
+            Init();
+            return database.Delete(incoming);
+        }
+
+        // AppGoPlanMember CRUD operations
+        public List<AppGoPlanMember> AppGoPlanMembers
+        {
+            get
+            {
+                Init();
+                return database.Table<AppGoPlanMember>().ToList();
+            }
+        }
+
+        public int SaveAppGoPlanMember(AppGoPlanMember incoming)
+        {
+            Init();
+            return database.Insert(incoming);
+        }
+
+        public int UpdateAppGoPlanMember(AppGoPlanMember incoming)
+        {
+            Init();
+            return database.Update(incoming);
+        }
+
+        public int DeleteAppGoPlanMember(AppGoPlanMember incoming)
         {
             Init();
             return database.Delete(incoming);
